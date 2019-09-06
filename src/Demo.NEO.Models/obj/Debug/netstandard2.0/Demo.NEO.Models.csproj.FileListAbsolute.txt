@@ -1,0 +1,9 @@
+C:\dev\git\personal\building-a-resilient-workflow-with-durable-functions\src\Demo.NEO.Models\obj\Debug\netstandard2.0\Demo.NEO.Models.csprojAssemblyReference.cache
+C:\dev\git\personal\building-a-resilient-workflow-with-durable-functions\src\Demo.NEO.Models\obj\Debug\netstandard2.0\Demo.NEO.Models.csproj.CoreCompileInputs.cache
+C:\dev\git\personal\building-a-resilient-workflow-with-durable-functions\src\Demo.NEO.Models\obj\Debug\netstandard2.0\Demo.NEO.Models.AssemblyInfoInputs.cache
+C:\dev\git\personal\building-a-resilient-workflow-with-durable-functions\src\Demo.NEO.Models\obj\Debug\netstandard2.0\Demo.NEO.Models.AssemblyInfo.cs
+C:\dev\git\personal\building-a-resilient-workflow-with-durable-functions\src\Demo.NEO.Models\bin\Debug\netstandard2.0\Demo.NEO.Models.deps.json
+C:\dev\git\personal\building-a-resilient-workflow-with-durable-functions\src\Demo.NEO.Models\bin\Debug\netstandard2.0\Demo.NEO.Models.dll
+C:\dev\git\personal\building-a-resilient-workflow-with-durable-functions\src\Demo.NEO.Models\bin\Debug\netstandard2.0\Demo.NEO.Models.pdb
+C:\dev\git\personal\building-a-resilient-workflow-with-durable-functions\src\Demo.NEO.Models\obj\Debug\netstandard2.0\Demo.NEO.Models.dll
+C:\dev\git\personal\building-a-resilient-workflow-with-durable-functions\src\Demo.NEO.Models\obj\Debug\netstandard2.0\Demo.NEO.Models.pdb

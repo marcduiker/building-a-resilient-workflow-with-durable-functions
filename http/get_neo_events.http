@@ -1,0 +1,3 @@
+@rooturl = http://localhost:7071
+@numberOfEvents = 10
+GET {{rooturl}}/api/generate/neoevents/{{numberOfEvents}}
