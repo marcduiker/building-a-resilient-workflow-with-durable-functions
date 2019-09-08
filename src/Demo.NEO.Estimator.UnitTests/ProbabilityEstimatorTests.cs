@@ -12,7 +12,7 @@ namespace Demo.NEO.Estimator.UnitTests
         public void EstimateProbability(float distance, float expectedProbabilityResult)
         {
             // Act
-            float result = ProbabilityEstimator.CalculateByDistance(distance);
+            float result = ImpactProbabilityCalculator.CalculateByDistance(distance);
 
             // Assert
             result.Should().BeApproximately(expectedProbabilityResult, 0.01f);

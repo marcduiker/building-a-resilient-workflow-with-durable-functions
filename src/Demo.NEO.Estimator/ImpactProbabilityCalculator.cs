@@ -2,7 +2,7 @@ using System;
 
 namespace Demos.NEO.Estimator
 {
-    public static class ProbabilityEstimator
+    public static class ImpactProbabilityCalculator
     {
         /// Smaller distance is higher probability.
         /// Distance is from 0.9 AU to 5AU.

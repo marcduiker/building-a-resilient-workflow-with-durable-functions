@@ -12,38 +12,30 @@ using Newtonsoft.Json;
 
 namespace Demos.NEO.Estimator
 {
-    public class KineticEnergyEstimatorHttpTrigger
+    public class ProbabilityEstimatorHttpTrigger
     {
-        [FunctionName(nameof(KineticEnergyEstimatorHttpTrigger))]
+        [FunctionName(nameof(ProbabilityEstimatorHttpTrigger))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "estimate/kineticenergy")]
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "estimate/impactprobability")]
             HttpRequest req, ILogger log)
         {
-            // This is here to fake errors with this endpoint so clients need to retry.
-            var rnd = new Random().Next(0, 10);
-            if (rnd > 8)
-            {
-                return new ConflictObjectResult( new Exception("Too bad, something went wrong (on purpose, muhahaha! >:P), just try again please!"));
-            }
-
-            JsonResult result;
+            
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             if (string.IsNullOrWhiteSpace(requestBody))
             {
                 return new BadRequestErrorMessageResult($"The request does not contain a valid {nameof(DetectedNeoEvent)} object.");
             }
 
+            JsonResult result;
             try
             {
                 var neoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(requestBody);
-                var kineticEnergyInMegatonTnt = KineticEnergyCalculator.CalculateMegatonTnt(
-                    neoEvent.Diameter, 
-                    neoEvent.Velocity);
+                var probability = ImpactProbabilityCalculator.CalculateByDistance(neoEvent.Distance);
                 result = new JsonResult(
-                    new KineticEnergyResult
+                    new ImpactProbabilityResult
                     {
-                        Id = neoEvent.Id, 
-                        KineticEnergyInMegatonTnt = kineticEnergyInMegatonTnt
+                        Id = neoEvent.Id,
+                        ImpactProbability = probability
                     });
             }
             catch (JsonSerializationException e)
