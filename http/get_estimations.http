@@ -1,0 +1,14 @@
+/// Get the estimated kinetic energy in Megaton TNT
+/// If an object of velocity 1 (km/s) and diameter 1 (km)
+/// is provided the result should be around 292 megaton. 
+@rooturl = http://localhost:7071
+POST {{rooturl}}/api/estimate/kineticenergy
+Content-Type: application/json
+
+{
+    "id" : "{{$guid}}",
+    "date" : "{{$datetime iso8601}}",
+    "distance" : 5,
+    "velocity" : 20.37,
+    "diameter" : 0.34
+}

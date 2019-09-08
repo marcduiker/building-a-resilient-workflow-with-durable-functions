@@ -11,7 +11,7 @@ namespace Demos.Neo.Generator
         public static IEnumerable<DetectedNeoEvent> Generate(int numberOfEvents)
         {
 
-            var diameters = GetGaussianDistributionWithHardLimits(0.05f, 0.2f, 0f, 1f);
+            var diameters = GetGaussianDistributionWithHardLimits(0.5f, 2f, 0.01f, 10f);
             var distances = GetGaussianDistributionWithHardLimits(3f, 2f, 0.9f, 5f);
             var velocities = GetGaussianDistributionWithHardLimits(10f, 10f, 5f, 30f);
             
