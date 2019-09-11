@@ -17,7 +17,8 @@ namespace Demos.NEO.Estimator
         [FunctionName(nameof(KineticEnergyEstimatorHttpTrigger))]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "estimate/kineticenergy")]
-            HttpRequest req, ILogger log)
+            HttpRequest req, 
+            ILogger log)
         {
             // This is here to fake errors with this endpoint so clients need to retry.
             var rnd = new Random().Next(0, 10);

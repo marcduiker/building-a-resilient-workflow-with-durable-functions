@@ -11,11 +11,11 @@ using Newtonsoft.Json;
 
 namespace Demos.NEO.Estimator
 {
-    public class ProbabilityEstimatorHttpTrigger
+    public class TorinoEstimatorHttpTrigger
     {
-        [FunctionName(nameof(ProbabilityEstimatorHttpTrigger))]
+        [FunctionName(nameof(TorinoEstimatorHttpTrigger))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "estimate/impactprobability")]
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "estimate/torinoimpact")]
             HttpRequest req, 
             ILogger log)
         {
@@ -29,14 +29,16 @@ namespace Demos.NEO.Estimator
             JsonResult result;
             try
             {
-                var neoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(requestBody);
-                var probability = ImpactProbabilityCalculator.CalculateByDistance(neoEvent.Distance);
-                result = new JsonResult(
-                    new ImpactProbabilityResult
-                    {
-                        Id = neoEvent.Id,
-                        ImpactProbability = probability
-                    });
+                var torinoImpactRequest = JsonConvert.DeserializeObject<TorinoImpactRequest>(requestBody);
+                var torinoImpact = TorinoImpactCalculator.CalculateImpact(
+                    torinoImpactRequest.KineticEnergyInMegatonTnt, 
+                    torinoImpactRequest.ImpactProbability);
+                
+                result = new JsonResult(new TorinoIimpactResult
+                {
+                    Id = torinoImpactRequest.Id,
+                    TorinoImpact = torinoImpact
+                });
             }
             catch (JsonSerializationException e)
             {

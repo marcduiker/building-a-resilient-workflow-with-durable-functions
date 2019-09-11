@@ -2,26 +2,40 @@
 ### Get the estimated kinetic energy in Megaton TNT
 ### If an object of velocity 1 (km/s) and diameter 1 (km)
 ### is provided the result should be around 116 megaton. 
+@id = {{$guid}}
+
+# @name kineticRequest
 @rooturl = http://localhost:7071
 GET {{rooturl}}/api/estimate/kineticenergy
 Content-Type: application/json
 
 {
-    "id" : "{{$guid}}",
+    "id" : "{{id}}",
     "date" : "{{$datetime iso8601}}",
     "distance" : 5,
-    "velocity" : 1,
-    "diameter" : 1
+    "velocity" : 30,
+    "diameter" : 10
 }
 
 ### Impact Probability
+# @name impactRequest
 GET {{rooturl}}/api/estimate/impactprobability
 Content-Type: application/json
 
 {
-    "id" : "{{$guid}}",
+    "id" : "{{id}}",
     "date" : "{{$datetime iso8601}}",
-    "distance" : 3,
+    "distance" : 1,
     "velocity" : 1,
     "diameter" : 1
+}
+
+### Turino Impact
+GET {{rooturl}}/api/estimate/torinoimpact
+Content-Type: application/json
+
+{
+    "id" : "{{kineticRequest.response.body.$.id}}",
+    "kinetic_energy_megaton_tnt" : {{kineticRequest.response.body.$.kinetic_energy_megaton_tnt}},
+    "impact_probability" : {{impactRequest.response.body.$.impact_probability}}
 }
