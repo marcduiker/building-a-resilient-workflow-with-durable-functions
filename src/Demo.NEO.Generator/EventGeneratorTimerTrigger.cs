@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Bogus;
 using Demo.Neo.Models;
@@ -13,15 +14,16 @@ namespace Demos.Neo.Generator
         [FunctionName(nameof(EventGeneratorTimerTrigger))]
         public async Task Run(
             [TimerTrigger("*/10 * * * * *")] TimerInfo myTimer,
-            [ServiceBus("neo-events", Connection = "GeneratorConnection")]IAsyncCollector<IEnumerable<DetectedNeoEvent>> collector,
+            [ServiceBus("neo-events", Connection = "GeneratorConnection")]IAsyncCollector<DetectedNeoEvent> collector,
             ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             
             var fa = new Faker();
             var nrOfEvents = fa.Random.Number(1, 6);
-            var generatedEvents = NeoEventGenerator.Generate(nrOfEvents);
-            await collector.AddAsync(generatedEvents);
+            var addToCollectorTasks = NeoEventGenerator.Generate(nrOfEvents).Select(neo => collector.AddAsync(neo));
+
+            await Task.WhenAll(addToCollectorTasks);
         }
     }
 }
