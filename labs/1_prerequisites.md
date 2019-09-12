@@ -17,9 +17,10 @@ Verify that you have an IDE with extension/plugins for Azure Functions:
 - VS Code with [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 - Jetbrains Rider 2019 with the Azure Toolkit Plugin
 
-Verify that you have these tools installed:
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) (used for creating Azure resources)
+Verify that you have these tools installed in order to run Azure Functions locally:
 - [Storage Emulator (Windows only)](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator) OR
 - [Azurite (VS Code extension)](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite)
 
-Although most of the labs can completely done locally it would be fun if you could deploy the Function App to Azure in final labs. For this you require [an Azure account](https://azure.microsoft.com/en-us/free/).
+Although most of the labs can completely done locally it would be fun if you could deploy your Function App to Azure in the final labs. For this you require:
+- An [Azure account](https://azure.microsoft.com/en-us/free/).
+- The [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) to create the Azure resources (or you can use the Azure portal to create these).
