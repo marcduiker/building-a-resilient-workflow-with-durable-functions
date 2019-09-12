@@ -16,7 +16,7 @@ namespace Demos.NEO.Estimator
     {
         [FunctionName(nameof(KineticEnergyEstimatorHttpTrigger))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "estimate/kineticenergy")]
+            [HttpTrigger(AuthorizationLevel.Function, "POST", Route = "estimate/kineticenergy")]
             HttpRequest req, 
             ILogger log)
         {

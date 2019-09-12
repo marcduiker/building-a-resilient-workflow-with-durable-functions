@@ -15,7 +15,7 @@ namespace Demos.NEO.Estimator
     {
         [FunctionName(nameof(TorinoEstimatorHttpTrigger))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "estimate/torinoimpact")]
+            [HttpTrigger(AuthorizationLevel.Function, "POST", Route = "estimate/torinoimpact")]
             HttpRequest req, 
             ILogger log)
         {

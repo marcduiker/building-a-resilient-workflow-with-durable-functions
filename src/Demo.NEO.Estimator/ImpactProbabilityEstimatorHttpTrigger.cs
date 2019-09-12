@@ -15,7 +15,7 @@ namespace Demos.NEO.Estimator
     {
         [FunctionName(nameof(ProbabilityEstimatorHttpTrigger))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "estimate/impactprobability")]
+            [HttpTrigger(AuthorizationLevel.Function, "POST", Route = "estimate/impactprobability")]
             HttpRequest req, 
             ILogger log)
         {
