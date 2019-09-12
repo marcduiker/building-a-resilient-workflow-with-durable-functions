@@ -6,7 +6,7 @@
 
 # @name kineticRequest
 @rooturl = http://localhost:7071
-GET {{rooturl}}/api/estimate/kineticenergy
+POST {{rooturl}}/api/estimate/kineticenergy
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 ### Impact Probability
 # @name impactRequest
-GET {{rooturl}}/api/estimate/impactprobability
+POST {{rooturl}}/api/estimate/impactprobability
 Content-Type: application/json
 
 {
@@ -31,7 +31,7 @@ Content-Type: application/json
 }
 
 ### Turino Impact
-GET {{rooturl}}/api/estimate/torinoimpact
+POST {{rooturl}}/api/estimate/torinoimpact
 Content-Type: application/json
 
 {
