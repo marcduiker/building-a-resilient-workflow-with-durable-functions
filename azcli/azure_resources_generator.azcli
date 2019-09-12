@@ -26,6 +26,9 @@ az servicebus namespace authorization-rule create --name $sbpolicylisten --names
 $sbtopic="neo-events"
 az servicebus topic create --name $sbtopic --namespace-name $sbnamespace --resource-group $rgname --default-message-time-to-live 00:10:00
 
+$topicsubName="NEOSubscription1"
+az servicebus topic subscription create --name $topicsubName --namespace-name $sbnamespace --topic-name $sbtopic --resource-group $rgname --default-message-time-to-live 00:10:00
+
 # 7. Create a Storage Account  
 $stname="neogeneratorst"
 az storage account create --name $stname --resource-group $rgname --location $location --sku Standard_LRS --kind StorageV2 --access-tier Hot
