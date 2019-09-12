@@ -1,8 +1,8 @@
-# Prerequisites
+# Lab 1 - Prerequisites
 
 ## Goal
 
-The goal of this lab is to very that the required SDK, IDE and tools are installed.
+The goal of this lab is to very that the required SDKs, IDE and tooling are installed.
 
 ## Steps
 
@@ -24,3 +24,6 @@ Verify that you have these tools installed in order to run Azure Functions local
 Although most of the labs can completely done locally it would be fun if you could deploy your Function App to Azure in the final labs. For this you require:
 - An [Azure account](https://azure.microsoft.com/en-us/free/).
 - The [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) to create the Azure resources (or you can use the Azure portal to create these).
+
+Completely optional but still useful:
+- I have made some [code snippets](https://github.com/marcduiker/durable-functions-snippets), which can speed up the process (and prevent mistakes) when creating client, orchestrator and activity functions.
