@@ -1,8 +1,12 @@
 # Building a resilient workflow using Durable Functions
 
-A satellite is scanning the skies for Near Earth Objects (NEOs). The satellite transmits its findings to ground stations which in turn send the data to Azure.
+# XASA Workshop
 
-It your job to ensure the incomming data is stored, analyzed to assess the risk and the required organizations are notified of this risk.
+Congratulations! Today is your first job as a software engineer at XASA, the Xpirit Aeronautics and Space Administration. You are responsible for creating a system which reacts to detected Near-Earth Objects ([NEOs](https://cneos.jpl.nasa.gov/about/basics.html)).
+
+A satellite is continuously scanning the skies for these NEOs. The satellite transmits its findings to ground stations which in turn send the data to Azure.
+
+It's your job to ensure the incoming data is stored, analyzed to assess the risk of impact, and to notify the required organizations of this risk and possible counter-measures (think of Armageddon).
 
 ## Function Apps involved
 
