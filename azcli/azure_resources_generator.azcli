@@ -35,6 +35,10 @@ az extension add --name application-insights
 $ainame="demo-neogenerator-ai"
 az monitor app-insights component create --app $ainame --location $location --application-type web --kind web --resource-group $rgname
 
-# 9. Create a Function App
-$funcappname="demo-neo-generator-fa"
-az functionapp create --name $funcappname --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Linux
+# 9. Create the Generator Function App
+$funcappnameGenerator="demo-neo-generator-fa"
+az functionapp create --name $funcappnameGenerator --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Linux
+
+# 10. Create the Estimator Function App
+$funcappnameEstimator="demo-neo-estimator-fa"
+az functionapp create --name $funcappnameEstimator --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Linux
