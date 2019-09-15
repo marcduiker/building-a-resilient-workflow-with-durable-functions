@@ -1,4 +1,4 @@
-# Adding activity functions to the orchestrator
+# Lab 4 -  Adding activity functions to the orchestrator
 
 ## Goal
 
