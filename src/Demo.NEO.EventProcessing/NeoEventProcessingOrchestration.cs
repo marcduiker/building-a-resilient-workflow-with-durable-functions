@@ -10,7 +10,7 @@ namespace Demo.NEO.EventProcessing
 {
     public class NeoEventProcessingOrchestration
     {
-        [FunctionName(nameof(OrchestratorClassName))]
+        [FunctionName(nameof(NeoEventProcessingOrchestration))]
         public async Task Run(
           [OrchestrationTrigger] DurableOrchestrationContextBase context,
           ILogger logger)
@@ -26,10 +26,9 @@ namespace Demo.NEO.EventProcessing
             // More info: https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-checkpointing-and-replay#orchestrator-code-constraints
 
             // TODO
-            var input = context.GetInput<DetectedNeoEvent>();
-            var activityResult = await context.CallActivityAsync<string>(
-               nameof(ActivityClassName),
-               input));
+            var detectedNeoEvent = context.GetInput<DetectedNeoEvent>();
+
+            //await context.CallActivityAsync("ActivityName", detectedNeoEvent);
         }
     }
 }
