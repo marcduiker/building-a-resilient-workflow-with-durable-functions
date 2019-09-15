@@ -52,14 +52,20 @@ Now that your Function App is configured to receive messages let's try and run i
 
 Currently the inconming mesage is of type string and the content is json. Let's convert this to the strongly typed model so we can work with the data more easily.
 
-The `DetectedNeoEvent` type is located in the Demo.NEO.Models project.
+The `DetectedNeoEvent` type is part of this NuGet package: `Demo.NEO.Models`. You can download the package by connecting to this NuGet feed:
+
+`https://pkgs.dev.azure.com/marcduiker/Building Resilient Workflows With Durable Functions/_packaging/Public/nuget/v3/index.json`
+
+Add the following line to convert to the strongly typed object. 
 
 ```csharp
 var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);
 ```
 
+When you need to add a reference to NewtonSoft.Json, don't add the latest version but use version 11.0.2 (the version the Azure Functions Runtime is also using).
+
 ### 4. Run the Function App locally
 
 Again run your Function App locally and verify you can convert the messages to `DetectedNeoEvent` objects.
 
-If everything works as expected continue with the [next lab](2_create_orchestration_client.md) to create am orchestration client.
+If everything works as expected continue with the [next lab](2_create_orchestration_client.md) to create an orchestration client.
