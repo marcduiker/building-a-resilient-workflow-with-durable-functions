@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of this lab is to create an nearly empty orchestrator function which will orchestrate the activities that will be implemented in the next labs.
+The goal of this lab is to create a basic orchestrator function which will orchestrate the activities that will be implemented in the next labs.
 
 The orchestrator should do the following steps:
 - Retrieve the `DetectedNeoEvent` input (which is passed in by the orchestation client).

@@ -2,9 +2,7 @@
 
 ## Goal
 
-The goal of this lab is to create an orchestration client which accepts the messages from the Service bus and starts a new instance of an orchestration.
-
-The orchestrator function can be left empty since that will be implemented in the next lab.
+The goal of this lab is to create an orchestration client function which accepts the detected NEO messages from the Service bus and starts a new instance of an orchestration. The orchestrator function will be created in the next lab and should not be created as part of this lab.
 
 ## Steps
 
@@ -29,11 +27,11 @@ Durable Functions uses Table Storage to checkpoint the state of the orchestratio
 }
 ```
 
-> For more info about Storage and Task Hubs please read the [Task hubs in Durable Functions](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-task-hubsx) documentation.
+> For more info about storage and task hubs please read the [Task hubs in Durable Functions](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-task-hubsx) documentation.
 
 ### 3. Update the Servicebus triggered function
 
-Now update the signature of the Servicebus triggered function method to add the following parameter to give it an orchestration client function role:
+Now update the signature of the Servicebus triggered function method and add the following parameter to give it an orchestration client function role:
 
 ```csharp
 [OrchestrationClient]DurableOrchestrationClientBase orchestratorClient
@@ -52,9 +50,9 @@ var instanceId = await orchestratorClient.StartNewAsync(
 ```
 The method returns the ID of the orchestration instance that is scheduled to start.
 
-By using the syntax above update the function to start a new orchestration. **Do not create the actual `NeoEventOrchestrator` function just yet!**
+By using the syntax above update the function to start a new instance of the NeoEventProcessingOrchestrator function. **Do not create the actual `NeoEventProcessingOrchestrator` function just yet!**
 
-> Note that the method is asynchronous and we are awaiting the result. You probably need to update your function signature to make it `async` and return a `Task`.
+> Note that the method is asynchronous and the result is awaited. You probably need to update your function signature to make it `async` and return a `Task`.
 
 ### 4. Build & run locally
 
@@ -66,5 +64,5 @@ Now run/debug your local Function App.
 
 > What is the output from the Azure Functions Runtime in the console once the function is triggered? What does the failure say?
 
-Continue to the [next lab](3_add_orchestrator_function.md) to create an orchestrator function.
+Continue to the [next lab](3_create_orchestrator_function.md) to create an orchestrator function.
 

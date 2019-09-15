@@ -8,12 +8,12 @@ A satellite is continuously scanning the skies for these NEOs. The satellite tra
 
 It's your job to ensure the incoming data is stored, analyzed to assess the risk of impact, and to notify the required organizations of this risk and possible counter-measures (think of Armageddon).
 
-## Function Apps involved
+## Technical solution
 
-### NEO Event Generator
-The NEO Generator is a function app which generates NEO events (see below) and pushes these events to a Azure Service Bus Topic.
+You are tasked with implementing the solution using Azure Functions. The reason behind this is that the number of detected NEOs changes heavily over time. And when nothing is being detected XASA prefers not paying for any infrastructure.
 
-NEO event sample:
+The NEO data (of type`DetectedNEOEvent`) looks as follows:
+
 ```json
 {
     "id" : "77c924dc-883c-4f53-922f-7cddb7325121",
@@ -28,14 +28,24 @@ NEO event sample:
 - *Velocity is measured in km/s. Usually between 5-30 km/s*
 - *Estimated diameter is measured in km. Usually between 0.0001 and 10 km.*
 
+Another team was tasked with the ingestion of the NEO data and this data is already being pushed to an Azure Servicebus Topic.
 
-## NEO Event Processor
+### NEO Event Processor
 
-This function app picks up the events from the Service Bus Topic and will then do the neccesary processing and alerting.
+You will be responsible for creating a Function App that is being triggered by messages pushed to the Servicebus topic.
+
+The Function App needs to make several calls to other services in order to determine the following:
+
+- The kinetic energy of a potential impact
+- The probability of an impact
+- The [Torino impact](https://cneos.jpl.nasa.gov/sentry/torino_scale.html)
+
+In addition to these service calls, the data needs to be stored to blob storage and a notification needs to be sent out if the Torino impact is equal or greater than 8.
 
 ## Labs
 
-1. [Check Prerequisites](labs/prerequisites.md)
-2. [Creating a new fucntion project](labs/creating_a_function_project.md)
-3. [Receiving events](labs/receiving_events.md)
-4. []()
+1. [Check Prerequisites](labs/0_prerequisites.md)
+2. [Creating a new function project](labs/1_creating_a_function_project.md)
+3. [Creating an orchestration client](labs/2_create_orchestration_client.md)
+4. [Creating the orchestrator function](labs/3_create_orchestrator_function.md)
+5. [Creating the activity functions](labs/4_create_activity_functions.md)
