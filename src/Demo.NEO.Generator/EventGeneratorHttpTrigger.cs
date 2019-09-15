@@ -1,23 +1,26 @@
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
-using Bogus;
+using System.Threading.Tasks;
 using Demo.Neo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
 
 namespace Demos.Neo.Generator
 {
     public class EventGeneratorHttpTrigger
     {
         [FunctionName(nameof(EventGeneratorHttpTrigger))]
-        public IActionResult Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger("GET", Route = "generate/neoevents/{numberOfEvents}")] HttpRequestMessage request,
+            [ServiceBus("neo-events", Connection = "GeneratorConnection")]IAsyncCollector<DetectedNeoEvent> collector,
             int numberOfEvents)
         {
             var generatedEvents = NeoEventGenerator.Generate(numberOfEvents);
-            
+
+            var addToCollectorTasks = generatedEvents.Select(neo => collector.AddAsync(neo));
+
+            await Task.WhenAll(addToCollectorTasks);
+
             return new JsonResult(generatedEvents);
         }
     }
