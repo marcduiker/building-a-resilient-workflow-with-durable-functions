@@ -13,3 +13,7 @@ The goal of this lab is to create a workflow in the orchestrator function which 
 
 
 
+
+The syntax for calling an activity is:
+
+Microsoft.Azure.WebJobs.Extensions.Storage
