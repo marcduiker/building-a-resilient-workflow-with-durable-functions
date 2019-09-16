@@ -27,9 +27,9 @@ public async Task<KineticEnergyResult> Run(
 
 #### 1.2 Injecting the IHTTPClientFactory
 
-In order to make HTTP calls we require a `HttpClient` object. Since Azure Functions supports dependency injection we can inject an `IHttpClientFactory` into this class. 
+In order to make HTTP calls we require a `HttpClient` object. The 'old way' of doing this was to use a static private `HttpClient` field. However, since Azure Functions now supports dependency injection we can inject an `IHttpClientFactory` into this class and the factory manages the lifetime of the `HttpClient`.
 
-- Install the `Microsoft.Extensions.Http` NuGet package.
+- Install the `Microsoft.Extensions.Http` NuGet package. This contains the `IHttpClientFactory` interface.
 - Add a constructor to the `EstimateKineticEnergyActivity` class and inject `IHttpClientFactory`.
 - Add a private readonly field of type `HttpClient` to the class.
 - Set this field in the constructor by using the `CreateClient()` method of the `IHttpClientFactory`.
@@ -37,7 +37,7 @@ In order to make HTTP calls we require a `HttpClient` object. Since Azure Functi
 ```csharp
 private readonly HttpClient client;
 
-public EstimateKineticEnergyActivity(IHttpClientFactoryhttpClientFactory)
+public EstimateKineticEnergyActivity(IHttpClientFactory httpClientFactory)
 {
     client = httpClientFactory.CreateClient();
 }
@@ -57,11 +57,50 @@ The implementation of the function should be something like this:
  return result;
 ```
 
-#### 1.3 Calling the activity from the orchestration
+If you'd run the Function App now, you'll get exceptions (like the one below) since the `IHttpClientFactory` dependency has not been registered yet.
 
-The syntax for calling an activity is:
+```
+Microsoft.Extensions.DependencyInjection.Abstractions: Unable to resolve service for type 'System.Net.Http.IHttpClientFactory' while attempting to activate '<NAME_OF_FUNCTION>'.
+```
 
-#### 1.4 Dealing with failure
+#### 1.3 Registering the HTTPClientFactory in Startup
+
+In order to use dependency injection in Azure Functions you need to go through the following steps:
+
+- Add a reference to the `Microsoft.Azure.Functions.Extensions` NuGet package.
+- Add a new class (e.g Startup.cs) to the Function App and inherit from `FunctionsStartup`.
+- Add the `FunctionsStartup` attribute on the assembly level and provide the type of the Startup class as the argument.
+- Implement the `Configure` method and use the `AddHttpClient()` extension method on the `builder.Services`.
+
+The result should look like this:
+
+```csharp
+[assembly: FunctionsStartup(typeof(Startup))]
+namespace Demo.NEO.EventProcessing.Application
+{
+    public class Startup : FunctionsStartup
+    {
+        public override void Configure(IFunctionsHostBuilder builder)
+        {
+            builder.Services.AddHttpClient();
+        }
+    }
+}
+```
+
+#### 1.4 Calling the activity from the orchestration
+
+Let's return to the `NeoEventProcessingOrchestration` class and call the `EstimateKineticEnergyActivity` function.
+
+The basic syntax for calling an activity is:
+
+```csharp
+var kineticEnergy = await context.CallActivityAsync<KineticEnergyResult>(
+        nameof(EstimateKineticEnergyActivity),
+        detectedNeoEvent);
+```
+
+#### 1.5 Dealing with failure
 
 The syntax for calling an activity with retries is:
 
