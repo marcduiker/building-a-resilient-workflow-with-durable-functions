@@ -6,7 +6,6 @@ The goal of this lab is to create a basic orchestrator function which will orche
 
 The orchestrator should do the following steps:
 - Retrieve the `DetectedNeoEvent` input (which is passed in by the orchestation client).
-- Save the `DetectedNeoEvent` object to blob storage.
 - Retrieve the kinetic energy for the object.
 - Retrieve the the impact probability for the object.
 - Retrieve the Torino impact for the object.
@@ -46,4 +45,4 @@ Now run/debug your local Function App.
 
 > What is the output from the Azure Functions runtime in the console once the function is triggered? Do you see any sign that the orchestrator function is being executed?
 
-Continue to the [next lab](4_add_activity_functions.md) to create activity functions.
+Continue to the [next lab](4_create_activity_functions_services.md) to create activity functions.

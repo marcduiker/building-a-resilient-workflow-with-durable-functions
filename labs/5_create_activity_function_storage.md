@@ -1,8 +1,8 @@
-# Lab 4 -  Adding the activity function to store the event to blob storage
+# Lab 5 -  Adding the activity function to store the ProcessedNeoEvent
 
 ## Goal
 
-The goal of this lab is to implement the activity which stores the DetectedNeoEvent to blob storage and call this from the orchestrator.
+The goal of this lab is to implement the activity which stores the ProcessedNeoEvent to blob storage and call this from the orchestrator.
 
 ## Steps
 
