@@ -7,30 +7,30 @@ using System.Threading.Tasks;
 
 namespace Demo.NEO.EventProcessing.Activities
 {
-    public class EstimateKineticEnergyActivity
+    public class EstimateImpactProbabilityActivity
     {
         private readonly HttpClient _client;
 
-        public EstimateKineticEnergyActivity(IHttpClientFactory httpClientFactory)
+        public EstimateImpactProbabilityActivity(IHttpClientFactory httpClientFactory)
         {
             _client = httpClientFactory.CreateClient();
         }
 
-        [FunctionName(nameof(EstimateKineticEnergyActivity))]
-        public async Task<KineticEnergyResult> Run(
+        [FunctionName(nameof(EstimateImpactProbabilityActivity))]
+        public async Task<ImpactProbabilityResult> Run(
           [ActivityTrigger] DetectedNeoEvent neoEvent,
           ILogger logger)
         {
-            var kineticEnergyEndpoint = new Uri(Environment.GetEnvironmentVariable("KineticEnergyEndpoint"));
+            var impactProbabilityEndpoint = new Uri(Environment.GetEnvironmentVariable("ImpactProbabilityEndpoint"));
             var apiManagementKey = Environment.GetEnvironmentVariable("ApiManagementKey");
             _client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiManagementKey);
-            var response = await _client.PostAsJsonAsync(kineticEnergyEndpoint, neoEvent);
+            var response = await _client.PostAsJsonAsync(impactProbabilityEndpoint, neoEvent);
             if (!response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
                 throw new FunctionFailedException(content);
             }
-            var result = await response.Content.ReadAsAsync<KineticEnergyResult>();
+            var result = await response.Content.ReadAsAsync<ImpactProbabilityResult>();
 
             return result;
         }

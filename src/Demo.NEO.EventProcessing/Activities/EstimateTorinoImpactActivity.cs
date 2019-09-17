@@ -7,30 +7,30 @@ using System.Threading.Tasks;
 
 namespace Demo.NEO.EventProcessing.Activities
 {
-    public class EstimateKineticEnergyActivity
+    public class EstimateTorinoImpactActivity
     {
         private readonly HttpClient _client;
 
-        public EstimateKineticEnergyActivity(IHttpClientFactory httpClientFactory)
+        public EstimateTorinoImpactActivity(IHttpClientFactory httpClientFactory)
         {
             _client = httpClientFactory.CreateClient();
         }
 
-        [FunctionName(nameof(EstimateKineticEnergyActivity))]
-        public async Task<KineticEnergyResult> Run(
-          [ActivityTrigger] DetectedNeoEvent neoEvent,
+        [FunctionName(nameof(EstimateTorinoImpactActivity))]
+        public async Task<TorinoIimpactResult> Run(
+          [ActivityTrigger] TorinoImpactRequest torinoImpactRequest,
           ILogger logger)
         {
-            var kineticEnergyEndpoint = new Uri(Environment.GetEnvironmentVariable("KineticEnergyEndpoint"));
+            var torinoImpactEndpoint = new Uri(Environment.GetEnvironmentVariable("TorinoImpactEndpoint"));
             var apiManagementKey = Environment.GetEnvironmentVariable("ApiManagementKey");
             _client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiManagementKey);
-            var response = await _client.PostAsJsonAsync(kineticEnergyEndpoint, neoEvent);
+            var response = await _client.PostAsJsonAsync(torinoImpactEndpoint, torinoImpactRequest);
             if (!response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
                 throw new FunctionFailedException(content);
             }
-            var result = await response.Content.ReadAsAsync<KineticEnergyResult>();
+            var result = await response.Content.ReadAsAsync<TorinoIimpactResult>();
 
             return result;
         }
