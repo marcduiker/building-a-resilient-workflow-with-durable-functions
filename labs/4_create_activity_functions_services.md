@@ -8,7 +8,7 @@ The goal of this lab is to implement the activities which call out to existing s
 
 ### 1. Retrieving the Estimated Kinetic Energy
 
-The first activity function will needs to make a call to an HTTP endpoint to retrieve the estimated kinetic energy expressed in megaton TNT.
+The first activity function needs to make a call to an HTTP endpoint to retrieve the estimated kinetic energy expressed in megaton TNT.
 
 An HTTP POST need to be done to `https://demo-neo.azure-api.net/neo/estimate/energy` with a payload of the `DetectedNEOEvent` object in the body. A `KineticEnergyResult` object will be returned.
 
@@ -45,16 +45,23 @@ public EstimateKineticEnergyActivity(IHttpClientFactory httpClientFactory)
 
 Now the client can be used in the function method to do a `PostAsJsonAsync()` call to the EstimateKineticEnergy endpoint. Note that you also need to pass in the ApiManagementKey in the `Ocp-Apim-Subscription-Key` header.
 
+When you do the post to the endpoint, make sure you verify on a success status code on the response. If the response is not successful an exception should be thrown from the activity.
+
 The implementation of the function should be something like this:
 
 ```csharp
- var kineticEnergyEndpoint = new Uri(Environment.GetEnvironmentVariable("KineticEnergyEndpoint"));
- var apiManagementKey = Environment.GetEnvironmentVariable"ApiManagementKey");
- client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", piManagementKey);
- var response = await client.PostAsJsonAsynckineticEnergyEndpoint, neoEvent);
- var result = await esponse.Content.ReadAsAsync<KineticEnergyResult>();
+var kineticEnergyEndpoint = new Uri(Environment.GetEnvironmentVariable"KineticEnergyEndpoint"));
+var apiManagementKey = Environment.GetEnvironmentVariable"ApiManagementKey");
+client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", piManagementKey);
+var response = await client.PostAsJsonAsynckineticEnergyEndpoint, neoEvent);
+if (!response.IsSuccessStatusCode)
+{
+    var content = await response.Content.ReadAsStringAsync();
+    throw new FunctionFailedException(content);
+}
+var result = await esponse.Content.ReadAsAsync<KineticEnergyResult>();
 
- return result;
+return result;
 ```
 
 If you'd run the Function App now, you'll get exceptions (like the one below) since the `IHttpClientFactory` dependency has not been registered yet.
@@ -92,7 +99,7 @@ namespace Demo.NEO.EventProcessing.Application
 
 Let's return to the `NeoEventProcessingOrchestration` class and call the `EstimateKineticEnergyActivity` function.
 
-The basic syntax for calling an activity is:
+The basic syntax for calling an activity with a return type is:
 
 ```csharp
 var kineticEnergy = await context.CallActivityAsync<KineticEnergyResult>(
@@ -100,18 +107,56 @@ var kineticEnergy = await context.CallActivityAsync<KineticEnergyResult>(
         detectedNeoEvent);
 ```
 
+> If you run the Function App for a while you will notice (in the Azure Functions runtime output) that the activity function fails in some occasions. Why is that?
+
 #### 1.5 Dealing with failure
 
-The syntax for calling an activity with retries is:
+A good solution to cope with failing activity functions in this case is to retry the activity. The Durable Functions API already has built-in support for this using the `CallActivityWithRetryAsync` method:
 
-### 2. Retrieving the impact probability
+```csharp
+var kineticEnergy = await context.CallActivityWithRetryAsync<KineticEnergyResult>(
+        nameof(EstimateKineticEnergyActivity),
+        new RetryOptions(TimeSpan.FromSeconds(10), 5), 
+        detectedNeoEvent);
+```
 
-Repeat the same substeps as in Step 1 but now for the `https://demo-neo.azure-api.net/neo/estimate/probability` endpoint.
+> Notice the different method name and the `RetryOptions` argument. Go to the definition of the `RetryOptions` type to see which properties are available.
+
+Now update the orchestrator function with the `CallActivityWithRetryAsync` method and run the Function App.
+
+### 2. Retrieving the Impact Probability
+
+Repeat the same substeps as in Step 1 (excl the Startup class) but now to do a post to the `https://demo-neo.azure-api.net/neo/estimate/probability` endpoint. This also uses a `DetectedNeoEvent` as the body and uses the same `Ocp-Apim-Subscription-Key` header. An `ImpactProbabilityResult` object will be returned.
 
 ### 3. Retrieving the Torino impact
 
-Repeat the same substeps as in Step 1 but now for the `https://demo-neo.azure-api.net/neo/estimate/torino` endpoint.
+Repeat the same substeps as in Step 1 (excl the Startup class) but now to do a post to the `https://demo-neo.azure-api.net/neo/estimate/torino` endpoint. This requires a `TorinoImpactRequest` object as the body. The request can be built by combining the `KineticEnergyResult` and `ImpactProbabilityResult` objects.
 
+ The TorinoImpact endpoint returns an `TorinoImpactResult`. Again the same `Ocp-Apim-Subscription-Key` header is used for authentication.
 
-### 4. Build en run locally
+### 4. Return the ProcessedNeoEvent
 
+The users of your application are interested in `ProcessedNeoEvent` objects. These are objects built up of DetectedNeoEvents and the results from the three service calls you just implemented.
+
+Once all three activities have been implemented create a new instance of the `ProcessedNeoEvent` and for now return this from the orchestrator.
+
+Run the Function App and verify that the orchestration runs in order (you can use the next step to do a proper verification).
+
+### 5. Retrieving the orchestrator instance status
+
+[Durable Functions has an HTTP API](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-http-api) which allows management of the orchestrator instances. This can be very useful for debugging and maintenance.
+
+You can use the following endpoint to retrieve the status of multiple orchestrations in a time window:
+
+```http
+GET <function_root>/runtime/webhooks/durableTask/instances?
+    taskHub={taskHub}
+    &code={systemKey}
+    &createdTimeFrom={timestamp}
+    &createdTimeTo={timestamp}
+    &runtimeStatus={runtimeStatus1,runtimeStatus2,...}
+    &showInput=[true|false]
+    &top={integer}
+```
+
+A worked out example is available [here](../http/get_orchestrator_status.http).
