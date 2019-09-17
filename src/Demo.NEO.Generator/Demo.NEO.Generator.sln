@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.NEO.Models", "Demo.NEO.Models\Demo.NEO.Models.csproj", "{DECAB9CE-98AE-4BE4-A0BA-4DD1A125AB43}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.NEO.Models", "..\Demo.NEO.Models\Demo.NEO.Models.csproj", "{DECAB9CE-98AE-4BE4-A0BA-4DD1A125AB43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.NEO.Generator", "Demo.NEO.Generator\Demo.NEO.Generator.csproj", "{F191E47B-F3C8-4652-8EFC-5C9D819D18F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.NEO.Generator", "Demo.NEO.Generator.csproj", "{F191E47B-F3C8-4652-8EFC-5C9D819D18F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
