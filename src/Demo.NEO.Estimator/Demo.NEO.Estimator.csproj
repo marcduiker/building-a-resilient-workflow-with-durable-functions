@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <AzureFunctionsVersion></AzureFunctionsVersion>
-        <RootNamespace>Demo.NEO.RiskEstimator</RootNamespace>
+        <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+        <RootNamespace>Demo.NEO.Estimator</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="Demo.NEO.Models" Version="1.0.0" />
         <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.22" />
     </ItemGroup>
     <ItemGroup>
@@ -15,8 +16,5 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\Demo.NEO.Models\Demo.NEO.Models.csproj" />
     </ItemGroup>
 </Project>
