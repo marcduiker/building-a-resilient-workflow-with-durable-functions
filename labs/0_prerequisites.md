@@ -16,7 +16,7 @@ My final implementation is also in this repo. You can use it in case you get stu
 
 Verify that you have a recent .NET Core SDK installed:
 
-- .NET Core SDK (at least 2.1.701). Check with typing `dotnet --list-sdks` in the console.
+- .NET Core SDK (at least 2.2+). Check with typing `dotnet --list-sdks` in the console.
 - .NET Core SDKs can be downloaded [here](https://dotnet.microsoft.com/download/dotnet-core).
 
 ### 3. IDE & Extensions
