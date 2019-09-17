@@ -159,4 +159,4 @@ GET <function_root>/runtime/webhooks/durableTask/instances?
     &top={integer}
 ```
 
-A worked out example is available [here](../http/get_orchestrator_status.http).
+A worked out example of this request is available [here](../http/get_orchestrator_status.http).
