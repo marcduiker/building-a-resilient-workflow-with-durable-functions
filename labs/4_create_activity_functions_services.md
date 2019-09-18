@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of this lab is to implement the activities which call out to existing services and call these from the orchestrator.
+The goal of this lab is to implement the activities which call out to existing XASA services and call these from the orchestrator.
 
 ## Steps
 
@@ -160,3 +160,5 @@ GET <function_root>/runtime/webhooks/durableTask/instances?
 ```
 
 A worked out example of this request is available [here](../http/get_orchestrator_status.http).
+
+Continue to the [next lab](5_create_activity_function_storage.md) to create the activity to store the processed data.

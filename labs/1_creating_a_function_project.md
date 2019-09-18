@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of this lab is to create a basic Function App with a Servicebus triggered function and to determine it is connected correctly and receiving detected NEO messages from the bus.
+The goal of this lab is to create a basic Function App with a Servicebus triggered function and to determine it is connected correctly and receiving detected NEO messages from the topic.
 
 ## Steps
 

@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of this lab is to create an orchestration client function which accepts the detected NEO messages from the Service bus and starts a new instance of an orchestration. The orchestrator function will be created in the next lab and should not be created as part of this lab.
+The goal of this lab is to create an orchestration client function which accepts the detected NEO messages from the Servicebus and starts a new instance of an orchestration. The orchestrator function will be created in the next lab and should not be created as part of this lab.
 
 ## Steps
 
