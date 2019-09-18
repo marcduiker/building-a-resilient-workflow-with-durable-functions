@@ -15,13 +15,12 @@ namespace Demo.NEO.EventProcessing.Activities
           IBinder binder,
           ILogger logger)
         {
-            var blobPath = $"neo/processed/{processedNeoEvent.Date.ToString("YYYYMMdd")}/{processedNeoEvent.TorinoImpact}/{processedNeoEvent.Id}";
-            var dynamicBlobBinding = new BlobAttribute(blobPath: blobPath);
-            var dynamicStorageBinding = new StorageAccountAttribute("ProcessedNeoStorage");
+            var blobPath = $"neo/processed/{processedNeoEvent.DateDetected:yyyyMMdd}/{processedNeoEvent.TorinoImpact}/{processedNeoEvent.Id}.json";
+            var dynamicBlobBinding = new BlobAttribute(blobPath: blobPath) { Connection = "ProcessedNeoStorage" };
 
-            using (var writer = binder.Bind<TextWriter>(dynamicBlobBinding))
+            using (var writer = await binder.BindAsync<TextWriter>(dynamicBlobBinding))
             {
-                await writer.WriteAsync(JsonConvert.SerializeObject(processedNeoEvent));
+                await writer.WriteAsync(JsonConvert.SerializeObject(processedNeoEvent, Formatting.Indented));
             }
         }
     }
