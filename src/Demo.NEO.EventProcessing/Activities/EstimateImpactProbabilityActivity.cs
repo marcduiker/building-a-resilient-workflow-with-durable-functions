@@ -28,7 +28,7 @@ namespace Demo.NEO.EventProcessing.Activities
             if (!response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                throw new FunctionFailedException(content);
+                throw new ApplicationException(content);
             }
             var result = await response.Content.ReadAsAsync<ImpactProbabilityResult>();
 
