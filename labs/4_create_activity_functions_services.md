@@ -1,4 +1,4 @@
-# Lab 4 -  Adding the activity functions for the service calls
+# Lab 4 -  Creating the activity functions for the service calls
 
 ## Goal
 

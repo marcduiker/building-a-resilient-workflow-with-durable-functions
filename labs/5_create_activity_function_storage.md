@@ -1,4 +1,4 @@
-# Lab 5 -  Adding the activity function to store the ProcessedNeoEvent
+# Lab 5 -  Storing the ProcessedNeoEvent
 
 ## Goal
 
@@ -11,8 +11,6 @@ The goal of this lab is to implement the activity which stores the ProcessedNeoE
 Microsoft.Azure.WebJobs.Extensions.Storage
 
 ### 2. Calling the activity from the orchestration
-
-The syntax for calling an activity is:
 
 
 ### 3. Build & run locally
