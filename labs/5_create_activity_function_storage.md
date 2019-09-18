@@ -2,15 +2,45 @@
 
 ## Goal
 
-The goal of this lab is to implement the activity which stores all ProcessedNeoEvent objects to blob storage.
+The goal of this lab is to implement the activity which stores all ProcessedNeoEvent objects with a Torino impact equal or higher than 1 to to blob storage.
 
 ## Steps
 
-### 1. Adding a new class for the activity
+### 1. Storage extension
 
-Start by adding a new class, `StoreProcessedNeoEventActivity` , to the project.
+Lets start by adding the following NuGet package to the project: `Microsoft.Azure.WebJobs.Extensions.Storage` so we can work with storage resources.
 
-Microsoft.Azure.WebJobs.Extensions.Storage
+### 2. Adding a new class for the activity
+
+Now add a new class, `StoreProcessedNeoEventActivity`, to the project and add an activity function method to it. It should accept a `ProcessedNeoEvent` as input.
+
+You might know that Azure Functions can work with a convenient Blob output binding such as:
+
+```csharp
+[Blob("neo/processed/file.json", Connection = "ProcessedNeoEventStorage")]string blobContent,
+```
+
+But notice that by using the above Blob binding the entire path of the blob is specified at design time. We can't set the path or name dynamically at runtime this way. Using [binding expressions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-expressions-patterns) you can often get quite far but not in this case.
+
+Luckily besides the above declarative binding we can use an imperative binding instead. These are set at runtime so we can configure the path based on properties of the ProcessedNeoEvent:
+
+```csharp
+[FunctionName(nameof(StoreProcessedNeoEventActivity))]
+public async Task Run(
+    [ActivityTrigger] ProcessedNeoEvent processedNeoEvent,
+    IBinder binder,
+    ILogger logger)
+{
+    var blobPath = $"neo/processed/{processedNeoEvent.DateDetected:yyyyMMdd}/{processedNeoEvent.TorinoImpact}/{processedNeoEvent.Id}.json";
+    var dynamicBlobBinding = new BlobAttribute(blobPath: blobPath) { Connection = "ProcessedNeoStorage" };
+    using (var writer = await binder.BindAsync<TextWriter>(dynamicBlobBinding))
+    {
+        await writer.WriteAsync(JsonConvert.SerializeObject(processedNeoEvent, Formatting.Indented));
+    }
+}
+```
+
+> Notice that the method accepts an `IBinder` and that the `BlobAttribute` is defined in the function method itself. Take a moment to inspect how the blobPath is configured and feel free to change the path to something you prefer.
 
 ### 2. Calling the activity from the orchestration
 

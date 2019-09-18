@@ -11,9 +11,9 @@ namespace Demo.NEO.EventProcessing.Activities
     {
         [FunctionName(nameof(StoreProcessedNeoEventActivity))]
         public async Task Run(
-          [ActivityTrigger] ProcessedNeoEvent processedNeoEvent,
-          IBinder binder,
-          ILogger logger)
+            [ActivityTrigger] ProcessedNeoEvent processedNeoEvent,
+            IBinder binder,
+            ILogger logger)
         {
             var blobPath = $"neo/processed/{processedNeoEvent.DateDetected:yyyyMMdd}/{processedNeoEvent.TorinoImpact}/{processedNeoEvent.Id}.json";
             var dynamicBlobBinding = new BlobAttribute(blobPath: blobPath) { Connection = "ProcessedNeoStorage" };
@@ -24,4 +24,6 @@ namespace Demo.NEO.EventProcessing.Activities
             }
         }
     }
+    
+    
 }
