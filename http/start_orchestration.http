@@ -1,0 +1,40 @@
+# Change the rooturl if needed (switch from localhost to remote in Azure).
+@rooturl = http://localhost:7071
+# The code is only required when the Function App is running in Azure.
+@code=null
+# Make sure the taskHub name matches your host.json file.
+@taskHub=NEOEventsv1
+
+### Start the orchestration and pass in a DetectedNeoEvent
+# @name starter
+POST {{rooturl}}/api/start
+Content-Type: application/json
+
+{
+    "id" : "{{$guid}}",
+    "date" : "{{$datetime iso8601}}",
+    "distance" : 2,
+    "velocity" : 10,
+    "diameter" : 1
+}
+
+# The orchestration Id is extracted from the reponse
+@instanceId={{starter.response.body.$.id}}
+
+### Retrieve the status of a single orchestrator instance
+GET {{rooturl}}/runtime/webhooks/durableTask/instances/{{instanceId}}
+    ?taskHub={{taskHub}}
+    &code={{code}}
+    &showHistory=true
+    &showHistoryOutput=true
+    &showInput=true
+
+
+### Retrieve the status of multiple orchestrator instances
+GET {{rooturl}}/runtime/webhooks/durableTask/instances?taskHub={{taskHub}}
+    &code={{code}}
+    &createdTimeFrom="2019-09-18T11:50:00.0Z"
+    &createdTimeTo="2019-09-18T11:54:00.0Z"
+    &runtimeStatus=Completed
+    &showInput=false
+    &top=50

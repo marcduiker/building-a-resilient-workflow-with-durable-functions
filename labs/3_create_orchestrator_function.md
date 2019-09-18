@@ -39,7 +39,7 @@ Remember that the state of orchestrator functions is checkpointed to storage and
 
 ### 3. Build & run locally
 
-Now run/debug your local Function App. 
+Now run/debug your local Function App by using the [HttpTrigger client function](../http/start_orchestration.http).
 
 > Is the orchestrator function detected by the Azure Functions runtime?
 

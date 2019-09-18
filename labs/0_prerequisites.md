@@ -27,6 +27,7 @@ Verify that you have these tools installed in order to run Azure Functions local
 - [Storage Emulator (Windows only)](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator) OR
 - [Azurite (VS Code extension)](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite)
 - Optional: [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)
+- [VS Code + REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) or Postman in order to make HTTP requests.
 
 ### 4. Azure account & Azure CLI
 

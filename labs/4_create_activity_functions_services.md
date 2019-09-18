@@ -140,25 +140,6 @@ The users of your application are interested in `ProcessedNeoEvent` objects. The
 
 Once all three activities have been implemented create a new instance of the `ProcessedNeoEvent` and for now return this from the orchestrator.
 
-Run the Function App and verify that the orchestration runs in order (you can use the next step to do a proper verification).
-
-### 5. Retrieving the orchestrator instance status
-
-[Durable Functions has an HTTP API](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-http-api) which allows management of the orchestrator instances. This can be very useful for debugging and maintenance.
-
-You can use the following endpoint to retrieve the status of multiple orchestrations in a time window:
-
-```http
-GET <function_root>/runtime/webhooks/durableTask/instances?
-    taskHub={taskHub}
-    &code={systemKey}
-    &createdTimeFrom={timestamp}
-    &createdTimeTo={timestamp}
-    &runtimeStatus={runtimeStatus1,runtimeStatus2,...}
-    &showInput=[true|false]
-    &top={integer}
-```
-
-A worked out example of this request is available [here](../http/get_orchestrator_status.http).
+Now run/debug your local Function App by using the [HttpTrigger client function](../http/start_orchestration.http).
 
 Continue to the [next lab](5_create_activity_function_storage.md) to create the activity to store the processed data.
