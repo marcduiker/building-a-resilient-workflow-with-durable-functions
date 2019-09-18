@@ -10,16 +10,17 @@ namespace Demo.Neo.Models
             float impactProbability,
             int  torinoImpact)
         {
-            PartitionKey = detectedNeoEvent.Date.ToString("YYYYMMDD");
-            RowKey = detectedNeoEvent.Id.ToString("D");
+            Date = detectedNeoEvent.Date;
+            Diameter = detectedNeoEvent.Diameter;
+            Distance = detectedNeoEvent.Distance;
+            Id = detectedNeoEvent.Id;
+            Velocity = detectedNeoEvent.Velocity;
             KineticEnergyInMegatonTnt = kineticEnergyInMegatonTnt;
             ImpactProbability = impactProbability;
             TorinoImpact = torinoImpact;
         }
         
-        public string PartitionKey { get; set; }
-
-        public string RowKey { get; set; }
+        
         
         public float KineticEnergyInMegatonTnt { get; set; }
 
