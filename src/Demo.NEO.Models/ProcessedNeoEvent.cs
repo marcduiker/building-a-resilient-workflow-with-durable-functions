@@ -5,6 +5,9 @@ namespace Demo.Neo.Models
 {
     public class ProcessedNeoEvent
     {
+        public ProcessedNeoEvent()
+        {}
+        
         public ProcessedNeoEvent(
             DetectedNeoEvent detectedNeoEvent,
             float kineticEnergyInMegatonTnt,
