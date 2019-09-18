@@ -38,14 +38,22 @@ namespace Demo.NEO.EventProcessing
                 GetRetryOptions(),
                 torinoImpactRequest);
 
+            var processedNeoEvent = new ProcessedNeoEvent(detectedNeoEvent,
+                kineticEnergy.KineticEnergyInMegatonTnt,
+                impactProbability.ImpactProbability,
+                torinoImpact.TorinoImpact);
+
+            await context.CallActivityWithRetryAsync(
+                nameof(StoreProcessedNeoEventActivity),
+                GetRetryOptions(),
+                processedNeoEvent);
+
             return torinoImpact;
         }
 
         private RetryOptions GetRetryOptions()
         {
-            return new RetryOptions(TimeSpan.FromSeconds(10), 5);
+            return new RetryOptions(TimeSpan.FromSeconds(5), 5) { BackoffCoefficient = 2 };
         }
     }
-    
-     
 }
