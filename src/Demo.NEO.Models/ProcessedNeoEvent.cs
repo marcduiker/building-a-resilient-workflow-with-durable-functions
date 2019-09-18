@@ -1,8 +1,9 @@
+using Newtonsoft.Json;
 using System;
 
 namespace Demo.Neo.Models
 {
-    public class ProcessedNeoEvent : DetectedNeoEvent
+    public class ProcessedNeoEvent
     {
         public ProcessedNeoEvent(
             DetectedNeoEvent detectedNeoEvent,
@@ -10,7 +11,7 @@ namespace Demo.Neo.Models
             float impactProbability,
             int  torinoImpact)
         {
-            Date = detectedNeoEvent.Date;
+            DateDetected = detectedNeoEvent.Date;
             Diameter = detectedNeoEvent.Diameter;
             Distance = detectedNeoEvent.Distance;
             Id = detectedNeoEvent.Id;
@@ -19,13 +20,29 @@ namespace Demo.Neo.Models
             ImpactProbability = impactProbability;
             TorinoImpact = torinoImpact;
         }
-        
-        
-        
+
+        [JsonProperty("id")]
+        public Guid Id { get; set; }
+
+        [JsonProperty("date_detected")]
+        public DateTime DateDetected { get; set; }
+
+        [JsonProperty("diameter")]
+        public float Diameter { get; set; }
+
+        [JsonProperty("distance")]
+        public float Distance { get; set; }
+
+        [JsonProperty("velocity")]
+        public float Velocity { get; set; }
+
+        [JsonProperty("kinetic_energy_megaton_tnt")]
         public float KineticEnergyInMegatonTnt { get; set; }
 
+        [JsonProperty("impact_probability")]
         public float ImpactProbability { get; set; }
 
+        [JsonProperty("torino_impact")]
         public int TorinoImpact { get; set; }
     }
 }
