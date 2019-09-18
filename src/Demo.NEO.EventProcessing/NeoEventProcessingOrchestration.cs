@@ -43,10 +43,12 @@ namespace Demo.NEO.EventProcessing
                 impactProbability.ImpactProbability,
                 torinoImpact.TorinoImpact);
 
+            
             await context.CallActivityWithRetryAsync(
                 nameof(StoreProcessedNeoEventActivity),
                 GetRetryOptions(),
                 processedNeoEvent);
+            
 
             return torinoImpact;
         }

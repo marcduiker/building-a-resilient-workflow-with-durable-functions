@@ -6,19 +6,19 @@ using Newtonsoft.Json;
 
 namespace Demo.NEO.EventProcessing
 {
-    public class NeoEventProcessingClient
+    public class NeoEventProcessingClientServicebus
     {
-        [FunctionName(nameof(NeoEventProcessingClient))]
+        [FunctionName(nameof(NeoEventProcessingClientServicebus))]
         public async Task Run(
             [ServiceBusTrigger("neo-events", "NEOSubscription1", Connection = "NEOEventsTopic")]string message, 
             [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
             ILogger log)
         {
             var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);
-            var instanceId = await orchestrationClient.StartNewAsync("NeoEventProcessingOrchestration", 
+            var instanceId = await orchestrationClient.StartNewAsync(nameof(NeoEventProcessingOrchestration), 
                 detectedNeoEvent);
 
-            log.LogInformation($"Started orchestration with ID {instanceId}.");
-        }
+            log.LogInformation($"Servicebus started orchestration with ID {instanceId}.");
+        }        
     }
 }
