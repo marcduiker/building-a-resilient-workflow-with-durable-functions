@@ -15,7 +15,7 @@ namespace Demos.NEO.Estimator
             var log10Energy = Math.Log10(kineticEnergyInMegatonTnt);
             var result = Math.Round(log10Energy * impactProbability);
 
-            if (result < 1) result = 1;
+            if (result < 1) result = 0;
             if (result > 10) result = 10;
 
             return Convert.ToInt32(result);
