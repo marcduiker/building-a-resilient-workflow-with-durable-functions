@@ -15,7 +15,7 @@ namespace Demo.NEO.EventProcessing
             ILogger log)
         {
             var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);
-            var instanceId = await orchestrationClient.StartNewAsync(nameof(NeoEventProcessingOrchestration), 
+            var instanceId = await orchestrationClient.StartNewAsync(nameof(NeoEventProcessingOrchestrator), 
                 detectedNeoEvent);
 
             log.LogInformation($"Servicebus started orchestration with ID {instanceId}.");

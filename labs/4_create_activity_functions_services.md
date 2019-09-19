@@ -97,7 +97,7 @@ namespace Demo.NEO.EventProcessing.Application
 
 #### 1.4 Calling the activity from the orchestration
 
-Let's return to the `NeoEventProcessingOrchestration` class and call the `EstimateKineticEnergyActivity` function.
+Let's return to the `NeoEventProcessingOrchestrator` class and call the `EstimateKineticEnergyActivity` function.
 
 The basic syntax for calling an activity with a return type is:
 

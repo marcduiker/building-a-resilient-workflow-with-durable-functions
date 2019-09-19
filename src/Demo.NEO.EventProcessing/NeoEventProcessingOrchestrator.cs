@@ -4,12 +4,13 @@ using Demo.NEO.EventProcessing.Activities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Demo.NEO.EventProcessing.Builders;
 
 namespace Demo.NEO.EventProcessing
 {
-    public class NeoEventProcessingOrchestration
+    public class NeoEventProcessingOrchestrator
     {
-        [FunctionName(nameof(NeoEventProcessingOrchestration))]
+        [FunctionName(nameof(NeoEventProcessingOrchestrator))]
         public async Task<TorinoIimpactResult> Run(
           [OrchestrationTrigger] DurableOrchestrationContextBase context,
           ILogger logger)
@@ -26,21 +27,20 @@ namespace Demo.NEO.EventProcessing
                 GetRetryOptions(),
                 detectedNeoEvent);
             
-            var torinoImpactRequest = new TorinoImpactRequest
-            {
-                Id = detectedNeoEvent.Id,
-                ImpactProbability = impactProbability.ImpactProbability,
-                KineticEnergyInMegatonTnt = kineticEnergy.KineticEnergyInMegatonTnt
-            };
+            var torinoImpactRequest = TorinoImpactRequestBuilder.Build(
+                detectedNeoEvent.Id,
+                impactProbability.ImpactProbability,
+                kineticEnergy.KineticEnergyInMegatonTnt);
             
             var torinoImpact = await context.CallActivityWithRetryAsync<TorinoIimpactResult>(
                 nameof(EstimateTorinoImpactActivity),
                 GetRetryOptions(),
                 torinoImpactRequest);
 
-            var processedNeoEvent = new ProcessedNeoEvent(detectedNeoEvent,
-                kineticEnergy.KineticEnergyInMegatonTnt,
+            var processedNeoEvent = ProcessedNeoEventBuilder.Build(
+                detectedNeoEvent,
                 impactProbability.ImpactProbability,
+                kineticEnergy.KineticEnergyInMegatonTnt,
                 torinoImpact.TorinoImpact);
 
             if (processedNeoEvent.TorinoImpact >= 1)

@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of this lab is to implement the activity which stores all ProcessedNeoEvent objects with a Torino impact equal or higher than 1 to to blob storage.
+The goal of this lab is to implement the activity which stores all `ProcessedNeoEvent` objects with a Torino impact equal or higher than 1 to to blob storage.
 
 ## Steps
 
@@ -44,6 +44,7 @@ public async Task Run(
 
 ### 2. Calling the activity from the orchestration
 
+Now let's update the `NeoEventProcessingOrchestrator` function to call the activity. Make sure that the activity is only called for `ProcessedNeoEvent` objects with a TorinoImpact >= 1.
 
 ### 3. Build & run locally
 

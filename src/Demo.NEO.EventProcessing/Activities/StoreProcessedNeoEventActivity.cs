@@ -24,6 +24,4 @@ namespace Demo.NEO.EventProcessing.Activities
             }
         }
     }
-    
-    
 }

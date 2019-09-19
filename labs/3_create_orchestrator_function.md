@@ -16,10 +16,10 @@ The orchestrator should do the following steps:
 
 ### 1. Creating an orchestrator function
 
-Create a new class (`NeoEventProcessingOrchestration`) with a function definition as follows:
+Create a new class (`NeoEventProcessingOrchestrator`) with a function definition as follows:
 
 ```csharp
-[FunctionName(nameof(NeoEventProcessingOrchestration))]
+[FunctionName(nameof(NeoEventProcessingOrchestrator))]
 public async Task Run(
     [OrchestrationTrigger] DurableOrchestrationContextBase context,
     ILogger logger)

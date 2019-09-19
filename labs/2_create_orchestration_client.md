@@ -99,7 +99,7 @@ public async Task<HttpResponseMessage> Run(
     ILogger log)
 {
     var detectedNeoEvent = await message.Content.ReadAsAsync<DetectedNeoEvent>();
-    var instanceId = await orchestrationClient.StartNewAsync(nameof(NeoEventProcessingOrchestration),
+    var instanceId = await orchestrationClient.StartNewAsync(nameof(NeoEventProcessingOrchestrator),
         detectedNeoEvent);
 
     log.LogInformation($"HTTP started orchestration with ID {instanceId}.");
