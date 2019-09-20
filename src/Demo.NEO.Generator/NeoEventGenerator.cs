@@ -11,13 +11,13 @@ namespace Demos.Neo.Generator
         public static IEnumerable<DetectedNeoEvent> Generate(int numberOfEvents)
         {
 
-            var diameters = GetGaussianDistributionWithHardLimits(0.5f, 2f, 0.01f, 10f);
+            var diameters = GetGaussianDistributionWithHardLimits(1f, 4f, 0.01f, 10f);
             var distances = GetGaussianDistributionWithHardLimits(3f, 2f, 0.9f, 5f);
-            var velocities = GetGaussianDistributionWithHardLimits(10f, 10f, 5f, 30f);
+            var velocities = GetGaussianDistributionWithHardLimits(10f, 15f, 5f, 30f);
             
             var fakeDetectedNeoEvents = new Faker<DetectedNeoEvent>()
                 .RuleFor(e => e.Id, f=> f.Random.Guid())
-                .RuleFor(e => e.Date, f => DateTime.Now)
+                .RuleFor(e => e.Date, f => DateTime.UtcNow)
                 .RuleFor(e => e.Diameter, f => f.PickRandom(diameters))
                 .RuleFor(e => e.Distance, f => f.PickRandom(distances))
                 .RuleFor(e => e.Velocity, f => f.PickRandom(velocities));
