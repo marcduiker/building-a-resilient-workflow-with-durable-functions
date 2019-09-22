@@ -46,9 +46,23 @@ public async Task Run(
 
 Now let's update the `NeoEventProcessingOrchestrator` function to call the activity. Make sure that the activity is only called for `ProcessedNeoEvent` objects with a TorinoImpact >= 1.
 
-### 3. Build & run locally
+### 3. Build & run locally with HttpTrigger
 
 Now run/debug your local Function App by using the [HttpTrigger client function](../http/start_orchestration.http).
+
+You can use the Azure Storage Explorer tool to look into your your local emulated storage.
+
+> Are blobs being created in the path you defined in the activity function?
+
+### 4. Build & run locally with ServicebusTrigger
+
+If the HttpTrigger function works well and stores a `ProcessedNeoEvent` to blob storage you can try to enable the ServicebusTrigger function in the `local.settigns.json`:
+
+```json
+"AzureWebJobs.<FUNCTION_NAME>.Disabled": false
+```
+
+Now run the solution locally again and check if the blobs arer being saved to storage.
 
 Continue to the [next lab](6_send_notification.md) to create the activity which sends a notification.
 
