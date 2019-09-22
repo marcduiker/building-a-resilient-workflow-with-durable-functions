@@ -20,7 +20,7 @@ With your IDE of choice create a Function App (suggested name: `NeoEventProcessi
 The resulting servicebus function trigger should look something like this:
 
 ```csharp
-[ServiceBusTrigger("neo-events", "NEOSubscription1", Connection = "NEOEventsTopic")]string message, 
+[ServiceBusTrigger("neo-events", "<subscriptionname>", Connection = "NEOEventsTopic")]string message, 
 ```
 
 The trigger now has a connection name which will be looked up in the application settings. But there's is no actual connectionstring specified yet. 
@@ -33,7 +33,7 @@ Add the connection name and the connectionstring to the `local.settings.json` fi
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "NEOEventsTopic": "<SERVICEBUS_ENDPOINT>"
+    "NEOEventsTopic": "<servicebus_connectionstring>"
   }
 }
 ```
