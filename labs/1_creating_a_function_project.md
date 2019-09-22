@@ -8,7 +8,7 @@ The goal of this lab is to create a basic Function App with a Servicebus trigger
 
 ### 1. Create a Function App with a ServiceBusTrigger function
 
-With your IDE of choice create a Function App with a Servicebus Topic triggered function. The suggested name for the function, and the class, is `NeoEventProcessingClient`.
+With your IDE of choice create a Function App (suggested name: `NeoEventProcessing`) with a Servicebus Topic triggered function. The suggested name for the function, and the class, is `NeoEventProcessingClientServicebus`.
 
 - When asked, specify that you want to use the Storage Emulator which is used to run the app locally.
 - Specify the following Servicebus settings in the `ServiceBusTrigger` attribute:
