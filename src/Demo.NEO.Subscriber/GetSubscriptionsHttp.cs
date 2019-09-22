@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -9,13 +8,19 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Management.ServiceBus.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ServiceBus.Fluent.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Demo.NEO.Subscriber
 {
     public class GetSubscriptionsHttp
     {
+        private IServiceBusManager _serviceBusManager;
+
+        public GetSubscriptionsHttp(IServiceBusManager serviceBusManager)
+        {
+            _serviceBusManager = serviceBusManager;
+        }
+
         [FunctionName(nameof(GetSubscriptionsHttp))]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "GET", "POST", Route = "subscription")] HttpRequest req,
@@ -23,23 +28,22 @@ namespace Demo.NEO.Subscriber
         {
             string name = req.Query["name"];
             var cleanedName = name.Trim(' ').ToLowerInvariant();
-            var subscriptionName = $"{cleanedName}-{Guid.NewGuid().ToString("D")}";
 
-            var clientID = Environment.GetEnvironmentVariable("Azure:ClientID");
-            var clientSecret = Environment.GetEnvironmentVariable("Azure:ClientSecret");
-            var tenantId = Environment.GetEnvironmentVariable("Azure:TenantID");
-            var subscriptionId = Environment.GetEnvironmentVariable("Azure:SubscriptionID");
+            if (string.IsNullOrEmpty(cleanedName))
+            {
+                return new BadRequestObjectResult("Please provide your name on the query string (?name=YOURNAME)");
+            }
+                   
             var resourceGroup = Environment.GetEnvironmentVariable("Servicebus:ResourceGroup");
             var servicebusNamespace = Environment.GetEnvironmentVariable("Servicebus:Namespace");
             var servicebusTopic = Environment.GetEnvironmentVariable("Servicebus:Topic");
-            var credentials = SdkContext.AzureCredentialsFactory.FromServicePrincipal(clientID, clientSecret, tenantId, AzureEnvironment.AzureGlobalCloud);
-            var serviceBusManager = ServiceBusManager.Authenticate(credentials, subscriptionId);
+
             ActionResult result = null;
             try
             {
                 if (req.Method == HttpMethods.Get)
                 {
-                    var subs = await serviceBusManager.Inner.Subscriptions.ListByTopicAsync(
+                    var subs = await _serviceBusManager.Inner.Subscriptions.ListByTopicAsync(
                     resourceGroup,
                     servicebusNamespace,
                     servicebusTopic);
@@ -48,13 +52,11 @@ namespace Demo.NEO.Subscriber
                 }
                 else if (req.Method == HttpMethods.Post)
                 {
-                    var sub = await serviceBusManager.Inner.Subscriptions.CreateOrUpdateAsync(
-                    resourceGroup,
-                    servicebusNamespace,
-                    servicebusTopic,
-                    subscriptionName,
-                    new SubscriptionInner(defaultMessageTimeToLive: "00:10:00"));
-                    result = new OkObjectResult(sub);
+                    result = await CreateTopicSubscription(
+                        resourceGroup,
+                        servicebusNamespace,
+                        servicebusTopic,
+                        cleanedName);
                 }
             }
             catch (Exception ex)
@@ -62,12 +64,37 @@ namespace Demo.NEO.Subscriber
                 result = new ConflictObjectResult(ex);
             }
 
-            return name != null
-                ? result
-                : new BadRequestObjectResult("Please pass your name on the query string (?name=YOURNAME)");
+            return result;
         }
 
+        private async Task<ActionResult> CreateTopicSubscription(
+            string resourceGroup,
+            string serviceBusNamespace,
+            string serviceBusTopic,
+            string cleanedName)
+        {
+            var subscriptionName = $"{cleanedName}-{Guid.NewGuid().ToString("D")}";
 
+            var sub = await _serviceBusManager.Inner.Subscriptions.CreateOrUpdateAsync(
+                    resourceGroup,
+                    serviceBusNamespace,
+                    serviceBusTopic,
+                    subscriptionName,
+                    new SubscriptionInner(defaultMessageTimeToLive: "00:10:00"));
+
+            var apiManagementSubscriptionKey = Environment.GetEnvironmentVariable("ApiManagement:SubscriptionKey");
+            var servicebusConnectionStringListenOnly = Environment.GetEnvironmentVariable("Servicebus:ListenOnlyKey");
+
+            var response = new
+            {
+                serviceBusTopicName = serviceBusTopic,
+                serviceBusConnectionString = servicebusConnectionStringListenOnly,
+                servicebusTopicSubscriptionName = sub.Name,
+                apiManagementKey = apiManagementSubscriptionKey
+            };
+
+            return new OkObjectResult(response);
+        }
     }
 }
 

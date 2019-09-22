@@ -1,0 +1,6 @@
+###
+POST  http://localhost:7071/api/subscription?name=Marc
+Content-Type: application/json
+
+###
+GET  http://localhost:7071/api/subscription?name=Marc
