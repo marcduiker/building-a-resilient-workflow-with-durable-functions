@@ -27,16 +27,16 @@ namespace Demo.NEO.Subscriber
             ILogger log)
         {
             string name = req.Query["name"];
-            var cleanedName = name.Trim(' ').ToLowerInvariant();
+            var cleanedName = name.Trim(' ').Replace(' ', '-').ToLowerInvariant();
 
             if (string.IsNullOrEmpty(cleanedName))
             {
                 return new BadRequestObjectResult("Please provide your name on the query string (?name=YOURNAME)");
             }
                    
-            var resourceGroup = Environment.GetEnvironmentVariable("Servicebus:ResourceGroup");
-            var servicebusNamespace = Environment.GetEnvironmentVariable("Servicebus:Namespace");
-            var servicebusTopic = Environment.GetEnvironmentVariable("Servicebus:Topic");
+            var resourceGroup = Environment.GetEnvironmentVariable("Servicebus_ResourceGroup");
+            var servicebusNamespace = Environment.GetEnvironmentVariable("Servicebus_Namespace");
+            var servicebusTopic = Environment.GetEnvironmentVariable("Servicebus_Topic");
 
             ActionResult result = null;
             try
@@ -61,7 +61,7 @@ namespace Demo.NEO.Subscriber
             }
             catch (Exception ex)
             {
-                result = new ConflictObjectResult(ex);
+                result = new ConflictObjectResult(ex.Message);
             }
 
             return result;
@@ -82,8 +82,8 @@ namespace Demo.NEO.Subscriber
                     subscriptionName,
                     new SubscriptionInner(defaultMessageTimeToLive: "00:10:00"));
 
-            var apiManagementSubscriptionKey = Environment.GetEnvironmentVariable("ApiManagement:SubscriptionKey");
-            var servicebusConnectionStringListenOnly = Environment.GetEnvironmentVariable("Servicebus:ListenOnlyKey");
+            var apiManagementSubscriptionKey = Environment.GetEnvironmentVariable("ApiManagement_SubscriptionKey");
+            var servicebusConnectionStringListenOnly = Environment.GetEnvironmentVariable("Servicebus_ListenOnlyKey");
 
             var response = new
             {

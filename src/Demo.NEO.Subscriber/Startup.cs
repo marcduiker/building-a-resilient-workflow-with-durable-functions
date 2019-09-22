@@ -12,15 +12,15 @@ namespace Demo.NEO.Subscriber
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            var clientID = Environment.GetEnvironmentVariable("Azure:ClientID");
-            var clientSecret = Environment.GetEnvironmentVariable("Azure:ClientSecret");
-            var tenantId = Environment.GetEnvironmentVariable("Azure:TenantID");
+            var clientID = Environment.GetEnvironmentVariable("Azure_ClientID");
+            var clientSecret = Environment.GetEnvironmentVariable("Azure_ClientSecret");
+            var tenantId = Environment.GetEnvironmentVariable("Azure_TenantID");
             var credentials = SdkContext.AzureCredentialsFactory.FromServicePrincipal(clientID, clientSecret, tenantId, AzureEnvironment.AzureGlobalCloud);
 
-            var subscriptionId = Environment.GetEnvironmentVariable("Azure:SubscriptionID");
+            var subscriptionId = Environment.GetEnvironmentVariable("Azure_SubscriptionID");
             var serviceBusManager = ServiceBusManager.Authenticate(credentials, subscriptionId);
 
-            builder.Services.AddSingleton<IServiceBusManager>(s => serviceBusManager);
+            builder.Services.AddSingleton<IServiceBusManager>((s) => serviceBusManager);
         }
     }
 }
