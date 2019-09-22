@@ -45,3 +45,7 @@ az functionapp create --name $funcappnameGenerator --resource-group $rgname --co
 # 10. Create the Estimator Function App
 $funcappnameEstimator="demo-neo-estimator-fa"
 az functionapp create --name $funcappnameEstimator --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Linux
+
+# 11. Create the Subscriber Function App
+$funcappnameSubscriber="demo-neo-subscriber-fa"
+az functionapp create --name $funcappnameSubscriber --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Linux
