@@ -1,4 +1,4 @@
-# Lab 0 - Prerequisites
+# Lab 0.A - Prerequisites
 
 ## Goal
 
