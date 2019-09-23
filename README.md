@@ -40,10 +40,9 @@ The Function App needs to make several calls to other services in order to deter
 - The probability of an impact
 - The [Torino impact](https://cneos.jpl.nasa.gov/sentry/torino_scale.html)
 
-In addition to these service calls, the processed data needs to be stored to blob storage and a notification needs to be sent out if the Torino impact is equal or greater than 8.
+In addition to these service calls, the processed data needs to be stored to blob storage (for events with a Torino impact >= 1) and a notification needs to be sent out to Bruce Willis (for events with a Torino impact >= 8).
 
-> The final implementation is also in this repo. However, it is lots more fun, and you learn way more by creating your own solution and following all the labs. 
-Only peek at my solution if you're completely stuck. 
+> The final implementation is also in this repo. However, it is lots more fun, and you learn way more, by creating your own solution and following all the labs. Only peek at my solution if you're completely stuck.
 
 >**I strongly suggest you team up with someone to do pair programming and discuss what you're doing.**
 
@@ -51,9 +50,13 @@ Only peek at my solution if you're completely stuck.
 
 ## Labs
 
-1. [Check Prerequisites](labs/0_prerequisites.md)
-2. [Creating a new function project](labs/1_creating_a_function_project.md)
-3. [Creating an orchestration client](labs/2_create_orchestration_client.md)
-4. [Creating the orchestrator function](labs/3_create_orchestrator_function.md)
-5. [Calling other services](labs/4_create_activity_functions_services.md)
-5. [Storing the ProcessedNeoEvent](labs/4_create_activity_functions_services.md)
+0. [Check Prerequisites](labs/0_prerequisites.md) & [Get your subscription keys](labs/0_subscribe.md)
+1. [Creating a new function project](labs/1_creating_a_function_project.md)
+2. [Creating an orchestration client](labs/2_create_orchestration_client.md)
+3. [Creating the orchestrator function](labs/3_create_orchestrator_function.md)
+4. [Calling other services](labs/4_create_activity_functions_services.md)
+5. [Storing the ProcessedNeoEvent](labs/5_create_activity_function_storage.md)
+6. [Sending a notification](labs/6_send_notification.md)
+7. [Unit testing](labs/7_unit_testing.md)
+8. [Creating Azure resources](labs/8_azure_resources.md)
+9. [Publish to Azure](labs/9_publish_to_azure.md)

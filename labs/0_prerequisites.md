@@ -40,4 +40,4 @@ Although most of the labs can be done completely locally it would be fun if you 
 Completely optional but still useful:
 - I have made some [code snippets](https://github.com/marcduiker/durable-functions-snippets), which can speed up the process (and prevent mistakes) when creating client, orchestrator and activity functions.
 
-Get started with the [next lab](1_creating_a_function_project.md) to create a Function App.
+Now let's move on to [next lab](0_subscribe.md) to get your subscription keys and connectionstring.
