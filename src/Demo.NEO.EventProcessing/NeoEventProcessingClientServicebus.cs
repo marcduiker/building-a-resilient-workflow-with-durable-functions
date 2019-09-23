@@ -10,7 +10,7 @@ namespace Demo.NEO.EventProcessing
     {
         [FunctionName(nameof(NeoEventProcessingClientServicebus))]
         public async Task Run(
-            [ServiceBusTrigger("neo-events", "NEOSubscription1", Connection = "NEOEventsTopic")]string message, 
+            [ServiceBusTrigger("neo-events", "marc-duiker-db75252d-47f5-4b02-9911-c1378e44612d", Connection = "NEOEventsTopic")]string message, 
             [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
             ILogger log)
         {
