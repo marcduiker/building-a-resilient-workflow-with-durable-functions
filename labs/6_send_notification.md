@@ -1,4 +1,4 @@
-# Lab 5 -  Call Bruce
+# Lab 6 -  Notify Bruce
 
 ## Goal
 
@@ -12,20 +12,7 @@ Make sure you only send out an email for detected NEOs with a Torino impact of 8
 
 In order to send emails we're going to use a service to take care of this. Go to  [signup.sendgrid.com/](https://signup.sendgrid.com/) in order to create a (free) account.
 
-### 2. SendGrid email template
-
-SendGrid offers several types of emails that can be sent. We want a transactional type. 
-
-- In the SendGrid Dahboard go to Templates > Transactional 
-- Create a new template and give it a name  
-- Add a version to the template
-- Choose which editor style you want to compose the template
-- Add some elements to the email.
-- Save your template
-
-> Every template has an ID, which is visible underneath the template name. You'll need this in the activity function you're goint to write.
-
-### 3. SendGrid API key
+### 2. SendGrid API key
 
 In order to use the SendGrid service an API key is required.
 
@@ -33,23 +20,63 @@ In order to use the SendGrid service an API key is required.
 - Create a new API key
 - Enter a name for it
 - Select restricted access and configure full access for only the Mail Send category.
-- Click Create & View and copy it to the `local.settings.json` of your Function App
+- Click Create & View and copy the key to the `local.settings.json` file of your Function App
 
+### 3. SendGrid extension
 
+Lets start by adding the following NuGet package to the project: `Microsoft.Azure.WebJobs.Extensions.SendGrid` so we can work with SendGrid resources.
 
+### 4. Adding a new class for the activity
 
-### 4. SendGrid extension
+Now add a class (`SendNotificationActivity`) and add an activity function to it. 
 
-Lets start by adding the following NuGet package to the project: `Microsoft.Azure.WebJobs.Extensions.Storage` so we can work with SendGrid resources.
+- The function should accept an `ProcessedNeoEvent` as the input and should not return anything. 
+- Use the `SendGrid` attribute and specify the name of the app setting which contains the SendGrid API key. 
+- Use the `IAsyncCollector<SendGridMessage>` as the type used with the `SendGrid` attribute.
 
-### 3. Adding a new class for the activity
+The function signature should look something like this:
 
-Microsoft.Azure.WebJobs.Extensions.Storage
+```csharp
+ [FunctionName(nameof(SendNotificationActivity))]
+public async Task Run(
+        [ActivityTrigger] ProcessedNeoEvent processedNeoEvent,
+        [SendGrid(ApiKey = "SendGrid.MailSendKey")]IAsyncCollector<SendGridMessage> messageCollector,
+        ILogger logger)
+```
+Now you can implement the creation of a `SendGridMessage` which will be added to the messageCollector.
+
+You need to specify the following:
+- Subject
+- From address
+- To Address (Unfortunalty I don't have Bruce's email address, so I suggest you use your own email here)
+- Content (optional)
+- Attachment (optional)
+
+This could be a possible implementation of the message:
+
+```csharp
+var message = new SendGridMessage();
+message.AddTo("yourname@yourdomain.com");
+message.SetFrom("alerts@xasa.com");
+message.SetSubject("Please help us!");
+var content = "<p>Bruce, our planet in is severe danger!</p>" +
+              "<p>You are the only one who can stop a giant asteroid (see attachment). Please nuke it now!</p>" +
+              "<p>Best regards, Humanity</p>";
+message.AddContent(MimeType.Html, content);
+var attachment = Convert.ToBase64String(
+    Encoding.UTF8.GetBytes(
+        JsonConvert.SerializeObject(processedNeoEvent)));
+message.AddAttachment($"{processedNeoEvent.Id}.json", attachment);
+```
 
 ### 2. Calling the activity from the orchestration
 
+Now update the orchestrator function and call the activity after the `ProcessedNeoEvent` has been saved to storage. Make sure that the activity in only called for events with a Torino impact of 8 and higher.
 
 ### 3. Build & run locally
 
+Now run/debug your local Function App by using the [HttpTrigger client function](../http/start_orchestration.http) so you can specify the input which will result in a Torino impact of 8 or higher. You might want to disable the ServicebusTrigger again in the `local.settings.json`.
 
+Watch your inbox (and Junk mail) to see if you're receiving an email. If not you can look around in the SendGrid portal to see if anything went wrong.
 
+Continue to the [next lab](7_unit_testing.md) to add unit tests for your orchestrator function.
