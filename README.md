@@ -4,6 +4,8 @@
 
 Congratulations! Today is your first job as a software engineer at XASA, the Xpirit Aeronautics and Space Administration. You are responsible for creating a system which reacts to detected Near-Earth Objects ([NEOs](https://cneos.jpl.nasa.gov/about/basics.html)).
 
+![Known NEOs](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Asteroids-KnownNearEarthObjects-Animation-UpTo20180101.gif/320px-Asteroids-KnownNearEarthObjects-Animation-UpTo20180101.gif)
+
 A satellite is continuously scanning the skies for these NEOs. The satellite transmits its findings to ground stations which in turn send the data to Azure.
 
 It's your job to ensure the incoming data is analyzed to assess the risk of impact, stored, and to notify the required organizations of this risk and possible counter-measures (think Armageddon style).
@@ -39,6 +41,8 @@ The Function App needs to make several calls to other services in order to deter
 - The kinetic energy of a potential impact
 - The probability of an impact
 - The [Torino impact](https://cneos.jpl.nasa.gov/sentry/torino_scale.html)
+
+![Torino impact](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Torino_scale.svg/320px-Torino_scale.svg.png)
 
 In addition to these service calls, the processed data needs to be stored to blob storage (for events with a Torino impact >= 1) and a notification needs to be sent out to Bruce Willis (for events with a Torino impact >= 8).
 
