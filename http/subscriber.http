@@ -1,6 +1,13 @@
-###
-POST  http://localhost:7071/api/subscription?name=Marc
+@yourname=marc
+### Remote POST
+POST https://demo-neo.azure-api.net/setup/subscription?name={{yourname}}
+
+### Remote GET
+GET https://demo-neo.azure-api.net/setup/subscription?name={{yourname}}
+
+### Local POST
+POST  http://localhost:7071/api/subscription?name={{yourname}}
 Content-Type: application/json
 
-###
-GET  http://localhost:7071/api/subscription?name=Marc
+### Local GET
+GET  http://localhost:7071/api/subscription?name={{yourname}}
