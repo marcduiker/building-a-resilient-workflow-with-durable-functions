@@ -52,7 +52,7 @@ The implementation of the function should be something like this:
 ```csharp
 var kineticEnergyEndpoint = new Uri(Environment.GetEnvironmentVariable"KineticEnergyEndpoint"));
 var apiManagementKey = Environment.GetEnvironmentVariable"ApiManagementKey");
-client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", piManagementKey);
+client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiManagementKey);
 var response = await client.PostAsJsonAsynckineticEnergyEndpoint, neoEvent);
 if (!response.IsSuccessStatusCode)
 {
