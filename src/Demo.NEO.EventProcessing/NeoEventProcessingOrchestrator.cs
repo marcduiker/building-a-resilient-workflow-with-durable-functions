@@ -11,7 +11,7 @@ namespace Demo.NEO.EventProcessing
     public class NeoEventProcessingOrchestrator
     {
         [FunctionName(nameof(NeoEventProcessingOrchestrator))]
-        public async Task<TorinoIimpactResult> Run(
+        public async Task<ProcessedNeoEvent> Run(
           [OrchestrationTrigger] DurableOrchestrationContextBase context,
           ILogger logger)
         {
@@ -43,7 +43,7 @@ namespace Demo.NEO.EventProcessing
                 kineticEnergy.KineticEnergyInMegatonTnt,
                 torinoImpact.TorinoImpact);
 
-            if (processedNeoEvent.TorinoImpact >= 1)
+            if (processedNeoEvent.TorinoImpact > 0)
             {
                 await context.CallActivityWithRetryAsync(
                     nameof(StoreProcessedNeoEventActivity),
@@ -51,7 +51,15 @@ namespace Demo.NEO.EventProcessing
                     processedNeoEvent);
             }
 
-            return torinoImpact;
+            if (processedNeoEvent.TorinoImpact > 7)
+            {
+                await context.CallActivityWithRetryAsync(
+                    nameof(SendNotificationActivity),
+                    GetRetryOptions(),
+                    processedNeoEvent);
+            }
+
+            return processedNeoEvent;
         }
 
         private RetryOptions GetRetryOptions()
