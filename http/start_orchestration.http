@@ -13,9 +13,9 @@ Content-Type: application/json
 {
     "id" : "{{$guid}}",
     "date" : "{{$datetime iso8601}}",
-    "distance" : 2,
-    "velocity" : 10,
-    "diameter" : 1
+    "distance" : 1,
+    "velocity" : 25,
+    "diameter" : 15
 }
 
 # The orchestration Id is extracted from the reponse
