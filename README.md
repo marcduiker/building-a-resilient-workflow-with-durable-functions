@@ -4,11 +4,14 @@
 
 Congratulations! Today is your first job as a software engineer at XASA, the Xpirit Aeronautics and Space Administration. You are responsible for creating a system which reacts to detected Near-Earth Objects ([NEOs](https://cneos.jpl.nasa.gov/about/basics.html)).
 
-![Known NEOs](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Asteroids-KnownNearEarthObjects-Animation-UpTo20180101.gif/320px-Asteroids-KnownNearEarthObjects-Animation-UpTo20180101.gif)
+![Known NEOs](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Asteroids-KnownNearEarthObjects-Animation-UpTo20180101.gif/640px-Asteroids-KnownNearEarthObjects-Animation-UpTo20180101.gif)
 
 A satellite is continuously scanning the skies for these NEOs. The satellite transmits its findings to ground stations which in turn send the data to Azure.
 
-It's your job to ensure the incoming data is analyzed to assess the risk of impact, stored, and to notify the required organizations of this risk and possible counter-measures (think Armageddon style).
+It's your job to ensure the incoming data is analyzed to assess the risk of impact, stored, and to notify the one and only person who can save earth in case of an asteroid threat...
+
+![Bruce Willis, who will save us all!](img/bruce_willis.jpg)
+
 
 ## Technical solution
 
