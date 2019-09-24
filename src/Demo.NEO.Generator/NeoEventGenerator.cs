@@ -10,10 +10,9 @@ namespace Demos.Neo.Generator
     {
         public static IEnumerable<DetectedNeoEvent> Generate(int numberOfEvents)
         {
-
             var diameters = GetGaussianDistributionWithHardLimits(1f, 4f, 0.01f, 10f);
-            var distances = GetGaussianDistributionWithHardLimits(3f, 2f, 0.9f, 5f);
-            var velocities = GetGaussianDistributionWithHardLimits(10f, 15f, 5f, 30f);
+            var distances = GetGaussianDistributionWithHardLimits(2f, 2f, 0.9f, 5f);
+            var velocities = GetGaussianDistributionWithHardLimits(15f, 15f, 5f, 30f);
             
             var fakeDetectedNeoEvents = new Faker<DetectedNeoEvent>()
                 .RuleFor(e => e.Id, f=> f.Random.Guid())
