@@ -65,5 +65,5 @@ In addition to these service calls, the processed data needs to be stored to blo
 5. [Storing the ProcessedNeoEvent](labs/5_create_activity_function_storage.md)
 6. [Sending a notification](labs/6_send_notification.md)
 7. [Unit testing](labs/7_unit_testing.md)
-8. [Creating Azure resources](labs/8_azure_resources.md)
+8. [Creating Azure resources](labs/8_create_azure_resources.md)
 9. [Publish to Azure](labs/9_publish_to_azure.md)
