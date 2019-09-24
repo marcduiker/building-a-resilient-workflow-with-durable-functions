@@ -1,18 +1,23 @@
-# 1. Login
+# XASA Workshop proctor
+This file contains the Azure CLI commands to provision the Azure resources for the XASA Workshop.
+
+These commands can be used by the instructor to setup the Azure resources which will be used by the attendees.
+
+## 1. Login
 az login
 
-# 2. See the available subscriptions
+## 2. See the available subscriptions
 az account list
 
-# 3. Set the desired subscription
+## 3. Set the desired subscription
 az account set <id>
 
-# 4. Create a resource group
+## 4. Create a resource group
 $location="westeurope"
 $rgname="demo-neo-generator-rg"
 az group create --name $rgname --location $location --tags type=demo
 
-# 5. Create the Servicebus namespace (needs standard sku to use Topics) and send & listen policies.
+## 5. Create the Servicebus namespace (needs standard sku to use Topics) and send & listen policies.
 $sbnamespace="demo-neogenerator-sb-ns"
 az servicebus namespace create --name $sbnamespace --resource-group $rgname --location $location --sku Standard
 
@@ -22,30 +27,30 @@ az servicebus namespace authorization-rule create --name $sbpolicysend --namespa
 $sbpolicylisten="demo-neogenerator-sb-policy-listen"
 az servicebus namespace authorization-rule create --name $sbpolicylisten --namespace-name $sbnamespace --resource-group $rgname --rights Listen
 
-# 6. Create a Servicebus Topic with a default TTL of 10 minutes.
+## 6. Create a Servicebus Topic with a default TTL of 10 minutes.
 $sbtopic="neo-events"
 az servicebus topic create --name $sbtopic --namespace-name $sbnamespace --resource-group $rgname --default-message-time-to-live 00:10:00
 
 $topicsubName="NEOSubscription1"
 az servicebus topic subscription create --name $topicsubName --namespace-name $sbnamespace --topic-name $sbtopic --resource-group $rgname --default-message-time-to-live 00:10:00
 
-# 7. Create a Storage Account  
+## 7. Create a Storage Account  
 $stname="neogeneratorst"
 az storage account create --name $stname --resource-group $rgname --location $location --sku Standard_LRS --kind StorageV2 --access-tier Hot
 
-# 8. Add & Create application insights
+## 8. Add & Create application insights
 az extension add --name application-insights
 $ainame="demo-neogenerator-ai"
 az monitor app-insights component create --app $ainame --location $location --application-type web --kind web --resource-group $rgname
 
-# 9. Create the Generator Function App
+## 9. Create the Generator Function App
 $funcappnameGenerator="demo-neo-generator-fa"
 az functionapp create --name $funcappnameGenerator --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Linux
 
-# 10. Create the Estimator Function App
+## 10. Create the Estimator Function App
 $funcappnameEstimator="demo-neo-estimator-fa"
 az functionapp create --name $funcappnameEstimator --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Linux
 
-# 11. Create the Subscriber Function App
+## 11. Create the Subscriber Function App
 $funcappnameSubscriber="demo-neo-subscriber-fa"
 az functionapp create --name $funcappnameSubscriber --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Linux
