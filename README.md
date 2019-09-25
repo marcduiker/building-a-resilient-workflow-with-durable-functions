@@ -67,3 +67,8 @@ In addition to these service calls, the processed data needs to be stored to blo
 7. [Unit testing](labs/7_unit_testing.md)
 8. [Creating Azure resources](labs/8_create_azure_resources.md)
 9. [Publish to Azure](labs/9_publish_to_azure.md)
+10. [Additional features](labs/10_additional_features.md)
+
+## License
+
+Please see the [licensing information](LICENSE.md).
