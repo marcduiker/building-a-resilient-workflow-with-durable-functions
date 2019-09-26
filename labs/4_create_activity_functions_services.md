@@ -62,7 +62,7 @@ if (!response.IsSuccessStatusCode)
 var result = await response.Content.ReadAsAsync<KineticEnergyResult>();
 
 return result;
-
+```
 
 #### 1.4 Calling the activity from the orchestration
 
