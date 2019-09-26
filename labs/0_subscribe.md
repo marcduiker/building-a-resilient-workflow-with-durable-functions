@@ -6,7 +6,7 @@ The goals is to obtain the connectionstring and keys which you need to use in la
 
 ## Steps
 
-Do a GET request to this endpoint: `https://demo-neo.azure-api.net/setup/subscription?name=YOURNAME` and replace YOURNAME with your actual name. Your name will be used to create a personal subscription key which will be used to subscribe to the Servicebus topic where the `DetectedNeoEvents` are being pushed to.
+Do a POST request to this endpoint: `https://demo-neo.azure-api.net/setup/subscription?name=YOURNAME` and replace YOURNAME with your actual name. Your name will be used to create a personal subscription key which will be used to subscribe to the Servicebus topic where the `DetectedNeoEvents` are being pushed to.
 
 The result of the request should look like this:
 
