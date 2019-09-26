@@ -50,8 +50,8 @@ When you do the post to the endpoint, make sure you verify on a success status c
 The implementation of the function should be something like this:
 
 ```csharp
-var kineticEnergyEndpoint = new Uri(Environment.GetEnvironmentVariable"KineticEnergyEndpoint"));
-var apiManagementKey = Environment.GetEnvironmentVariable"ApiManagementKey");
+var kineticEnergyEndpoint = new Uri(Environment.GetEnvironmentVariable("KineticEnergyEndpoint"));
+var apiManagementKey = Environment.GetEnvironmentVariable("ApiManagementKey");
 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiManagementKey);
 var response = await client.PostAsJsonAsynckineticEnergyEndpoint, neoEvent);
 if (!response.IsSuccessStatusCode)
@@ -62,6 +62,18 @@ if (!response.IsSuccessStatusCode)
 var result = await esponse.Content.ReadAsAsync<KineticEnergyResult>();
 
 return result;
+
+
+#### 1.4 Calling the activity from the orchestration
+
+Let's return to the `NeoEventProcessingOrchestrator` class and call the `EstimateKineticEnergyActivity` function.
+
+The basic syntax for calling an activity with a return type is:
+
+```csharp
+var kineticEnergy = await context.CallActivityAsync<KineticEnergyResult>(
+        nameof(EstimateKineticEnergyActivity),
+        detectedNeoEvent);
 ```
 
 If you'd run the Function App now, you'll get exceptions (like the one below) since the `IHttpClientFactory` dependency has not been registered yet.
@@ -93,18 +105,6 @@ namespace Demo.NEO.EventProcessing.Application
         }
     }
 }
-```
-
-#### 1.4 Calling the activity from the orchestration
-
-Let's return to the `NeoEventProcessingOrchestrator` class and call the `EstimateKineticEnergyActivity` function.
-
-The basic syntax for calling an activity with a return type is:
-
-```csharp
-var kineticEnergy = await context.CallActivityAsync<KineticEnergyResult>(
-        nameof(EstimateKineticEnergyActivity),
-        detectedNeoEvent);
 ```
 
 > If you run the Function App for a while you will notice (in the Azure Functions runtime output) that the activity function fails in some occasions. Why is that?
