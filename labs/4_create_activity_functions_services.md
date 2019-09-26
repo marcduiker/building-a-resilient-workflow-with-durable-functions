@@ -53,13 +53,13 @@ The implementation of the function should be something like this:
 var kineticEnergyEndpoint = new Uri(Environment.GetEnvironmentVariable("KineticEnergyEndpoint"));
 var apiManagementKey = Environment.GetEnvironmentVariable("ApiManagementKey");
 client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiManagementKey);
-var response = await client.PostAsJsonAsynckineticEnergyEndpoint, neoEvent);
+var response = await client.PostAsJsonAsync(kineticEnergyEndpoint, neoEvent);
 if (!response.IsSuccessStatusCode)
 {
     var content = await response.Content.ReadAsStringAsync();
     throw new FunctionFailedException(content);
 }
-var result = await esponse.Content.ReadAsAsync<KineticEnergyResult>();
+var result = await response.Content.ReadAsAsync<KineticEnergyResult>();
 
 return result;
 
