@@ -9,7 +9,7 @@ The orchestrator should do the following steps:
 - Retrieve the kinetic energy for the object.
 - Retrieve the the impact probability for the object.
 - Retrieve the Torino impact for the object.
-- Save the `ProcessedNeoEvent` result to blob storage.
+- Save the `ProcessedNeoEvent` result to blob storage for events with a Torino impact >= 1.
 - Send a notification for events with a Torino impact >= 8.
 
 ## Steps
