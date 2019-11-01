@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Demo.Neo.Models
 {
-    public class TorinoIimpactResult
+    public class TorinoImpactResult
     {
         [JsonProperty("id")]
         public Guid Id { get; set; }
