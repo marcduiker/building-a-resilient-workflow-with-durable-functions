@@ -17,7 +17,7 @@ namespace Demo.NEO.EventProcessing.Activities
         }
 
         [FunctionName(nameof(EstimateTorinoImpactActivity))]
-        public async Task<TorinoIimpactResult> Run(
+        public async Task<TorinoImpactResult> Run(
           [ActivityTrigger] TorinoImpactRequest torinoImpactRequest,
           ILogger logger)
         {
@@ -30,7 +30,7 @@ namespace Demo.NEO.EventProcessing.Activities
                 var content = await response.Content.ReadAsStringAsync();
                 throw new ApplicationException(content);
             }
-            var result = await response.Content.ReadAsAsync<TorinoIimpactResult>();
+            var result = await response.Content.ReadAsAsync<TorinoImpactResult>();
 
             return result;
         }

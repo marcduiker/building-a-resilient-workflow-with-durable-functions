@@ -37,10 +37,10 @@ namespace Demo.NEO.EventProcessing.UnitTests.TestBuilders
                 .ReturnsAsync(impactProbabilityResult);
 
             var torinoImpact = 1;
-            var torinoImpactResult = fixture.Build<TorinoIimpactResult>()
+            var torinoImpactResult = fixture.Build<TorinoImpactResult>()
                 .With(p => p.TorinoImpact, torinoImpact)
                 .Create();
-            contextMock.Setup(ctx => ctx.CallActivityWithRetryAsync<TorinoIimpactResult>(
+            contextMock.Setup(ctx => ctx.CallActivityWithRetryAsync<TorinoImpactResult>(
                     nameof(EstimateTorinoImpactActivity),
                     It.IsAny<RetryOptions>(),
                     It.IsAny<TorinoImpactRequest>()))
@@ -84,10 +84,10 @@ namespace Demo.NEO.EventProcessing.UnitTests.TestBuilders
                 .ReturnsAsync(impactProbabilityResult);
             
             var torinoImpact = 0;
-            var torinoImpactResult = fixture.Build<TorinoIimpactResult>()
+            var torinoImpactResult = fixture.Build<TorinoImpactResult>()
                 .With(p => p.TorinoImpact, torinoImpact)
                 .Create();
-            contextMock.Setup(ctx => ctx.CallActivityWithRetryAsync<TorinoIimpactResult>(
+            contextMock.Setup(ctx => ctx.CallActivityWithRetryAsync<TorinoImpactResult>(
                     nameof(EstimateTorinoImpactActivity),
                     It.IsAny<RetryOptions>(),
                     It.IsAny<TorinoImpactRequest>()))

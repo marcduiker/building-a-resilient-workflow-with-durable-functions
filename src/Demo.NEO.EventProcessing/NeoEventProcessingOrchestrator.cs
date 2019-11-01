@@ -32,7 +32,7 @@ namespace Demo.NEO.EventProcessing
                 impactProbability.ImpactProbability,
                 kineticEnergy.KineticEnergyInMegatonTnt);
             
-            var torinoImpact = await context.CallActivityWithRetryAsync<TorinoIimpactResult>(
+            var torinoImpact = await context.CallActivityWithRetryAsync<TorinoImpactResult>(
                 nameof(EstimateTorinoImpactActivity),
                 GetRetryOptions(),
                 torinoImpactRequest);
