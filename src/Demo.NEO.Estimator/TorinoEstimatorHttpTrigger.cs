@@ -34,7 +34,7 @@ namespace Demos.NEO.Estimator
                     torinoImpactRequest.KineticEnergyInMegatonTnt, 
                     torinoImpactRequest.ImpactProbability);
                 
-                result = new JsonResult(new TorinoIimpactResult
+                result = new JsonResult(new TorinoImpactResult
                 {
                     Id = torinoImpactRequest.Id,
                     TorinoImpact = torinoImpact
