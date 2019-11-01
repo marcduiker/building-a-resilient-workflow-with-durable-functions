@@ -5,7 +5,7 @@ using Demo.Neo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 
-namespace Demos.Neo.Generator
+namespace Demo.NEO.Generator
 {
     public class EventGeneratorHttpTrigger
     {

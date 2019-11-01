@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Demo.Neo.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
-namespace Demos.Neo.Generator
+namespace Demo.NEO.Generator
 {
     public class EventGeneratorTimerTrigger
     {

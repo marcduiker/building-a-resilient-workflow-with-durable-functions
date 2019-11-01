@@ -4,7 +4,7 @@ using Bogus;
 using Bogus.Distributions.Gaussian;
 using Demo.Neo.Models;
 
-namespace Demos.Neo.Generator
+namespace Demo.NEO.Generator
 {
     public class NeoEventGenerator
     {
