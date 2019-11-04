@@ -1,71 +1,89 @@
-# Lab 1 - Creating a Function App Project
+# Lab 1 - Creating an Azure Function Project
 
 ## Goal
 
-The goal of this lab is to create a basic Function App with a Servicebus triggered function and to determine it is connected correctly and receiving detected NEO messages from the topic.
+The goal of this lab is to create a basic Azure Function App with an HTTP Trigger function and to trigger the function locally using a REST client.
 
 ## Steps
 
-### 1. Create a Function App with a ServiceBusTrigger function
+### 1. Create a Function App with a HttpTrigger function
 
-With your IDE of choice create a Function App (suggested name: `NeoEventProcessing`) with a Servicebus Topic triggered function. The suggested name for the function, and the class, is `NeoEventProcessingClientServicebus`.
+With your IDE of choice create a new Azure Function project (suggested name: `XasaOnboarding`) with the following options:
+- Azure Functions v2 (.NET Core)
+- HTTP Trigger function
+- Storage Account (AzureWebJobsStorage): `Storage Emulator`
+- Authentication level: `Function`
 
-- When asked, specify that you want to use the Storage Emulator which is used to run the app locally.
-- Specify the following Servicebus settings in the `ServiceBusTrigger` attribute:
-
-    -   Connectionstring setting name: `NEOEventsTopic`
-    -   Topic name: `neo-events`
-    -   Subscription name: `<subscriptionname>` (will be different for each attendee)
-
-The resulting servicebus function trigger should look something like this:
+Depending on the IDE, the default Http Trigger function will look something like this:
 
 ```csharp
-[ServiceBusTrigger("neo-events", "<subscriptionname>", Connection = "NEOEventsTopic")]string message, 
-```
-
-The trigger now has a connection name which will be looked up in the application settings. But there's is no actual connectionstring specified yet. 
-
-Add the connection name and the connectionstring to the `local.settings.json` file in your local function folder:
-
-```json
+public static class Function1
 {
-    "IsEncrypted": false,
-  "Values": {
-    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "NEOEventsTopic": "<servicebus_connectionstring>"
-  }
+    [FunctionName("Function1")]
+    public static async Task<IActionResult> Run(
+        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+        ILogger log)
+    {
+        log.LogInformation("C# HTTP trigger function processed a request.");
+
+        string name = req.Query["name"];
+
+        string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+        dynamic data = JsonConvert.DeserializeObject(requestBody);
+        name = name ?? data?.name;
+
+        return name != null
+            ? (ActionResult)new OkObjectResult($"Hello, {name}")
+            : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+    }
 }
 ```
 
+Looking at the code, try to answer these questions:
+
+> What defines an Azure Function in C#?
+
+> How can this function be triggered?
+
+Functions do not need to be static methods anymore, so feel free to remove `static` from the method and class definitions.
+
 ### 2. Run the Function App locally
 
-Now that your Function App is configured to receive messages let's try and run it locally to verify it does. Add a breakpoint to the Servicebus triggered function and run/debug your Function App locally.
+Build and run the Function App locally. 
 
-> The Azure Function Runtime should start in a console window and show some diagnostic information. If there are any issues with storage and/or service bus configuration you will see the errors in this console. 
+> The Azure Function Runtime should start in a console window and show some diagnostic information. If there are any issues with your function you will see the errors in this console. 
 
-> What is format of the message you're receiving?
+> What is the HTTP endpoint the function can be called at?
 
-> Are there other types which are also acceptable instead of `string`?
+### 3. Trigger the HTTP function
 
-### 3. Convert the messages to DetectedNeoEvent objects
+With your REST client of choice do a GET request to the local endpoint and provide a value for the `name` query string parameter.
 
-Currently the inconming mesage is of type string and the content is json. Let's convert this to the strongly typed model so we can work with the data more easily.
+> Does the function return the expected output?
 
-The `DetectedNeoEvent` type is part of this NuGet package: `Demo.NEO.Models`. You can download the package by connecting to this NuGet feed:
+Now place a breakpoint in the function method and execute a GET request again.
 
-`https://pkgs.dev.azure.com/marcduiker/Building Resilient Workflows With Durable Functions/_packaging/Public/nuget/v3/index.json`
+> Is the breakpoint hit?
 
-Add the following line to convert to the strongly typed object. 
+### 4. Create a Copy of the Function
+
+As you've noticed, an Azure Function in C# is a method decorated with the `FunctionName` attribute. This attribute contains the identifier of the function.
+
+- Copy the function method and paste it into the same class.
+- Change the method name so it's different from the existing method name.
+- Leave the `FunctionName` attribute value as it is (so the value in both functions are the same).
+- Now build the project.
+
+> What is the build output? Are there errors?
+
+As a best practice, try to limit each class to contain only one function. This way you can use `nameof(ClassName)` as the `FunctionName` variable:
 
 ```csharp
-var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);
+public class EchoFunctionHttpTrigger
+{
+    [FunctionName(nameof(EchoFunctionHttpTrigger))]
+    ...
+}
 ```
 
-When you need to add a reference to NewtonSoft.Json, don't add the latest version but use version 11.0.2 (the version the Azure Functions Runtime is also using).
-
-### 4. Run the Function App locally
-
-Again run your Function App locally and verify you can convert the messages to `DetectedNeoEvent` objects.
-
-If everything works as expected continue with the [next lab](2_create_orchestration_client.md) to create an orchestration client.
+If everything works as expected continue with the [next lab](2_adding_a_queue_binding.md) to change this default function into something useful.

@@ -1,4 +1,4 @@
-# Lab 0.B Servicebus & API Management keys
+# Lab 1 Servicebus & API Management keys
 
 ## Goal
 

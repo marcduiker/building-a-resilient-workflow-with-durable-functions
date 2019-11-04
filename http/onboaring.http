@@ -1,0 +1,7 @@
+POST http://localhost:7071/api/RegisterNewHire
+Content-Type: application/json
+
+{
+    "name" : "Marc Duiker",
+    "email" : "mduiker@xpirit.com"
+}

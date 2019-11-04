@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xasa.Onboarding", "Xasa.Onboarding.csproj", "{9130202F-C112-43A2-B9EC-E6061D4BCBAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9130202F-C112-43A2-B9EC-E6061D4BCBAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9130202F-C112-43A2-B9EC-E6061D4BCBAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9130202F-C112-43A2-B9EC-E6061D4BCBAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9130202F-C112-43A2-B9EC-E6061D4BCBAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A22FBE8-51FA-4E94-B647-5121F6A1F590}
+	EndGlobalSection
+EndGlobal
