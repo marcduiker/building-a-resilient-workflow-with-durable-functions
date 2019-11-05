@@ -5,6 +5,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Demo.NEO.EventProcessing.Builders;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 
 namespace Demo.NEO.EventProcessing
 {
@@ -12,7 +13,7 @@ namespace Demo.NEO.EventProcessing
     {
         [FunctionName(nameof(NeoEventProcessingOrchestrator))]
         public async Task<ProcessedNeoEvent> Run(
-          [OrchestrationTrigger] DurableOrchestrationContextBase context,
+          [OrchestrationTrigger] IDurableOrchestrationContext context,
           ILogger logger)
         {
             var detectedNeoEvent = context.GetInput<DetectedNeoEvent>();

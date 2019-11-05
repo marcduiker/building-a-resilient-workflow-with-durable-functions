@@ -21,7 +21,7 @@ Create a new class (`NeoEventProcessingOrchestrator`) with a function definition
 ```csharp
 [FunctionName(nameof(NeoEventProcessingOrchestrator))]
 public async Task Run(
-    [OrchestrationTrigger] DurableOrchestrationContextBase context,
+    [OrchestrationTrigger] IDurableOrchestrationContext context,
     ILogger logger)
     {
     }
@@ -45,4 +45,4 @@ Now run/debug your local Function App by using the [HttpTrigger client function]
 
 > What is the output from the Azure Functions runtime in the console once the function is triggered? Do you see any sign that the orchestrator function is being executed?
 
-Continue to the [next lab](4_create_activity_functions_services.md) to create activity functions.
+Continue to the [next lab](7_create_activity_functions_services.md) to create activity functions.

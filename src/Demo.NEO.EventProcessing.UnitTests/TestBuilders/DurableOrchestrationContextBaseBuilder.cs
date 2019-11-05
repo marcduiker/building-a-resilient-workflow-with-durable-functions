@@ -2,17 +2,17 @@ using System.Threading.Tasks;
 using AutoFixture;
 using Demo.NEO.EventProcessing.Activities;
 using Demo.Neo.Models;
-using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Moq;
 
 namespace Demo.NEO.EventProcessing.UnitTests.TestBuilders
 {
     public static class DurableOrchestrationContextBaseBuilder
     {
-        public static Mock<DurableOrchestrationContextBase> BuildContextWithSpecificTorinoImpactGreaterThan0()
+        public static Mock<IDurableOrchestrationContext> BuildContextWithSpecificTorinoImpactGreaterThan0()
         {
             var fixture = new Fixture();
-            var contextMock = new Mock<DurableOrchestrationContextBase>(MockBehavior.Strict);
+            var contextMock = new Mock<IDurableOrchestrationContext>(MockBehavior.Strict);
             
             var detectedNeoEvent = fixture.Create<DetectedNeoEvent>();
             contextMock.Setup(ctx => ctx.GetInput<DetectedNeoEvent>())
@@ -55,11 +55,11 @@ namespace Demo.NEO.EventProcessing.UnitTests.TestBuilders
             return contextMock;
         }
         
-         public static Mock<DurableOrchestrationContextBase> BuildContextWithSpecificTorinoImpactEqualTo0()
+         public static Mock<IDurableOrchestrationContext> BuildContextWithSpecificTorinoImpactEqualTo0()
          {
              
             var fixture = new Fixture();
-            var contextMock = new Mock<DurableOrchestrationContextBase>(MockBehavior.Strict);
+            var contextMock = new Mock<IDurableOrchestrationContext>(MockBehavior.Strict);
             
             var detectedNeoEvent = fixture.Create<DetectedNeoEvent>();
             contextMock.Setup(ctx => ctx.GetInput<DetectedNeoEvent>())

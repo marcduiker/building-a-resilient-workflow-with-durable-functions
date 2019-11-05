@@ -64,4 +64,4 @@ If the HttpTrigger function works well and stores a `ProcessedNeoEvent` to blob 
 
 Now run the solution locally again and check if the blobs arer being saved to storage.
 
-Continue to the [next lab](6_send_notification.md) to create the activity which sends a notification.
+Continue to the [next lab](9_send_notification.md) to create the activity which sends a notification.

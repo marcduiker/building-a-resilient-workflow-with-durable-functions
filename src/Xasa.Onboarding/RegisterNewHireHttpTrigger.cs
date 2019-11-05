@@ -15,7 +15,7 @@ namespace Xasa.Onboarding
         [FunctionName(nameof(RegisterNewHireHttpTrigger))]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
-            [Queue("newhire-queue", Connection = "AzureWebJobsStorage")] IAsyncCollector<NewHire> queue,
+            [Queue("xasa-newhire-queue", Connection = "AzureWebJobsStorage")] IAsyncCollector<NewHire> queue,
             ILogger log)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();

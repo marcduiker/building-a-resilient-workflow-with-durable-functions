@@ -79,4 +79,4 @@ Now run/debug your local Function App by using the [HttpTrigger client function]
 
 Watch your inbox (and Junk mail) to see if you're receiving an email. If not you can look around in the SendGrid portal to see if anything went wrong.
 
-Continue to the [next lab](7_unit_testing.md) to add unit tests for your orchestrator function.
+Continue to the [next lab](10_unit_testing.md) to add unit tests for your orchestrator function.

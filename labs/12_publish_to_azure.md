@@ -32,9 +32,10 @@ Follow the instructions under the _Managing and deploying Azure Function apps wi
 
 Open the Azure portal, navigate to Application Insights and inspect how the Function App is performing.
 
-
 ## Get the orchestration status
 
 Make a request to the Durable Functions HTTP management API to get the status of orchestrations which have been completed in the last 5 minutes.
 
 An example request is available in [get_orchestration_status.http](../http/get_orchestration_status.http)
+
+Continue to the [next lab](13_additional_features.md) to explore additional features.

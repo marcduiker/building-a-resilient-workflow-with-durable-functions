@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Demo.Neo.Models;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -11,7 +12,7 @@ namespace Demo.NEO.EventProcessing
         [FunctionName(nameof(NeoEventProcessingClientServicebus))]
         public async Task Run(
             [ServiceBusTrigger("neo-events", "marc-duiker-db75252d-47f5-4b02-9911-c1378e44612d", Connection = "NEOEventsTopic")]string message, 
-            [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
+            [DurableClient]IDurableClient orchestrationClient,
             ILogger log)
         {
             var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);

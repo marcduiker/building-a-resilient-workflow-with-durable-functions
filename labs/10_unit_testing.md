@@ -24,4 +24,4 @@ In order to do this you need to create the `DurableOrchestrationContextBase` moc
 
 Note that method calls to the orchestrator and activities are async. This means your setup code and unit test methods should be able to handle this.
 
-Continue to the [next lab](8_create_azure_resources.md) to create Azure resources for your Function App.
+Continue to the [next lab](11_create_azure_resources.md) to create Azure resources for your Function App.

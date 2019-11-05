@@ -68,4 +68,4 @@ When you need to add a reference to NewtonSoft.Json, don't add the latest versio
 
 Again run your Function App locally and verify you can convert the messages to `DetectedNeoEvent` objects.
 
-If everything works as expected continue with the [next lab](2_create_orchestration_client.md) to create an orchestration client.
+If everything works as expected continue with the [next lab](5_create_orchestration_client.md) to create an orchestration client.

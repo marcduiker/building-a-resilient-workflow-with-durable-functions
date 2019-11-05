@@ -33,15 +33,17 @@ Durable Functions uses Table Storage to checkpoint the state of the orchestratio
 
 ### 3. Update the Servicebus triggered function
 
-Now update the signature of the Servicebus triggered function method and add the following parameter to give it an orchestration client function role:
+Now update the signature of the Servicebus triggered function method and add the `DurableClient` attribute to give the function the durable client function role:
 
 ```csharp
-[OrchestrationClient]DurableOrchestrationClientBase orchestratorClient
+[FunctionName(nameof(NeoEventProcessingClientServicebus))]
+public async Task Run(
+    [ServiceBusTrigger("neo-events", "<YOUR_PERSONAL_TOPIC_SUBSCRIPTION>", Connection = "NEOEventsTopic")]string message, 
+    [DurableClient]IDurableClient orchestrationClient,
+    ILogger log)
 ```
 
-> If you installed a (preview) 2.x version of Durable Functions extension there are no base classes anymore. Use the `IDurableOrchestrationClient` interface instead.
-
-By adding this line to the function method the Durable Functions framework will inject an instance of the `DurableOrchestrationClient` which is used to manage orchestration instances.
+By adding this line to the function method the Durable Functions framework will inject an instance of the `DurableClient` which is used to manage orchestration instances.
 
 New orchestration function instances are started by passing in the name of the orchestration function to the `StartNewAsync` method like this:
 
@@ -70,7 +72,7 @@ Now run/debug your local Function App.
 
 Messages are continuously being pushed to the Servicebus topic. This makes it quite difficult for you when you're debugging because new orchestrators are being instantiated every couple of seconds.
 
-Lets disable the ServiecbusTrigger for now and create a complementary HttpTrigger which you can start yourself.
+Lets disable the ServicebusTrigger for now and create a complementary HttpTrigger which you can start yourself.
 
 #### Disabling the ServicebusTrigger function
 
@@ -95,7 +97,7 @@ The implementation should look something like this:
 [FunctionName(nameof(NeoEventProcessingClientHttp))]
 public async Task<HttpResponseMessage> Run(
     [HttpTrigger(AuthorizationLevel.Function, "POST", Route = "start")]HttpRequestMessage message,
-    [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
+    [DurableClient]IDurableClient orchestrationClient,
     ILogger log)
 {
     var detectedNeoEvent = await message.Content.ReadAsAsync<DetectedNeoEvent>();
@@ -114,4 +116,4 @@ Now trigger the HttpTrigger client function by using the request in the [start_o
 
 [Durable Functions has an HTTP API](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-http-api) which allows management of the orchestrator instances. This can be very useful for debugging and maintenance. The [start_orchestration.http](../http/start_orchestration.http) file also contains two requests to get the result of orchestrations.
 
-Continue to the [next lab](3_create_orchestrator_function.md) to create an orchestrator function.
+Continue to the [next lab](6_create_orchestrator_function.md) to create an orchestrator function.

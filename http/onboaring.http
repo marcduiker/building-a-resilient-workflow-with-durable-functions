@@ -1,4 +1,4 @@
-POST http://localhost:7071/api/RegisterNewHire
+POST http://localhost:7071/api/RegisterNewHireHttpTrigger
 Content-Type: application/json
 
 {
