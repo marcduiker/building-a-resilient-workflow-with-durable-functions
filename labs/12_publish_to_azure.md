@@ -1,4 +1,4 @@
-# Lab 9 -  Publish your Function App to Azure
+# Lab 12 -  Publish your Function App to Azure
 
 ## Goal
 

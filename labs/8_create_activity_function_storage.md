@@ -1,4 +1,4 @@
-# Lab 5 -  Storing the ProcessedNeoEvent
+# Lab 8 -  Storing the ProcessedNeoEvent
 
 ## Goal
 

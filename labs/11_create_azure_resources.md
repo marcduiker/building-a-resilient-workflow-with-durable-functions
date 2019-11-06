@@ -1,4 +1,4 @@
-# Lab 8 -  Create Azure resources
+# Lab 11 -  Create Azure resources
 
 ## Goal
 

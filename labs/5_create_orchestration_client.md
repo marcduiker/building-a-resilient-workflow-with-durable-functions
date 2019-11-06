@@ -1,4 +1,4 @@
-# Lab 2 - Creating the orchestration client function
+# Lab 5 - Creating the orchestration client function
 
 ## Goal
 

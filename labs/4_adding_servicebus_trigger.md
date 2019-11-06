@@ -1,4 +1,4 @@
-# Lab 1 - Creating a Function App Project
+# Lab 4 - Creating a Function App Project
 
 ## Goal
 

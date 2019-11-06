@@ -1,4 +1,4 @@
-# Lab 3 - Creating the orchestrator function
+# Lab 6 - Creating the orchestrator function
 
 ## Goal
 
