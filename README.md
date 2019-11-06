@@ -35,6 +35,18 @@ The NEO data (of type `DetectedNEOEvent`) looks as follows:
 
 Another team was tasked with the ingestion of the NEO data and this data is already being pushed to an Azure Servicebus topic.
 
+You are tasked with creating two Azure Function apps which are decscribed below.
+
+### XASA Onboarding Function App
+
+You will be responsible for automating a part of the onboarding process for new XASA employees. This Function App will contain two functions:
+
+- An HTTP trigger function which validates the input (username & email) and puts a message on a queue.
+- A Queue trigger function which calls an service to register the user and returns connectionstring and api key information. The result is stored in blob storage.
+
+```
+POST --> HTTP trigger --> Queue trigger --> Blob
+```
 ### NEO Event Processor Function App
 
 You will be responsible for creating a Function App that is triggered by messages pushed to the Servicebus topic.
@@ -49,6 +61,27 @@ The Function App needs to make several calls to other services in order to deter
 
 In addition to these service calls, the processed data needs to be stored to blob storage (for events with a Torino impact >= 1) and a notification needs to be sent out to Bruce Willis (for events with a Torino impact >= 8).
 
+
+```
+Message --> Servicebus trigger --> NeoEventProcessingOrchestrator
+                                                   |
+                                                   V
+                                       EstimateKineticEnergyActivity
+                                                   |
+                                                   V
+                                      EstimateImpactProbabilityActivity
+                                                   |
+                                                   V
+                                       EstimateTorinoImpactActivity
+                                                   |
+                                                   V
+                                      StoreProcessedNeoEventActivity
+                                                   |
+                                                   V
+                                        SendNotificationActivity
+
+```
+
 > The final implementation is also in this repo. However, it is lots more fun, and you learn way more, by creating your own solution and following all the labs. Only peek at my solution if you're completely stuck.
 
 >**I strongly suggest you team up with someone to do pair programming and discuss what you're doing.**
@@ -57,17 +90,20 @@ In addition to these service calls, the processed data needs to be stored to blo
 
 ## Labs
 
-0. [Check Prerequisites](labs/0_prerequisites.md) & [Get your subscription keys](labs/0_subscribe.md)
-1. [Creating a new function project](labs/1_creating_a_function_project.md)
-2. [Creating an orchestration client](labs/2_create_orchestration_client.md)
-3. [Creating the orchestrator function](labs/3_create_orchestrator_function.md)
-4. [Calling other services](labs/4_create_activity_functions_services.md)
-5. [Storing the ProcessedNeoEvent](labs/5_create_activity_function_storage.md)
-6. [Sending a notification](labs/6_send_notification.md)
-7. [Unit testing](labs/7_unit_testing.md)
-8. [Creating Azure resources](labs/8_create_azure_resources.md)
-9. [Publish to Azure](labs/9_publish_to_azure.md)
-10. [Additional features](labs/10_additional_features.md)
+0. [Check Prerequisites](labs/0_prerequisites.md)
+1. [Creating a new function project with an http trigger](labs/1_creating_a_function_project.md)
+2. [Adding a queue output binding](labs/2_adding_a_queue_binding.md)
+3. [Adding a queue trigger function](labs/3_create_queuetrigger_function.md)
+4. [Creating a new function project with a servicebus trigger](labs/4_adding_servicebus_trigger.md)
+5. [Creating an orchestration client](labs/5_create_orchestration_client.md)
+6. [Creating the orchestrator function](labs/6_create_orchestrator_function.md)
+7. [Calling other services](labs/7_create_activity_functions_services.md)
+8. [Storing the ProcessedNeoEvent](labs/8_create_activity_function_storage.md)
+9. [Sending a notification](labs/9_send_notification.md)
+10. [Unit testing](labs/10_unit_testing.md)
+11. [Creating Azure resources](labs/11_create_azure_resources.md)
+12. [Publish to Azure](labs/12_publish_to_azure.md)
+13. [Additional features](labs/13_additional_features.md)
 
 ## License
 

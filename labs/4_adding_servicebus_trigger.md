@@ -15,7 +15,7 @@ With your IDE of choice create a Function App (suggested name: `NeoEventProcessi
 
     -   Connectionstring setting name: `NEOEventsTopic`
     -   Topic name: `neo-events`
-    -   Subscription name: `<subscriptionname>` (will be different for each attendee)
+    -   Subscription name: `<subscriptionname>` (get this from the blob json file that is created in the earlier previous lab)
 
 The resulting servicebus function trigger should look something like this:
 
@@ -25,7 +25,7 @@ The resulting servicebus function trigger should look something like this:
 
 The trigger now has a connection name which will be looked up in the application settings. But there's is no actual connectionstring specified yet. 
 
-Add the connection name and the connectionstring to the `local.settings.json` file in your local function folder:
+Add the connection name and the actual connectionstring (from the json file) to the `local.settings.json` file in your local function folder:
 
 ```json
 {
