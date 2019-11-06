@@ -63,23 +63,20 @@ In addition to these service calls, the processed data needs to be stored to blo
 
 
 ```
-Message --> Servicebus trigger --> NeoEventProcessingOrchestrator
-                                                   |
-                                                   V
-                                       EstimateKineticEnergyActivity
-                                                   |
-                                                   V
-                                      EstimateImpactProbabilityActivity
-                                                   |
-                                                   V
-                                       EstimateTorinoImpactActivity
-                                                   |
-                                                   V
-                                      StoreProcessedNeoEventActivity
-                                                   |
-                                                   V
-                                        SendNotificationActivity
-
+Topic Message --> Servicebus trigger
+                          |
+                          V
+            NeoEventProcessingOrchestrator
+                          |
+                          + --> EstimateKineticEnergyActivity
+                          |
+                          +-->  EstimateImpactProbabilityActivity
+                          |
+                          + --> EstimateTorinoImpactActivity
+                          |
+                          + --> StoreProcessedNeoEventActivity
+                          |
+                          + --> SendNotificationActivity
 ```
 
 > The final implementation is also in this repo. However, it is lots more fun, and you learn way more, by creating your own solution and following all the labs. Only peek at my solution if you're completely stuck.

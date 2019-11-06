@@ -20,5 +20,3 @@ The result of the request should look like this:
 ```
 
 Make sure you save the output of this request so you can use the connectionstring and keys in your function app later.
-
-Get started with the [next lab](1_creating_a_function_project.md) to create a Function App.

@@ -26,7 +26,7 @@ Verify that you have an IDE with extension/plugins for Azure Functions:
 Verify that you have these tools installed in order to run Azure Functions locally:
 - [Storage Emulator (Windows only)](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator) OR
 - [Azurite (VS Code extension)](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite)
-- Optional: [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)
+- [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)
 - [VS Code + REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) or Postman in order to make HTTP requests.
 
 ### 4. Azure account & Azure CLI
@@ -40,4 +40,4 @@ Although most of the labs can be done completely locally it would be fun if you 
 Completely optional but still useful:
 - I have made some [code snippets](https://github.com/marcduiker/durable-functions-snippets), which can speed up the process (and prevent mistakes) when creating client, orchestrator and activity functions.
 
-Now let's move on to [next lab](0_subscribe.md) to get your subscription keys and connectionstring.
+Now let's move on to the [next lab](1_creating_a_function_project.md) to create a new Azure Function app.
