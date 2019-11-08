@@ -35,7 +35,7 @@ Once logged in proceed with the following commands:
 `az account list`
 
 #### 2.2 Set the desired subscription
-`az account set <id>`
+`az account set -s <id>`
 
 #### 2.3 Create a resource group
 `$location="westeurope"`

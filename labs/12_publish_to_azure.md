@@ -12,7 +12,7 @@ Follow these instructions: [docs.microsoft.com/en-us/azure/azure-functions/funct
 
 Note that you should select to publish to an existing Function App resource if you provisioned one in the prevous lab.
 
-Application settings in the `local.seetings.json` file are not published. Follow these instructions to manage your app settings from Visual Studio: [docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#function-app-settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#function-app-settings)
+Application settings in the `local.settings.json` file are not published. Follow these instructions to manage your app settings from Visual Studio: [docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#function-app-settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#function-app-settings)
 
 ## Option 2: Publish from VS Code
 
