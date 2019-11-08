@@ -9,3 +9,4 @@ Things you can consider include:
 - Are there activities that can be done in parallel instead of sequential?
 - What if the built-in retry mechanism is not enough? Can we make this even more resilient?
 - How could you implement sending an email to 100 different persons instead of just 1?
+- How could you implement an approval step before sending an email to 100 different persons?
