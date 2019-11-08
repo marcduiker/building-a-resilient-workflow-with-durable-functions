@@ -61,7 +61,7 @@ Application Insights is not available by default in the Azure CLI and needs to b
 #### 2.6 Create the Processing Function App
 `$funcAppName="neo-processing-fa"`
 
-`az functionapp create --name $funcAppName --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Linux`
+`az functionapp create --name $funcAppName --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Windows`
 
 > Inspect the above CLI command. What can you tell about the configuration of the Function App?
 
