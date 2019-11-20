@@ -73,7 +73,13 @@ namespace Demo.NEO.Subscriber
             string serviceBusTopic,
             string cleanedName)
         {
-            var subscriptionName = $"{cleanedName}-{Guid.NewGuid().ToString("D")}";
+            const int maxSubscriptionNameLength = 50;
+            var subscriptionName = $"{cleanedName}-{Guid.NewGuid():N}";
+            if (subscriptionName.Length > maxSubscriptionNameLength)
+            {
+                subscriptionName = subscriptionName.Take(maxSubscriptionNameLength).ToString();
+            }
+
 
             var sub = await _serviceBusManager.Inner.Subscriptions.CreateOrUpdateAsync(
                     resourceGroup,
