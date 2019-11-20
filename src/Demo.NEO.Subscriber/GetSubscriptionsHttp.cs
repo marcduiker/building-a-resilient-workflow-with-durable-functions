@@ -77,7 +77,7 @@ namespace Demo.NEO.Subscriber
             var subscriptionName = $"{cleanedName}-{Guid.NewGuid():N}";
             if (subscriptionName.Length > maxSubscriptionNameLength)
             {
-                subscriptionName = subscriptionName.Take(maxSubscriptionNameLength).ToString();
+                subscriptionName = subscriptionName.Substring(0, maxSubscriptionNameLength);
             }
 
 
