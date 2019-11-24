@@ -78,6 +78,8 @@ Now update the orchestrator function and call the activity after the `ProcessedN
 
 Now run/debug your local Function App by using the [HttpTrigger client function](../http/start_orchestration.http) so you can specify the input which will result in a Torino impact of 8 or higher. You might want to disable the ServicebusTrigger again in the `local.settings.json`.
 
-Watch your inbox (and Junk mail) to see if you're receiving an email. If not you can look around in the SendGrid portal to see if anything went wrong.
+Watch your inbox (and Junk mail) to see if you're receiving an email. If you don't receive anything, you can use the SendGrid dashboard to see if calls to the SendGrid API were made succesfully.
+
+When you also want to test with the ServicebusTrigger note that the generated NEOEvents very rarely result in a Torino impact of 8 or higher. So for quick testing purposes you might want to change the orchestrator code to call the notification activity for events with a Torino impact of 6 and higher instead.
 
 Continue to the [next lab](10_unit_testing.md) to add unit tests for your orchestrator function.
