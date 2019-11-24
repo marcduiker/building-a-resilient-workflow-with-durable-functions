@@ -1,5 +1,6 @@
 using AutoFixture;
 using Demo.NEO.EventProcessing.Activities;
+using Demo.NEO.EventProcessing.DurableEntities;
 using Demo.Neo.Models;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Moq;
@@ -47,7 +48,7 @@ namespace Demo.NEO.EventProcessing.UnitTests.TestBuilders
 
             contextMock.Setup(ctx => ctx.SignalEntity(
                 It.IsAny<EntityId>(), 
-                "Add",
+                nameof(ProcessedNeoEventCounter.Add),
                 null));
             
             contextMock.Setup(ctx => ctx.CallActivityWithRetryAsync<object>(
@@ -99,7 +100,7 @@ namespace Demo.NEO.EventProcessing.UnitTests.TestBuilders
             
             contextMock.Setup(ctx => ctx.SignalEntity(
                 It.IsAny<EntityId>(), 
-                "Add",
+                nameof(ProcessedNeoEventCounter.Add),
                 null));
 
             return contextMock;
