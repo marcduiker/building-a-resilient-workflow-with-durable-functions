@@ -64,7 +64,7 @@ var result = await response.Content.ReadAsAsync<KineticEnergyResult>();
 return result;
 ```
 
-#### 1.4 Calling the activity from the orchestration
+#### 1.3 Calling the activity from the orchestration
 
 Let's return to the `NeoEventProcessingOrchestrator` class and call the `EstimateKineticEnergyActivity` function.
 
@@ -82,7 +82,7 @@ If you'd run the Function App now, you'll get exceptions (like the one below) si
 Microsoft.Extensions.DependencyInjection.Abstractions: Unable to resolve service for type 'System.Net.Http.IHttpClientFactory' while attempting to activate '<NAME_OF_FUNCTION>'.
 ```
 
-#### 1.3 Registering the HTTPClientFactory in Startup
+#### 1.4 Registering the HTTPClientFactory in Startup
 
 In order to use dependency injection in Azure Functions you need to go through the following steps:
 
