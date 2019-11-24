@@ -1,0 +1,3 @@
+@rooturl = http://localhost:7071
+
+GET {{rooturl}}/api/ProcessedNeoEventCounterHttp

@@ -5,6 +5,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Demo.NEO.EventProcessing.Builders;
+using Demo.NEO.EventProcessing.DurableEntities;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 
 namespace Demo.NEO.EventProcessing
@@ -43,6 +44,10 @@ namespace Demo.NEO.EventProcessing
                 impactProbability.ImpactProbability,
                 kineticEnergy.KineticEnergyInMegatonTnt,
                 torinoImpact.TorinoImpact);
+            
+            var proxy = context.CreateEntityProxy<IProcessedNeoEventCounter>(
+                EntityIdBuilder.BuildForProcessedNeoEventCounter());
+            proxy.Add();
 
             if (processedNeoEvent.TorinoImpact > 0)
             {

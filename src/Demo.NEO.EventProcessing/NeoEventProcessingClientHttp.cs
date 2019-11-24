@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Demo.NEO.EventProcessing.DurableEntities;
 using Demo.Neo.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
@@ -14,16 +15,16 @@ namespace Demo.NEO.EventProcessing
         [FunctionName(nameof(NeoEventProcessingClientHttp))]
         public async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "POST", Route = "start")]HttpRequestMessage message,
-            [DurableClient]IDurableClient orchestrationClient,
+            [DurableClient]IDurableClient durableClient,
             ILogger log)
         {
             var detectedNeoEvent = await message.Content.ReadAsAsync<DetectedNeoEvent>();
-            var instanceId = await orchestrationClient.StartNewAsync(nameof(NeoEventProcessingOrchestrator),
+            var instanceId = await durableClient.StartNewAsync(nameof(NeoEventProcessingOrchestrator),
                 detectedNeoEvent);
 
             log.LogInformation($"HTTP started orchestration with ID {instanceId}.");
 
-            return orchestrationClient.CreateCheckStatusResponse(message, instanceId);
+            return durableClient.CreateCheckStatusResponse(message, instanceId);
         }
     }
 }

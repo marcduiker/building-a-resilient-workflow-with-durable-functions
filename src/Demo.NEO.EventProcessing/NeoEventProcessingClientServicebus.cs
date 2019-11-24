@@ -11,12 +11,12 @@ namespace Demo.NEO.EventProcessing
     {
         [FunctionName(nameof(NeoEventProcessingClientServicebus))]
         public async Task Run(
-            [ServiceBusTrigger("neo-events", "marc-duiker-30ae5962-40e1-4c9f-b5fd-9cc834edd2f4", Connection = "NEOEventsTopic")]string message, 
-            [DurableClient]IDurableClient orchestrationClient,
+            [ServiceBusTrigger("neo-events", "%SubscriptionName%", Connection = "NEOEventsTopic")]DetectedNeoEvent detectedNeoEvent, 
+            [DurableClient]IDurableClient durableClient,
             ILogger log)
         {
-            var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);
-            var instanceId = await orchestrationClient.StartNewAsync(nameof(NeoEventProcessingOrchestrator), 
+            //var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);
+            var instanceId = await durableClient.StartNewAsync(nameof(NeoEventProcessingOrchestrator), 
                 detectedNeoEvent);
 
             log.LogInformation($"Servicebus started orchestration with ID {instanceId}.");
