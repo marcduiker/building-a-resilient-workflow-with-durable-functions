@@ -4,7 +4,7 @@
 
 The goal of this lab is to add the functionality to keep track how many NEO events have been processed. 
 This can be realized using a Durable Entities, which is part of Durable Functions since v2.
-More information about Durable Entities are available in [the official docs](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-entities#accessing-entities-through-interfaces).
+More information about Durable Entities are available in [the official docs](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-entities).
 
 ## Steps
 
@@ -47,9 +47,9 @@ public class ProcessedNeoEventCounter : IProcessedNeoEventCounter
 }
 ```
 
-Well, this doesn't look anything like a function which you've make before but you've just wrote your first Durable Entity class!
+Well, this doesn't look anything like a function which you've make before, but you've just wrote your first Durable Entity class!
 
-The state is kept in the CurrentCount property and is persisted as JSON by the Durable Functions extension without you having to worry about it. 
+The state is kept in the `CurrentCount` property and is persisted as JSON by the Durable Functions extension without you having to worry about it. 
 
 Entity classes also have some requirements as is described in [the documentation](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-entities#class-requirements).
 
@@ -63,7 +63,7 @@ var proxy = context.CreateEntityProxy<IProcessedNeoEventCounter>(
 proxy.Add();
 ```
 
-Note that we can use the `IDurableOrchestrationContext` since that exposes the `CreateEntityProxy<T>()` method. Once we have the proxy the `Add()` method is called to increment the counter. Orchestrations and Entities work really well together.
+Note that we can use the `IDurableOrchestrationContext` since that exposes the `CreateEntityProxy<T>()` method. Once we have the proxy, the `Add()` method is called to increment the counter. Orchestrations and Entities work really well together.
 
 The `EntityId` is created by using a seperate builder class since it will be used in more places:
 
@@ -98,7 +98,7 @@ Now the unit tests should pass again.
 
 We've implemented the counting of processed NEOEvents but we don't have the functionality to retrieve this count.
 
-You can do this by adding an HTTPTrigger function which also uses the `DurableClient` attribute:
+You can do this by adding an HttpTrigger function which also uses the `DurableClient` attribute:
 
 ```csharp
 [FunctionName(nameof(ProcessedNeoEventCounterHttp))]
@@ -121,12 +121,12 @@ public static async Task<IActionResult> Run(
 
 In the code above, the `ProcessedNeoEventCounter` entity is retrieved from storage. If it exists the count is retreived by calling the `GetAsync()` method.
 
-> What could be the reason for an entity not te exist yet?
+> What could be the reason for an entity not to exist?
 
 ### 6. Build & Run Locally
 
 Now run/debug your local Function App. You might want to disable the ServicebusTrigger again in the `local.settings.json`. 
 
-You can use [this http request](../http/processed_neo_events_counter.http) to retrieve the count.
+You can use [this http request](../http/processed_neo_events_counter.http) to trigger the ProcessedNeoEventCounterHttp function in order to retrieve the count.
 
 Use the [HttpTrigger client function](../http/start_orchestration.http) to trigger the orchestration manually. Trigger the orchestration a couple of times and verify with the ProcessedNeoEventCounterHttp function that the count is working.
