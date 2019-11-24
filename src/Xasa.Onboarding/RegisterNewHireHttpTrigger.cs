@@ -1,11 +1,9 @@
-using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace Xasa.Onboarding
 {
@@ -13,12 +11,11 @@ namespace Xasa.Onboarding
     {
         [FunctionName(nameof(RegisterNewHireHttpTrigger))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequestMessage message,
             [Queue("xasa-newhire-queue", Connection = "AzureWebJobsStorage")] IAsyncCollector<NewHire> queue,
             ILogger log)
         {
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var newHire = JsonConvert.DeserializeObject<NewHire>(requestBody);
+            var newHire = await message.Content.ReadAsAsync<NewHire>();
             if (newHire.IsValid())
             {
                 await queue.AddAsync(newHire);

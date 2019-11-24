@@ -34,6 +34,7 @@ Update the existing default HTTP trigger function as follows:
 
 - Rename the class and function name to be `RegisterNewHireHttpTrigger`
 - Remove the GET option from the `HttpTrigger` attribute.
+- Change the incoming message type to `HttpRequestMessage`.
 - Deserialize the request body to an object of type `NewHire`
 - Perform the IsValid() method on the `NewHire` object. In case the object is valid then return an `OkObjectResult`. In case the object is not valid return an `BadRequestObjectResult`.
 
@@ -42,11 +43,10 @@ The resulting function should look something like this:
 ```csharp
 [FunctionName(nameof(RegisterNewHireHttpTrigger))]
 public async Task<IActionResult> Run(
-    [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+    [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequestMessage message,
     ILogger log)
 {
-    string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-    var newHire = JsonConvert.DeserializeObject<NewHire>(requestBody);
+    var newHire = await message.Content.ReadAsAsync<NewHire>();
     if (newHire.IsValid())
     {
         return new OkObjectResult($"{newHire.Name} is scheduled for registration.");
@@ -83,7 +83,7 @@ Decoupling functions by using queues can result in a reliable and scalable archi
 
 ```csharp
  public async Task<IActionResult> Run(
-    [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+    [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequestMessage message,
     [Queue("xasa-newhire-queue", Connection = "AzureWebJobsStorage")] IAsyncCollector<NewHire> queue,
     ILogger log)
 ```
