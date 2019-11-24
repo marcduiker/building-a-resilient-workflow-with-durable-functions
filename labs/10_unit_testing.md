@@ -24,7 +24,7 @@ In order to do this you need to create the `IDurableOrchestrationContext` mock a
 
 Note that method calls to the orchestrator and activities are async. This means your setup code and unit test methods should be able to handle this.
 
-The unit tests should look something like shown below. Note that a new `DurableOrchestrationContextBaseBuilder` class is introduced which sets up the mock of the `IDurableOrchestrationContext`.
+The unit tests should look something like the following: 
 
 ```csharp
 [Fact]
@@ -42,5 +42,7 @@ public async Task WhenTorinoImpactIsGreaterThan0_ThenStoreProcessedNeoEventActiv
     contextMock.VerifyAll();
 }
 ```
+
+Note that a new `DurableOrchestrationContextBaseBuilder` class is used which sets up the mock of the `IDurableOrchestrationContext`. You can look at [my unit test code](../src/Demo.NEO.EventProcessing.UnitTests/TestBuilders/DurableOrchestrationContextBaseBuilder.cs) what needs the details are of this builder.
 
 Continue to the [next lab](11_create_azure_resources.md) to create Azure resources for your Function App.
