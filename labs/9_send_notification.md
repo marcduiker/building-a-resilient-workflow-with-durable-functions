@@ -20,7 +20,7 @@ In order to use the SendGrid service an API key is required.
 - Create a new API key
 - Enter a name for it
 - Select restricted access and configure full access for only the Mail Send category.
-- Click Create & View and copy the key to the `local.settings.json` file of your Function App
+- Click Create & View and copy the key to the `local.settings.json` file of your Function App (e.g. `SendGrid.MailSendKey:<YOUR_SENDGRID_APIKEY>`).
 
 ### 3. SendGrid extension
 
@@ -67,6 +67,7 @@ var attachment = Convert.ToBase64String(
     Encoding.UTF8.GetBytes(
         JsonConvert.SerializeObject(processedNeoEvent)));
 message.AddAttachment($"{processedNeoEvent.Id}.json", attachment);
+await messageCollector.AddAsync(message);
 ```
 
 ### 2. Calling the activity from the orchestration
