@@ -64,8 +64,18 @@ var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);
 
 When you need to add a reference to NewtonSoft.Json, don't add the latest version but use version 11.0.2 (the version the Azure Functions Runtime is also using).
 
+> As an alternative, you could have changed the type of the incoming message from `string` to `DetectedNeoEvent`. The deserialization is then taken care of by the framework.
+
 ### 4. Run the Function App locally
 
 Again run your Function App locally and verify you can convert the messages to `DetectedNeoEvent` objects.
+
+### 5. Optional: Moving Attribute Parameters to App Settings
+
+When we look at the `ServiceBusTrigger` attribute the topic name and the subscription name are hardcoded in the attribute parameters. You can move the actual values to the `local.settings.json` file as key-value pairs and reference the settings in the attribute by using `%KEY%`as the parameter value.
+
+```csharp
+[ServiceBusTrigger("%TopicName%", "%SubscriptionName%", Connection = "NEOEventsTopic")]string message, 
+```
 
 If everything works as expected continue with the [next lab](5_create_orchestration_client.md) to create an orchestration client.
