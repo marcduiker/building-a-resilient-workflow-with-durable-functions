@@ -1,7 +1,5 @@
-using System.Threading.Tasks;
 using AutoFixture;
 using Demo.NEO.EventProcessing.Activities;
-using Demo.NEO.EventProcessing.DurableEntities;
 using Demo.Neo.Models;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Moq;
