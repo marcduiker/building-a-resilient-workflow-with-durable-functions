@@ -49,7 +49,7 @@ POST --> HTTP trigger --> Queue trigger --> Blob
 ```
 ### NEO Event Processor Function App
 
-You will be responsible for creating a Function App that is triggered by messages pushed to the Servicebus topic.
+You will also be responsible for creating a Function App that is triggered by messages pushed to the Servicebus topic.
 
 The Function App needs to make several calls to other services in order to determine the following:
 
@@ -101,6 +101,7 @@ Topic Message --> Servicebus trigger
 11. [Creating Azure resources](labs/11_create_azure_resources.md)
 12. [Publish to Azure](labs/12_publish_to_azure.md)
 13. [Additional features](labs/13_additional_features.md)
+14. [Durable Entities](labs/14_durable_entities.md)
 
 ## License
 
