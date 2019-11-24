@@ -20,7 +20,7 @@ With your IDE of choice create a Function App (suggested name: `NeoEventProcessi
 The resulting servicebus function trigger should look something like this:
 
 ```csharp
-[ServiceBusTrigger("neo-events", "<subscriptionname>", Connection = "NEOEventsTopic")]string message, 
+[ServiceBusTrigger("neo-events", "<YOUR_PERSONAL_TOPIC_SUBSCRIPTIONNAME>", Connection = "NEOEventsTopic")]string message, 
 ```
 
 The trigger now has a connection name which will be looked up in the application settings. But there's is no actual connectionstring specified yet. 

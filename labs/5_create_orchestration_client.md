@@ -38,7 +38,7 @@ Now update the signature of the Servicebus triggered function method and add the
 ```csharp
 [FunctionName(nameof(NeoEventProcessingClientServicebus))]
 public async Task Run(
-    [ServiceBusTrigger("neo-events", "<YOUR_PERSONAL_TOPIC_SUBSCRIPTION>", Connection = "NEOEventsTopic")]string message, 
+    [ServiceBusTrigger("neo-events", "<YOUR_PERSONAL_TOPIC_SUBSCRIPTIONNAME>", Connection = "NEOEventsTopic")]string message, 
     [DurableClient]IDurableClient orchestrationClient,
     ILogger log)
 ```
