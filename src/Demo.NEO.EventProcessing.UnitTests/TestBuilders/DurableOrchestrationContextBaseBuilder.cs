@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using AutoFixture;
 using Demo.NEO.EventProcessing.Activities;
+using Demo.NEO.EventProcessing.DurableEntities;
 using Demo.Neo.Models;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Moq;
@@ -45,19 +46,23 @@ namespace Demo.NEO.EventProcessing.UnitTests.TestBuilders
                     It.IsAny<RetryOptions>(),
                     It.IsAny<TorinoImpactRequest>()))
                 .ReturnsAsync(torinoImpactResult);
+
+            contextMock.Setup(ctx => ctx.SignalEntity(
+                It.IsAny<EntityId>(), 
+                "Add",
+                null));
             
-            contextMock.Setup(ctx => ctx.CallActivityWithRetryAsync(
+            contextMock.Setup(ctx => ctx.CallActivityWithRetryAsync<object>(
                     nameof(StoreProcessedNeoEventActivity),
                     It.IsAny<RetryOptions>(),
                     It.IsAny<ProcessedNeoEvent>()))
-                .Returns(Task.CompletedTask);
+                .ReturnsAsync(new object());
 
             return contextMock;
         }
         
          public static Mock<IDurableOrchestrationContext> BuildContextWithSpecificTorinoImpactEqualTo0()
          {
-             
             var fixture = new Fixture();
             var contextMock = new Mock<IDurableOrchestrationContext>(MockBehavior.Strict);
             
@@ -87,11 +92,17 @@ namespace Demo.NEO.EventProcessing.UnitTests.TestBuilders
             var torinoImpactResult = fixture.Build<TorinoImpactResult>()
                 .With(p => p.TorinoImpact, torinoImpact)
                 .Create();
+            
             contextMock.Setup(ctx => ctx.CallActivityWithRetryAsync<TorinoImpactResult>(
                     nameof(EstimateTorinoImpactActivity),
                     It.IsAny<RetryOptions>(),
                     It.IsAny<TorinoImpactRequest>()))
                 .ReturnsAsync(torinoImpactResult);
+            
+            contextMock.Setup(ctx => ctx.SignalEntity(
+                It.IsAny<EntityId>(), 
+                "Add",
+                null));
 
             return contextMock;
         }
