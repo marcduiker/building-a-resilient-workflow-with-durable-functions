@@ -32,7 +32,7 @@ public async Task Run(
     ILogger logger)
 {
     var blobPath = $"neo/processed/{processedNeoEvent.DateDetected:yyyyMMdd}/{processedNeoEvent.TorinoImpact}/{processedNeoEvent.Id}.json";
-    var dynamicBlobBinding = new BlobAttribute(blobPath: blobPath) { Connection = "ProcessedNeoStorage" };
+    var dynamicBlobBinding = new BlobAttribute(blobPath) { Connection = "ProcessedNeoStorage" };
     using (var writer = await binder.BindAsync<TextWriter>(dynamicBlobBinding))
     {
         await writer.WriteAsync(JsonConvert.SerializeObject(processedNeoEvent, Formatting.Indented));
