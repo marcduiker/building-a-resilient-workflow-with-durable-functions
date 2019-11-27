@@ -45,7 +45,7 @@ You will be responsible for automating a part of the onboarding process for new 
 - A Queue trigger function which calls an service to register the user and returns connectionstring and api key information. The result is stored in blob storage.
 
 ```
-POST --> HTTP trigger --> Queue trigger --> Blob
+POST --> HTTP trigger --> Queue --> Queue trigger --> Blob
 ```
 ### NEO Event Processor Function App
 
