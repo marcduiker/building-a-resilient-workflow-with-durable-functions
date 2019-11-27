@@ -27,7 +27,7 @@ namespace Xasa.Onboarding
             if (result.IsSuccessStatusCode)
             {
                 var subscription = await result.Content.ReadAsAsync<JToken>();
-                var dynamicBlobBinding = new BlobAttribute(blobPath: "xasa-subscriptions/{rand-guid}.json");
+                var dynamicBlobBinding = new BlobAttribute("xasa-subscriptions/{rand-guid}.json");
                 using (var writer = binder.Bind<TextWriter>(dynamicBlobBinding))
                 {
                     writer.Write(subscription.ToString(Formatting.Indented));
