@@ -39,7 +39,7 @@ Now update the signature of the Servicebus triggered function method and add the
 [FunctionName(nameof(NeoEventProcessingClientServicebus))]
 public async Task Run(
     [ServiceBusTrigger("neo-events", "<YOUR_PERSONAL_TOPIC_SUBSCRIPTIONNAME>", Connection = "NEOEventsTopic")]string message, 
-    [DurableClient]IDurableClient orchestrationClient,
+    [DurableClient]IDurableClient orchestratorClient,
     ILogger log)
 ```
 
