@@ -142,4 +142,4 @@ Once all three activities have been implemented create a new instance of the `Pr
 
 Now run/debug your local Function App by using the [HttpTrigger client function](../http/start_orchestration.http).
 
-Continue to the [next lab](8_create_activity_function_storage.md) to create the activity to store the processed data.
+Continue to the [next lab](08_create_activity_function_storage.md) to create the activity to store the processed data.

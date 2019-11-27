@@ -4,7 +4,7 @@
 
 The goal of this lab is to create the Azure resources which are required to run (and monitor) your Function App. 
 
-You'll need an Azure account (see [the prerequisites](0_prerequisites.md)) in order to complete this lab.
+You'll need an Azure account (see [the prerequisites](00_prerequisites.md)) in order to complete this lab.
 
 ## Steps
 

@@ -116,4 +116,4 @@ Now trigger the HttpTrigger client function by using the request in the [start_o
 
 [Durable Functions has an HTTP API](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-http-api) which allows management of the orchestrator instances. This can be very useful for debugging and maintenance. The [start_orchestration.http](../http/start_orchestration.http) file also contains two requests to get the result of orchestrations.
 
-Continue to the [next lab](6_create_orchestrator_function.md) to create an orchestrator function.
+Continue to the [next lab](06_create_orchestrator_function.md) to create an orchestrator function.

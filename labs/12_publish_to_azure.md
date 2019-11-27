@@ -4,7 +4,7 @@
 
 The goals of this lab is to publish your application to Azure.
 
-As with provisioning publishing your Function App can be done in different ways. You can do it straight from your IDE if that supports Azure (see [the prerequisites](0_prerequisites.md)), via the Azure Functions CLI, or via a build & release pipeline.
+As with provisioning publishing your Function App can be done in different ways. You can do it straight from your IDE if that supports Azure (see [the prerequisites](00_prerequisites.md)), via the Azure Functions CLI, or via a build & release pipeline.
 
 ## Option 1: Publish from Visual Studio
 
