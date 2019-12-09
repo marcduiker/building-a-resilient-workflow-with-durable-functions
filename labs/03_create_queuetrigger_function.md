@@ -14,7 +14,7 @@ When creating the function specify the following:
 
 - Class name: `RegisterNewHireQueueTrigger.cs`
 - Connection string setting name: `AzureWebJobsStorage`
-- Queue name: `newhire-queue`
+- Queue name: `xasa-newhire-queue`
 
 You should en up with something like this (after some code clean-up, and using the `NewHire` object):
 
@@ -22,7 +22,7 @@ You should en up with something like this (after some code clean-up, and using t
 public class RegisterNewHireQueueTrigger
 {
     [FunctionName(nameof(RegisterNewHireQueueTrigger))]
-    public void Run([QueueTrigger("newhire-queue", Connection = "AzureWebJobsStorage")]NewHire newHire, 
+    public void Run([QueueTrigger("xasa-newhire-queue", Connection = "AzureWebJobsStorage")]NewHire newHire, 
         ILogger log)
     {
     }
@@ -94,7 +94,7 @@ public class RegisterNewHireQueueTrigger
     }
 }
 ```
-> Note the use if the `IBinder` type in the method signature instead of a specific binding such as `Queue` or `Blob`.
+> Note the use of the `IBinder` type in the method signature instead of a specific binding such as `Queue` or `Blob`.
 
 > Note that a `BlobAttribute` is created inside the function and a `TextWriter` is used to write the file to the blob.
 
