@@ -121,4 +121,4 @@ public class RegisterNewHireQueueTrigger
 
 Great work! You've finished the first Azure Function app!
 
-Now, we'll have a brief recap of labs 1-3 and some theory on Durable Functions. After this, you can continue with the [next lab](4_adding_servicebus_trigger.md) to create a new Azure Function app which will listen to the servicebus.
+Now, we'll have a brief recap of labs 1-3 and some theory on Durable Functions. After this, you can continue with the [next lab](04_adding_servicebus_trigger.md) to create a new Azure Function app which will listen to the servicebus.

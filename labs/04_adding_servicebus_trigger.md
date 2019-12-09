@@ -78,4 +78,4 @@ When we look at the `ServiceBusTrigger` attribute the topic name and the subscri
 [ServiceBusTrigger("%TopicName%", "%SubscriptionName%", Connection = "NEOEventsTopic")]string message, 
 ```
 
-If everything works as expected continue with the [next lab](5_create_orchestration_client.md) to create an orchestration client.
+If everything works as expected continue with the [next lab](05_create_orchestration_client.md) to create an orchestration client.

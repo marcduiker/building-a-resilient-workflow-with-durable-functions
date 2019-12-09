@@ -112,7 +112,7 @@ if (newHire.IsValid())
 
 > Use the Azure Storage Explorer and locate the `xasa-newhire-queue`. Is there a message in this queue?
 
-If everything works as expected, continue with the [next lab](3_create_queuetrigger_function.md) to add a QueueTrigger function to the project.
+If everything works as expected, continue with the [next lab](03_create_queuetrigger_function.md) to add a QueueTrigger function to the project.
 
 
 

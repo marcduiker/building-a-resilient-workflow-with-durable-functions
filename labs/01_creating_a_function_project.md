@@ -86,4 +86,4 @@ public class EchoFunctionHttpTrigger
 }
 ```
 
-If everything works as expected, continue with the [next lab](2_adding_a_queue_binding.md) to change this default function into something useful.
+If everything works as expected, continue with the [next lab](02_adding_a_queue_binding.md) to change this default function into something useful.
