@@ -86,9 +86,9 @@ public class RegisterNewHireQueueTrigger
         {
             var subscription = await result.Content.ReadAsAsync<JToken>();
             var dynamicBlobBinding = new BlobAttribute(blobPath: "xasa-subscriptions/{rand-guid}.json");
-            using (var writer = binder.Bind<TextWriter>(dynamicBlobBinding))
+            using (var writer = await binder.BindAsync<TextWriter>(dynamicBlobBinding))
             {
-                writer.Write(subscription.ToString(Formatting.Indented));
+                await writer.WriteAsync(subscription.ToString(Formatting.Indented));
             }
         }
     }
