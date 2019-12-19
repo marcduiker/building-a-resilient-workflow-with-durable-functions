@@ -102,7 +102,7 @@ public class RegisterNewHireQueueTrigger
 
 ### 4. Build and Run the Function
 
-- Ensure that the Azure Storage Emulator (or Azurite) is running.
+- Ensure that the Azure Storage Emulator is running (or that you're using an Azure storage account).
 - Build and start the Function App locally.
 - If you had placed a message on the `xasa-newhire-queue` in the previous lab, you don't need to do a new POST to the HTTP endpoint. The QueueTrigger should detect that a message is in that queue and should be processed.
 

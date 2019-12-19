@@ -90,7 +90,7 @@ Decoupling functions by using queues can result in a reliable and scalable archi
 
 > The first parameter in the `Queue` attribute is the name of the queue the result will be put on. If the queue does not exist it will be created.
 
-> The `Connection` parameter contains the name of the storage connection used. This connection should be specified in the `local.settings.json` file when running the Function App locally. When the `AzureWebJobsStorage` setting is set to `UseDevelopmentStorage=true` the local storage emulator will be used. When deployed to Azure this connection should be present as an application setting and should contain the actual connectionstring to an Azure Storage Account.
+> The `Connection` parameter contains the name of the storage connection used. This connection should be specified in the `local.settings.json` file when running the Function App locally. When the `AzureWebJobsStorage` setting is set to `UseDevelopmentStorage=true` the local storage emulator will be used (when using a Windows machine). When deployed to Azure this connection should be present as an application setting and should contain the actual connectionstring to an Azure Storage Account.
 
 > Note the `IAsyncCollector<T>` type after the `Queue` attribute. This is a generic type that is used for many different output bindings.
 
@@ -106,7 +106,7 @@ if (newHire.IsValid())
 
 ### 5. Build and Run the Function
 
-- Ensure that the Azure Storage Emulator (or Azurite) is running.
+- Ensure that the Azure Storage Emulator is running (or that you're using an Azure storage account).
 - Build and start the Function App locally.
 - Repeat the POST to the local endpoint as you did in Step 3.
 

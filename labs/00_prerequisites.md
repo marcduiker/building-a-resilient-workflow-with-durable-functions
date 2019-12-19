@@ -10,7 +10,7 @@ During this workshop we're going to write Azure Functions in C# (.NET Core). The
 
 Verify that you have a recent .NET Core SDK installed:
 
-- .NET Core SDK (at least 2.2+). Check with typing `dotnet --list-sdks` in the console.
+- .NET Core SDK (at least 3.1). Check with typing `dotnet --list-sdks` in the console.
 - .NET Core SDKs can be downloaded [here](https://dotnet.microsoft.com/download/dotnet-core).
 
 ### 2. IDE & Extensions
@@ -24,8 +24,8 @@ Verify that you have an IDE with extension/plugins for Azure Functions:
 ### 3. Tooling
 
 Verify that you have these tools installed in order to run Azure Functions locally:
-- [Storage Emulator (Windows only)](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator) OR
-- [Azurite (VS Code extension)](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite)
+- [Storage Emulator (Windows only)](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator)
+   - When you're __not__ using a Windows machine you need to create a storage account in Azure instead.
 - [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)
 - [VS Code + REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) or Postman in order to make HTTP requests.
 
