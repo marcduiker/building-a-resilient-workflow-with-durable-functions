@@ -1,0 +1,1 @@
+az servicebus topic subscription list -g demo-neo-generator-rg --namespace-name demo-neogenerator-sb-ns --topic-name neo-events --query [].name
