@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AzureFunctionsVersion>v3</AzureFunctionsVersion>
         <RootNamespace>Demo.NEO.Estimator</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Demo.NEO.Models" Version="1.0.4" />
-        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.29" />
+        <PackageReference Include="Demo.NEO.Models" Version="1.0.5" />
+        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.3" />
     </ItemGroup>
     <ItemGroup>
         <None Update="host.json">
