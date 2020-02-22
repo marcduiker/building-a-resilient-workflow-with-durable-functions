@@ -5,19 +5,19 @@ namespace Demo.Neo.Models
 {
     public class DetectedNeoEvent
     {
-        [JsonProperty("id")]
+        [JsonProperty("id", Required = Required.Always)]
         public Guid Id { get; set; }
 
-        [JsonProperty("date")]
+        [JsonProperty("date", Required = Required.Always)]
         public DateTime Date { get; set; }
 
-        [JsonProperty("distance")]
+        [JsonProperty("distance", Required = Required.Always)]
         public float Distance { get; set; }
 
-        [JsonProperty("velocity")]
+        [JsonProperty("velocity", Required = Required.Always)]
         public float Velocity { get; set; }
 
-        [JsonProperty("diameter")]
+        [JsonProperty("diameter", Required = Required.Always)]
         public float Diameter { get; set; }
     }
 }
