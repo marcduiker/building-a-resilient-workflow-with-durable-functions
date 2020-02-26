@@ -1,24 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.Management.ServiceBus.Fluent;
-using Microsoft.Azure.Management.ServiceBus.Fluent.Models;
-using System.Linq;
 
 namespace Demo.NEO.Subscriber
 {
     public class ManageSubscriptionsHttp
     {
-        private IServiceBusManager _serviceBusManager;
+        private readonly ITopicSubscription _topicSubscription;
 
-        public ManageSubscriptionsHttp(IServiceBusManager serviceBusManager)
+        public ManageSubscriptionsHttp(ITopicSubscription topicSubscription)
         {
-            _serviceBusManager = serviceBusManager;
+            _topicSubscription = topicSubscription;
         }
 
         [FunctionName(nameof(ManageSubscriptionsHttp))]
@@ -31,17 +29,19 @@ namespace Demo.NEO.Subscriber
 
             if (string.IsNullOrEmpty(cleanedName))
             {
-                return new BadRequestObjectResult("Please provide your name on the query string (?name=YOURNAME)");
+                return ActionResultBuilder.GetBadRequest();
             }
-                   
+
             var resourceGroup = Environment.GetEnvironmentVariable("Servicebus_ResourceGroup");
             var servicebusNamespace = Environment.GetEnvironmentVariable("Servicebus_Namespace");
             var servicebusTopic = Environment.GetEnvironmentVariable("Servicebus_Topic");
+            var apiManagementSubscriptionKey = Environment.GetEnvironmentVariable("ApiManagement_SubscriptionKey");
+            var servicebusConnectionStringListenOnly = Environment.GetEnvironmentVariable("Servicebus_ListenOnlyKey");
 
             ActionResult result = null;
             try
             {
-                var matchingSubs = await GetTopicSubscriptionsForName(
+                var matchingSubs = await _topicSubscription.GetTopicSubscriptionsForName(
                     resourceGroup,
                     servicebusNamespace,
                     servicebusTopic,
@@ -49,22 +49,35 @@ namespace Demo.NEO.Subscriber
                 
                 if (req.Method == HttpMethods.Get)
                 {
-                    result = new OkObjectResult(matchingSubs);
+                    result = ActionResultBuilder.GetOkResultWithSubscriptions(
+                        servicebusConnectionStringListenOnly,
+                        apiManagementSubscriptionKey,
+                        servicebusTopic,
+                        matchingSubs.Select( s=>s.Name ));
                 }
                 else if (req.Method == HttpMethods.Post)
                 {
-                    
                     if (matchingSubs.Any())
                     {
-                        result = new OkObjectResult(matchingSubs);
+                        result = ActionResultBuilder.GetOkResultWithSubscriptions(
+                            servicebusConnectionStringListenOnly,
+                            apiManagementSubscriptionKey,
+                            servicebusTopic,
+                            matchingSubs.Select( s=>s.Name ));
                     }
                     else
                     {
-                        result = await CreateTopicSubscription(
+                        var subName = await _topicSubscription.CreateTopicSubscription(
                             resourceGroup,
                             servicebusNamespace,
                             servicebusTopic,
                             cleanedName);
+
+                        return ActionResultBuilder.GetOkResultWithSubscriptions(
+                            servicebusConnectionStringListenOnly,
+                            apiManagementSubscriptionKey,
+                            servicebusTopic,
+                            new List<string> {subName});
                     }
                 }
             }
@@ -74,55 +87,6 @@ namespace Demo.NEO.Subscriber
             }
 
             return result;
-        }
-
-        private async Task<IEnumerable<SubscriptionInner>> GetTopicSubscriptionsForName(
-            string resourceGroup,
-            string servicebusNamespace,
-            string servicebusTopic,
-            string cleanedName)
-        {
-            var subs = await _serviceBusManager.Inner.Subscriptions.ListByTopicAsync(
-                resourceGroup,
-                servicebusNamespace,
-                servicebusTopic);
-            var matchingSubs = subs.Where(sub => sub.Name.StartsWith(cleanedName));
-            
-            return matchingSubs;
-        }
-
-        private async Task<ActionResult> CreateTopicSubscription(
-            string resourceGroup,
-            string serviceBusNamespace,
-            string serviceBusTopic,
-            string cleanedName)
-        {
-            const int maxSubscriptionNameLength = 50;
-            var subscriptionName = $"{cleanedName}-{Guid.NewGuid():N}";
-            if (subscriptionName.Length > maxSubscriptionNameLength)
-            {
-                subscriptionName = subscriptionName.Substring(0, maxSubscriptionNameLength);
-            }
-
-            var sub = await _serviceBusManager.Inner.Subscriptions.CreateOrUpdateAsync(
-                    resourceGroup,
-                    serviceBusNamespace,
-                    serviceBusTopic,
-                    subscriptionName,
-                    new SubscriptionInner(defaultMessageTimeToLive: "00:10:00"));
-
-            var apiManagementSubscriptionKey = Environment.GetEnvironmentVariable("ApiManagement_SubscriptionKey");
-            var servicebusConnectionStringListenOnly = Environment.GetEnvironmentVariable("Servicebus_ListenOnlyKey");
-
-            var response = new
-            {
-                serviceBusTopicName = serviceBusTopic,
-                serviceBusConnectionString = servicebusConnectionStringListenOnly,
-                servicebusTopicSubscriptionName = sub.Name,
-                apiManagementKey = apiManagementSubscriptionKey
-            };
-
-            return new OkObjectResult(response);
         }
     }
 }
