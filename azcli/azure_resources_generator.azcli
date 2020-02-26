@@ -10,7 +10,7 @@ az login
 az account list
 
 ## 3. Set the desired subscription
-az account set <id>
+az account set -s "<id>"
 
 ## 4. Create a resource group
 $location="westeurope"
