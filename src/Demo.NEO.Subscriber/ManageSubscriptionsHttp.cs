@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -6,22 +7,21 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Management.ServiceBus.Fluent;
-using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ServiceBus.Fluent.Models;
 using System.Linq;
 
 namespace Demo.NEO.Subscriber
 {
-    public class GetSubscriptionsHttp
+    public class ManageSubscriptionsHttp
     {
         private IServiceBusManager _serviceBusManager;
 
-        public GetSubscriptionsHttp(IServiceBusManager serviceBusManager)
+        public ManageSubscriptionsHttp(IServiceBusManager serviceBusManager)
         {
             _serviceBusManager = serviceBusManager;
         }
 
-        [FunctionName(nameof(GetSubscriptionsHttp))]
+        [FunctionName(nameof(ManageSubscriptionsHttp))]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "GET", "POST", Route = "subscription")] HttpRequest req,
             ILogger log)
@@ -41,22 +41,31 @@ namespace Demo.NEO.Subscriber
             ActionResult result = null;
             try
             {
-                if (req.Method == HttpMethods.Get)
-                {
-                    var subs = await _serviceBusManager.Inner.Subscriptions.ListByTopicAsync(
+                var matchingSubs = await GetTopicSubscriptionsForName(
                     resourceGroup,
                     servicebusNamespace,
-                    servicebusTopic);
-                    var subList = subs.AsEnumerable();
-                    result = new OkObjectResult(subList.Where(sub => sub.Name.StartsWith(cleanedName)));
+                    servicebusTopic,
+                    cleanedName);
+                
+                if (req.Method == HttpMethods.Get)
+                {
+                    result = new OkObjectResult(matchingSubs);
                 }
                 else if (req.Method == HttpMethods.Post)
                 {
-                    result = await CreateTopicSubscription(
-                        resourceGroup,
-                        servicebusNamespace,
-                        servicebusTopic,
-                        cleanedName);
+                    
+                    if (matchingSubs.Any())
+                    {
+                        result = new OkObjectResult(matchingSubs);
+                    }
+                    else
+                    {
+                        result = await CreateTopicSubscription(
+                            resourceGroup,
+                            servicebusNamespace,
+                            servicebusTopic,
+                            cleanedName);
+                    }
                 }
             }
             catch (Exception ex)
@@ -65,6 +74,21 @@ namespace Demo.NEO.Subscriber
             }
 
             return result;
+        }
+
+        private async Task<IEnumerable<SubscriptionInner>> GetTopicSubscriptionsForName(
+            string resourceGroup,
+            string servicebusNamespace,
+            string servicebusTopic,
+            string cleanedName)
+        {
+            var subs = await _serviceBusManager.Inner.Subscriptions.ListByTopicAsync(
+                resourceGroup,
+                servicebusNamespace,
+                servicebusTopic);
+            var matchingSubs = subs.Where(sub => sub.Name.StartsWith(cleanedName));
+            
+            return matchingSubs;
         }
 
         private async Task<ActionResult> CreateTopicSubscription(
@@ -79,7 +103,6 @@ namespace Demo.NEO.Subscriber
             {
                 subscriptionName = subscriptionName.Substring(0, maxSubscriptionNameLength);
             }
-
 
             var sub = await _serviceBusManager.Inner.Subscriptions.CreateOrUpdateAsync(
                     resourceGroup,

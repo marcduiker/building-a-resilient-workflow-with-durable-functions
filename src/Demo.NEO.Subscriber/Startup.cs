@@ -20,7 +20,7 @@ namespace Demo.NEO.Subscriber
             var subscriptionId = Environment.GetEnvironmentVariable("Azure_SubscriptionID");
             var serviceBusManager = ServiceBusManager.Authenticate(credentials, subscriptionId);
 
-            builder.Services.AddSingleton<IServiceBusManager>((s) => serviceBusManager);
+            builder.Services.AddSingleton((s) => serviceBusManager);
         }
     }
 }
