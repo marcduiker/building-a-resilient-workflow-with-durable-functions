@@ -1,14 +1,12 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Demo.NEO.EventProcessing.DurableEntities;
 using Demo.Neo.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
-namespace Demo.NEO.EventProcessing
+namespace Demo.NEO.EventProcessing.Clients
 {
     public class NeoEventProcessingClientHttp
     {

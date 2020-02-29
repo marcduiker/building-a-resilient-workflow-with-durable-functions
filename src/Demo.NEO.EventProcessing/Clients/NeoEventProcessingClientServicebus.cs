@@ -3,9 +3,8 @@ using Demo.Neo.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
-namespace Demo.NEO.EventProcessing
+namespace Demo.NEO.EventProcessing.Clients
 {
     public class NeoEventProcessingClientServicebus
     {
