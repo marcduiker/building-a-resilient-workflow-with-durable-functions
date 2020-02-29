@@ -16,7 +16,7 @@ When creating the function specify the following:
 - Connection string setting name: `AzureWebJobsStorage`
 - Queue name: `xasa-newhire-queue`
 
-You should en up with something like this (after some code clean-up, and using the `NewHire` object):
+You should end up with something like this (after some code clean-up, and using the `NewHire` object):
 
 ```csharp
 public class RegisterNewHireQueueTrigger
@@ -85,7 +85,7 @@ public class RegisterNewHireQueueTrigger
         if (result.IsSuccessStatusCode)
         {
             var subscription = await result.Content.ReadAsAsync<JToken>();
-            var dynamicBlobBinding = new BlobAttribute(blobPath: "xasa-subscriptions/{rand-guid}.json");
+            var dynamicBlobBinding = new BlobAttribute("xasa-subscriptions/{rand-guid}.json");
             using (var writer = await binder.BindAsync<TextWriter>(dynamicBlobBinding))
             {
                 await writer.WriteAsync(subscription.ToString(Formatting.Indented));
@@ -114,8 +114,10 @@ public class RegisterNewHireQueueTrigger
 {
   "serviceBusTopicName": "neo-events",
   "serviceBusConnectionString": "<SERVICEBUS_ENDPOINT>",
-  "servicebusTopicSubscriptionName": "<PERSONAL_TOPIC_SUBSCRIPTION",
-  "apiManagementKey": "<API_KEY>"
+  "apiManagementKey": "<API_KEY>",
+  "servicebusTopicSubscriptionName": [
+      "<PERSONAL_TOPIC_SUBSCRIPTION>"
+  ]
 }
 ```
 

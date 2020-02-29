@@ -9,7 +9,7 @@ The goal of this lab is to create a basic Azure Function App with an HTTP Trigge
 ### 1. Create a Function App with a HttpTrigger function
 
 With your IDE of choice create a new Azure Function project (suggested name: `XasaOnboarding`) with the following options:
-- Azure Functions v2 (.NET Core)
+- Azure Functions v3 (.NET Core)
 - HTTP Trigger function
 - Storage Account (AzureWebJobsStorage): `Storage Emulator`
 - Authentication level: `Function`

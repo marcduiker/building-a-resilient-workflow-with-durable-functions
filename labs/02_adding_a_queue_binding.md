@@ -65,8 +65,8 @@ POST http://localhost:7071/api/RegisterNewHireHttpTrigger
 Content-Type: application/json
 
 {
-    "name" : "Marc Duiker",
-    "email" : "mduiker@xpirit.com"
+    "name" : "<YOUR NAME>",
+    "email" : "<YOUR EMAIL>"
 }
 ```
 

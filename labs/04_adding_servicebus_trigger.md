@@ -8,7 +8,7 @@ The goal of this lab is to create a basic Function App with a Servicebus trigger
 
 ### 1. Create a Function App with a ServiceBusTrigger function
 
-With your IDE of choice create a Function App (suggested name: `NeoEventProcessing`) with a Servicebus Topic triggered function. The suggested name for the function, and the class, is `NeoEventProcessingClientServicebus`.
+With your IDE of choice create a Function App (.NET Core v3) (suggested name: `NeoEventProcessing`) with a Servicebus Topic triggered function. The suggested name for the function, and the class, is `NeoEventProcessingClientServicebus`.
 
 - When asked, specify that you want to use the Storage Emulator which is used to run the app locally.
 - Specify the following Servicebus settings in the `ServiceBusTrigger` attribute:
@@ -23,20 +23,23 @@ The resulting servicebus function trigger should look something like this:
 [ServiceBusTrigger("neo-events", "<YOUR_PERSONAL_TOPIC_SUBSCRIPTIONNAME>", Connection = "NEOEventsTopic")]string message, 
 ```
 
-The trigger now has a connection name which will be looked up in the application settings. But there's is no actual connectionstring specified yet. 
+The trigger now has a connection name which will be looked up in the application settings. But there's is no actual connectionstring specified yet.
 
-Add the connection name and the actual connectionstring (from the json file) to the `local.settings.json` file in your local function folder:
+Locate the `local.settings.json` file in your local function folder and add the connection name (`NEOEventsTopic`) and the connectionstring (output from the previous lab):
 
 ```json
 {
     "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_V2_COMPATIBILITY_MODE": true,
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
     "NEOEventsTopic": "<servicebus_connectionstring>"
   }
 }
 ```
+
+Also make sure to add the `FUNCTIONS_V2_COMPATIBILITY_MODE:true` setting. This ensures correct json (de)serialization, which is an unresolved issue in Azure Functions v3 at the moment.
 
 ### 2. Run the Function App locally
 
@@ -56,26 +59,22 @@ The `DetectedNeoEvent` type is part of this NuGet package: `Demo.NEO.Models`. Yo
 
 `https://pkgs.dev.azure.com/marcduiker/Building Resilient Workflows With Durable Functions/_packaging/Public/nuget/v3/index.json`
 
-Add the following line to convert to the strongly typed object. 
+Change the type of the message argument to `DetectedNeoEvent`:
 
 ```csharp
-var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);
+[ServiceBusTrigger("neo-events", "<YOUR SUBSCRIPTION KEY>", Connection = "NEOEventsTopic")]DetectedNeoEvent detectedNeoEvent,
 ```
-
-When you need to add a reference to NewtonSoft.Json, don't add the latest version but use version 11.0.2 (the version the Azure Functions Runtime is also using).
-
-> As an alternative, you could have changed the type of the incoming message from `string` to `DetectedNeoEvent`. The deserialization is then taken care of by the framework.
 
 ### 4. Run the Function App locally
 
-Again run your Function App locally and verify you can convert the messages to `DetectedNeoEvent` objects.
+Run your Function App locally and verify you're receiving `DetectedNeoEvent` objects.
 
 ### 5. Optional: Moving Attribute Parameters to App Settings
 
 When we look at the `ServiceBusTrigger` attribute the topic name and the subscription name are hardcoded in the attribute parameters. You can move the actual values to the `local.settings.json` file as key-value pairs and reference the settings in the attribute by using `%KEY%`as the parameter value.
 
 ```csharp
-[ServiceBusTrigger("%TopicName%", "%SubscriptionName%", Connection = "NEOEventsTopic")]string message, 
+[ServiceBusTrigger("%TopicName%", "%SubscriptionName%", Connection = "NEOEventsTopic")]DetectedNeoEvent detectedNeoEvent, 
 ```
 
 If everything works as expected continue with the [next lab](05_create_orchestration_client.md) to create an orchestration client.
