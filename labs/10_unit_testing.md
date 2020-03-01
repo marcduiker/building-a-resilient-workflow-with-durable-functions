@@ -8,7 +8,7 @@ The goal of this lab is to have your orchestrator function unit tested to gain c
 
 ### 1. Create a new unit test project
 
-First add a new unit testing project to the solution (e.g. `Demo.NEO.EventProcessing.UnitTests`). I'm an xUnit enthusiast, but you can use any C# unit testing framework.
+First add a new unit testing project (based on .NET Core 3.1) to the solution (e.g. `Demo.NEO.EventProcessing.UnitTests`). I'm an xUnit enthusiast, but you can use any C# unit testing framework.
 
 ### 2. Mocking library
 
@@ -43,6 +43,6 @@ public async Task WhenTorinoImpactIsGreaterThan0_ThenStoreProcessedNeoEventActiv
 }
 ```
 
-Note that a new `DurableOrchestrationContextBaseBuilder` class is used which sets up the mock of the `IDurableOrchestrationContext`. You can look at [my unit test code](../src/Demo.NEO.EventProcessing.UnitTests/TestBuilders/DurableOrchestrationContextBaseBuilder.cs) what needs the details are of this builder.
+Note that a new `DurableOrchestrationContextBaseBuilder` class is used which sets up the mock of the `IDurableOrchestrationContext`. In case you get stuck you can look at [my unit test code](../src/Demo.NEO.EventProcessing.UnitTests/TestBuilders/DurableOrchestrationContextBaseBuilder.cs) so see how to setup the mock.
 
-Continue to the [next lab](11_create_azure_resources.md) to create Azure resources for your Function App.
+Continue to the [next lab](11_fan-out-in.md) to call Activity Functions in parallel.

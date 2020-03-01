@@ -126,11 +126,11 @@ Now update the orchestrator function with the `CallActivityWithRetryAsync` metho
 
 ### 2. Retrieving the Impact Probability
 
-Repeat the same substeps as in Step 1 (excl the Startup class) but now to do a post to the `https://demo-neo.azure-api.net/neo/estimate/probability` endpoint. This also uses a `DetectedNeoEvent` as the body and uses the same `Ocp-Apim-Subscription-Key` header. An `ImpactProbabilityResult` object will be returned.
+Repeat the same substeps as in Step 1 (excl the Startup class) but now name the function `EstimateImpactProbabilityActivity` and do a post to the `https://demo-neo.azure-api.net/neo/estimate/probability` endpoint. This also uses a `DetectedNeoEvent` as the body and uses the same `Ocp-Apim-Subscription-Key` header. An `ImpactProbabilityResult` object will be returned.
 
 ### 3. Retrieving the Torino impact
 
-Repeat the same substeps as in Step 1 (excl the Startup class) but now to do a post to the `https://demo-neo.azure-api.net/neo/estimate/torino` endpoint. This requires a `TorinoImpactRequest` object as the body. The request can be built by combining the `KineticEnergyResult` and `ImpactProbabilityResult` objects.
+Repeat the same substeps as in Step 1 (excl the Startup class) but now but now name the function `EstimateTorinoImpactActivity` and do a post to the `https://demo-neo.azure-api.net/neo/estimate/torino` endpoint. This requires a `TorinoImpactRequest` object as the body. The request can be built by combining the `KineticEnergyResult` and `ImpactProbabilityResult` objects.
 
  The TorinoImpact endpoint returns an `TorinoImpactResult`. Again the same `Ocp-Apim-Subscription-Key` header is used for authentication.
 

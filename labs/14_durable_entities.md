@@ -130,3 +130,5 @@ Now run/debug your local Function App. You might want to disable the ServicebusT
 You can use [this http request](../http/processed_neo_events_counter.http) to trigger the ProcessedNeoEventCounterHttp function in order to retrieve the count.
 
 Use the [HttpTrigger client function](../http/start_orchestration.http) to trigger the orchestration manually. Trigger the orchestration a couple of times and verify with the ProcessedNeoEventCounterHttp function that the count is working.
+
+Continue to the [next lab](15_create_azure_resources.md) to create resources in Azure.

@@ -97,11 +97,14 @@ Topic Message --> Servicebus trigger
 7. [Calling other services](labs/07_create_activity_functions_services.md)
 8. [Storing the ProcessedNeoEvent](labs/08_create_activity_function_storage.md)
 9. [Sending a notification](labs/09_send_notification.md)
-10. [Unit testing](labs/10_unit_testing.md)
-11. [Creating Azure resources](labs/11_create_azure_resources.md)
-12. [Publish to Azure](labs/12_publish_to_azure.md)
-13. [Additional features](labs/13_additional_features.md)
-14. [Durable Entities](labs/14_durable_entities.md)
+10. [Unit testing the orchestrator](labs/10_unit_testing.md)
+11. [Calling activities in parallel (Fan-out/Fan-in)](labs/11_fan-out-in.md)
+12. [Using suborchestrations](labs/12_suborchestrations.md)
+13. [Waiting for external events](labs/13_external_events.md)
+14. [Counting events using Durable Entities](labs/14_durable_entities.md)
+15. [Creating Azure resources](labs/15_create_azure_resources.md)
+16. [Publish to Azure](labs/16_publish_to_azure.md)
+17. [Additional features](labs/17_additional_features.md)
 
 ## License
 

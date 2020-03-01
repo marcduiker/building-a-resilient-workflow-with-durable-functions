@@ -1,4 +1,4 @@
-# Lab 11 -  Create Azure resources
+# Lab 15 -  Create Azure resources
 
 ## Goal
 
@@ -65,4 +65,4 @@ Application Insights is not available by default in the Azure CLI and needs to b
 
 > Inspect the above CLI command. What can you tell about the configuration of the Function App?
 
-Continue to the [next lab](12_publish_to_azure.md) to publish your Function App to Azure.
+Continue to the [next lab](16_publish_to_azure.md) to publish your Function App to Azure.

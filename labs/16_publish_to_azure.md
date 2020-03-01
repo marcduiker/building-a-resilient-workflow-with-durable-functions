@@ -1,4 +1,4 @@
-# Lab 12 -  Publish your Function App to Azure
+# Lab 16 -  Publish your Function App to Azure
 
 ## Goal
 
@@ -38,4 +38,4 @@ Make a request to the Durable Functions HTTP management API to get the status of
 
 An example request is available in [get_orchestration_status.http](../http/get_orchestration_status.http)
 
-Continue to the [next lab](13_additional_features.md) to explore additional features.
+Continue to the [next lab](17_additional_features.md) to explore additional features.

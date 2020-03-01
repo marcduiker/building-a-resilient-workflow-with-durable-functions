@@ -14,7 +14,6 @@ namespace Demo.NEO.EventProcessing.Clients
             [DurableClient]IDurableClient durableClient,
             ILogger log)
         {
-            //var detectedNeoEvent = JsonConvert.DeserializeObject<DetectedNeoEvent>(message);
             var instanceId = await durableClient.StartNewAsync(nameof(NeoEventProcessingOrchestrator), 
                 detectedNeoEvent);
 
