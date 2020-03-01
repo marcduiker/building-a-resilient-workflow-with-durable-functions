@@ -7,7 +7,7 @@ The goal is to change the implementation of the HTTP Trigger function so it offe
 ### Use case
 The HR and IT departments at XASA used to do lots of manual work when new employees joined the company. Now both departments are joining forces and automating the onboarding process. You'll be responsible for writing a small piece of this process. 
 
-In this lab, you'll rewrite the default HTTP Triggered function to pass in a `NewHire` object with a name and an email. This object will be validated and if it is valid it will be put on a queue. In the next lab, another function will be written, which will pick up this message, performs the registration/subscription to grant access and outputs the result to blob storage.
+In this lab, we'll rewrite the default HTTP Triggered function to pass in a `NewHire` object with a name and an email. This object will be validated and if it is valid it will be put on a queue. In the next lab, another function will be written, which will pick up this message, performs the registration/subscription to grant access and outputs the result to blob storage.
 
 ## Steps
 
@@ -106,9 +106,9 @@ if (newHire.IsValid())
 
 ### 5. Build and Run the Function
 
-- Ensure that the Azure Storage Emulator is running (or that you're using an Azure storage account).
+- Ensure that the Azure Storage Emulator is running (or that we're using an Azure storage account).
 - Build and start the Function App locally.
-- Repeat the POST to the local endpoint as you did in Step 3.
+- Repeat the POST to the local endpoint as we did in Step 3.
 
 > Use the Azure Storage Explorer and locate the `xasa-newhire-queue`. Is there a message in this queue?
 

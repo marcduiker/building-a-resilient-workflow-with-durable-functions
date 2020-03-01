@@ -8,7 +8,7 @@ The goal of this lab is to create an orchestration client function which accepts
 
 ### 1. Reference the Durable Functions extension
 
-In order to use the Durable Functions API you need a reference to this NuGet package:
+In order to use the Durable Functions API we need a reference to this NuGet package:
 
 `Microsoft.Azure.WebJobs.Extensions.DurableTask`
 
@@ -29,7 +29,7 @@ Durable Functions uses Table Storage to checkpoint the state of the orchestratio
 
 > For more info about storage and task hubs please read the [Task hubs in Durable Functions](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-task-hubsx) documentation.
 
-> **Since you'll be making a lot of (breaking) changes to the orchestration in the next labs, I suggest you add a version suffix to the hubName each time you make a (breaking) change to the orchestrator code. By doing this, Durable Functions will create new tables & queues, and you won't run into issues running new orchestrator code with old data.**
+> **Since we'll be making a lot of (breaking) changes to the orchestration in the next labs, I suggest we add a version suffix to the hubName each time we make a (breaking) change to the orchestrator code. By doing this, Durable Functions will create new tables & queues, and we won't run into issues running new orchestrator code with old data.**
 
 ### 3. Update the Servicebus triggered function
 
@@ -62,7 +62,7 @@ By using the syntax above update the function to start a new instance of the Neo
 
 Do a build of the project.
 
-> Do you get any warnings about a missing orchestration function?
+> Do we get any warnings about a missing orchestration function?
 
 Now run/debug your local Function App. 
 
@@ -70,9 +70,9 @@ Now run/debug your local Function App.
 
 ### 5. More control when debugging locally
 
-Messages are continuously being pushed to the Servicebus topic. This makes it quite difficult for you when you're debugging because new orchestrators are being instantiated every couple of seconds.
+Messages are continuously being pushed to the Servicebus topic. This makes it quite difficult for us when we're debugging because new orchestrators are being instantiated every couple of seconds.
 
-Lets disable the ServicebusTrigger for now and create a complementary HttpTrigger which you can start yourself.
+Lets disable the ServicebusTrigger for now and create a complementary HttpTrigger which we can start ourselves.
 
 #### Disabling the ServicebusTrigger function
 

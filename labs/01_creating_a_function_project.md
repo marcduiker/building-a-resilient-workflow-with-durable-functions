@@ -51,7 +51,7 @@ Functions do not need to be static methods anymore, so feel free to remove `stat
 
 Build and run the Function App locally. 
 
-> The Azure Function Runtime should start in a console window and show some diagnostic information. If there are any issues with your function you will see the errors in this console. 
+> The Azure Function Runtime should start in a console window and show some diagnostic information. If there are any issues with your function we will see the errors in this console. 
 
 > What is the HTTP endpoint the function can be called at?
 
@@ -67,7 +67,7 @@ Now place a breakpoint in the function method and execute a GET request again.
 
 ### 4. Create a Copy of the Function
 
-As you've noticed, an Azure Function in C# is a method decorated with the `FunctionName` attribute. This attribute contains the identifier of the function.
+As we've noticed, an Azure Function in C# is a method decorated with the `FunctionName` attribute. This attribute contains the identifier of the function.
 
 - Copy the function method and paste it into the same class.
 - Change the method name so it's different from the existing method name.
@@ -76,7 +76,7 @@ As you've noticed, an Azure Function in C# is a method decorated with the `Funct
 
 > What is the build output? Are there errors?
 
-As a best practice, try to limit each class to contain only one function. This way you can use `nameof(ClassName)` as the `FunctionName` variable:
+As a best practice, try to limit each class to contain only one function. This way we can use `nameof(ClassName)` as the `FunctionName` variable:
 
 ```csharp
 public class EchoFunctionHttpTrigger

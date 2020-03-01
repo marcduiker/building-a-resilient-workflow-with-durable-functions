@@ -33,7 +33,7 @@ var processedNeoEvent = await context.CallSubOrchestratorWithRetryAsync<Processe
 
 ### 4. Fix the unit tests
 
-If you wrote unit tests for test the `NeoEventProcessingOrchestrator` it should break now since some activities are not used any longer in this orchestrator and a call to a suborchestrator is done. Remove the setup for calling those activity functions and add a setup for calling the suborchestrator.
+If we wrote unit tests for test the `NeoEventProcessingOrchestrator` it should break now since some activities are not used any longer in this orchestrator and a call to a suborchestrator is done. Remove the setup for calling those activity functions and add a setup for calling the suborchestrator.
 
 ### 5. Build & run locally
 

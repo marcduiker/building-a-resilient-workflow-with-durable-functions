@@ -20,7 +20,7 @@ You might know that Azure Functions can work with a convenient Blob output bindi
 [Blob("neo/processed/file.json", Connection = "ProcessedNeoEventStorage")]string blobContent,
 ```
 
-But notice that by using the above Blob binding the entire path of the blob is specified at design time. We can't set the path or name dynamically at runtime this way. Using [binding expressions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-expressions-patterns) you can often get quite far but not in this case.
+But notice that by using the above Blob binding the entire path of the blob is specified at design time. We can't set the path or name dynamically at runtime this way. Using [binding expressions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-expressions-patterns) we can often get quite far but not in this case.
 
 Luckily besides the above declarative binding we can use an imperative binding instead. These are set at runtime so we can configure the path based on properties of the ProcessedNeoEvent:
 
@@ -50,13 +50,13 @@ Now let's update the `NeoEventProcessingOrchestrator` function to call the activ
 
 Now run/debug your local Function App by using the [HttpTrigger client function](../http/start_orchestration.http).
 
-You can use the Azure Storage Explorer tool to look into your your local emulated storage.
+You can use the Azure Storage Explorer tool to look into your local emulated storage.
 
 > Are blobs being created in the path you defined in the activity function?
 
 ### 4. Build & run locally with ServicebusTrigger
 
-If the HttpTrigger function works well and stores a `ProcessedNeoEvent` to blob storage you can try to enable the ServicebusTrigger function in the `local.settigns.json`:
+If the HttpTrigger function works well and stores a `ProcessedNeoEvent` to blob storage we can try to enable the ServicebusTrigger function in the `local.settigns.json`:
 
 ```json
 "AzureWebJobs.<FUNCTION_NAME>.Disabled": false

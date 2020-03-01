@@ -35,7 +35,7 @@ Use the `GetInput` method on the context to retrieve the typed object.
 var detectedNeoEvent = context.GetInput<DetectedNeoEvent>();
 ```
 
-Remember that the state of orchestrator functions is checkpointed to storage and the code of the orchestrator function will be replayed several times. The code you write in this orchestrator [should be deterministic](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-code-constraints) so it doesn't affect the replay.
+Remember that the state of orchestrator functions is checkpointed to storage and the code of the orchestrator function will be replayed several times. The code we write in this orchestrator [should be deterministic](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-code-constraints) so it doesn't affect the replay.
 
 ### 3. Build & run locally
 
@@ -43,6 +43,6 @@ Now run/debug your local Function App by using the [HttpTrigger client function]
 
 > Is the orchestrator function detected by the Azure Functions runtime?
 
-> What is the output from the Azure Functions runtime in the console once the function is triggered? Do you see any sign that the orchestrator function is being executed?
+> What is the output from the Azure Functions runtime in the console once the function is triggered? Do we see any sign that the orchestrator function is being executed?
 
 Continue to the [next lab](07_create_activity_functions_services.md) to create activity functions.

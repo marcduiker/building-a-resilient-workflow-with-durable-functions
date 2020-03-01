@@ -43,9 +43,9 @@ public EstimateKineticEnergyActivity(IHttpClientFactory httpClientFactory)
 }
 ```
 
-Now the client can be used in the function method to do a `PostAsJsonAsync()` call to the EstimateKineticEnergy endpoint. Note that you also need to pass in the ApiManagementKey in the `Ocp-Apim-Subscription-Key` header.
+Now the client can be used in the function method to do a `PostAsJsonAsync()` call to the EstimateKineticEnergy endpoint. Note that we also need to pass in the ApiManagementKey in the `Ocp-Apim-Subscription-Key` header.
 
-When you do the post to the endpoint, make sure you verify on a success status code on the response. If the response is not successful an exception should be thrown from the activity.
+When we do the post to the endpoint, make sure to verify on a success status code on the response. If the response is not successful an exception should be thrown from the activity.
 
 The implementation of the function should be something like this:
 
@@ -76,7 +76,7 @@ var kineticEnergy = await context.CallActivityAsync<KineticEnergyResult>(
         detectedNeoEvent);
 ```
 
-If you'd run the Function App now, you'll get exceptions (like the one below) since the `IHttpClientFactory` dependency has not been registered yet.
+If we'd run the Function App now, we'll get exceptions (like the one below) since the `IHttpClientFactory` dependency has not been registered yet.
 
 ```
 Microsoft.Extensions.DependencyInjection.Abstractions: Unable to resolve service for type 'System.Net.Http.IHttpClientFactory' while attempting to activate '<NAME_OF_FUNCTION>'.
@@ -84,7 +84,7 @@ Microsoft.Extensions.DependencyInjection.Abstractions: Unable to resolve service
 
 #### 1.4 Registering the HTTPClientFactory in Startup
 
-In order to use dependency injection in Azure Functions you need to go through the following steps:
+In order to use dependency injection in Azure Functions we need to go through the following steps:
 
 - Add a reference to the `Microsoft.Azure.Functions.Extensions` NuGet package.
 - Add a new class (e.g Startup.cs) to the Function App and inherit from `FunctionsStartup`.
@@ -107,7 +107,7 @@ namespace Demo.NEO.EventProcessing.Application
 }
 ```
 
-> If you run the Function App for a while you will notice (in the Azure Functions runtime output) that the activity function fails in some occasions. Why is that?
+> If we run the Function App for a while we'll notice (in the Azure Functions runtime output) that the activity function fails in some occasions. Why is that?
 
 #### 1.5 Dealing with failure
 
@@ -136,7 +136,7 @@ Repeat the same substeps as in Step 1 (excl the Startup class) but now but now n
 
 ### 4. Return the ProcessedNeoEvent
 
-The users of your application are interested in `ProcessedNeoEvent` objects. These are objects built up of DetectedNeoEvents and the results from the three service calls you just implemented.
+The users of your application are interested in `ProcessedNeoEvent` objects. These are objects built up of DetectedNeoEvents and the results from the three service calls we just implemented.
 
 Once all three activities have been implemented create a new instance of the `ProcessedNeoEvent` and for now return this from the orchestrator.
 

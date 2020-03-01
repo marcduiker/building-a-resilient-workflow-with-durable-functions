@@ -10,7 +10,7 @@ The goal of this lab is to create a basic Function App with a Servicebus trigger
 
 With your IDE of choice create a Function App (.NET Core v3) (suggested name: `NeoEventProcessing`) with a Servicebus Topic triggered function. The suggested name for the function, and the class, is `NeoEventProcessingClientServicebus`.
 
-- When asked, specify that you want to use the Storage Emulator which is used to run the app locally.
+- When asked, specify that we want to use the Storage Emulator which is used to run the app locally.
 - Specify the following Servicebus settings in the `ServiceBusTrigger` attribute:
 
     -   Connectionstring setting name: `NEOEventsTopic`
@@ -45,9 +45,9 @@ Also make sure to add the `FUNCTIONS_V2_COMPATIBILITY_MODE:true` setting. This e
 
 Now that your Function App is configured to receive messages let's try and run it locally to verify it does. Add a breakpoint to the Servicebus triggered function and run/debug your Function App locally.
 
-> The Azure Function Runtime should start in a console window and show some diagnostic information. If there are any issues with storage and/or service bus configuration you will see the errors in this console. 
+> The Azure Function Runtime should start in a console window and show some diagnostic information. If there are any issues with storage and/or service bus configuration we will see the errors in this console. 
 
-> What is format of the message you're receiving?
+> What is format of the message we're receiving?
 
 > Are there other types which are also acceptable instead of `string`?
 
@@ -67,7 +67,7 @@ Change the type of the message argument to `DetectedNeoEvent`:
 
 ### 4. Run the Function App locally
 
-Run your Function App locally and verify you're receiving `DetectedNeoEvent` objects.
+Run your Function App locally and verify we're receiving `DetectedNeoEvent` objects.
 
 ### 5. Optional: Moving Attribute Parameters to App Settings
 

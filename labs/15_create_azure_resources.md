@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of this lab is to create the Azure resources which are required to run (and monitor) your Function App. 
+The goal of this lab is to create the Azure resources which are required to run (and monitor) our Function App. 
 
 You'll need an Azure account (see [the prerequisites](00_prerequisites.md)) in order to complete this lab.
 
@@ -10,12 +10,12 @@ You'll need an Azure account (see [the prerequisites](00_prerequisites.md)) in o
 
 ### 1. Azure Resources
 
-Up to now you've ran your Function App locally using an emulated storage account. In order to run the application in Azure you need the following:
+Up to now we've ran our Function App locally using an emulated storage account. In order to run the application in Azure we need the following:
 
-- A resource group, which is a logical container for your Azure resources
-- A storage account, which is used to store your Function App files and is also used by Durable Functions.
+- A resource group, which is a logical container for our Azure resources
+- A storage account, which is used to store our Function App files and is also used by Durable Functions.
 - A Function App resource
-- Optional but highly recommended: Application Insights, which is used for monitoring and diagnosing your application.
+- Optional but highly recommended: Application Insights, which is used for monitoring and diagnosing our application.
 
 ### 2. Creating resources
 
@@ -25,7 +25,7 @@ Here I'll show some samples how the Azure CLI can be used. But feel free to use 
 
 In a command prompt type: `az login` in order to login with your Azure credentials.
 
-> In the examples below I'm using a Powershell specific syntax for variables (e.g. `$location`) which are used in arguments. You need to change the syntax of these variables when you're not using Powershell.
+> In the examples below I'm using a Powershell specific syntax for variables (e.g. `$location`) which are used in arguments. You need to change the syntax of these variables when we're not using Powershell.
 
 > In order to see what options are available for a given CLI command use the `-h` argument, such as `az group -h` to see the available subcommands for resource groups.
 
@@ -65,4 +65,4 @@ Application Insights is not available by default in the Azure CLI and needs to b
 
 > Inspect the above CLI command. What can you tell about the configuration of the Function App?
 
-Continue to the [next lab](16_publish_to_azure.md) to publish your Function App to Azure.
+Continue to the [next lab](16_publish_to_azure.md) to publish our Function App to Azure.

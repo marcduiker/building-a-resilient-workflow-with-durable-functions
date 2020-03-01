@@ -2,23 +2,23 @@
 
 ## Goal
 
-The goals of this lab is to publish your application to Azure.
+The goals of this lab is to publish our application to Azure.
 
-As with provisioning publishing your Function App can be done in different ways. You can do it straight from your IDE if that supports Azure (see [the prerequisites](00_prerequisites.md)), via the Azure Functions CLI, or via a build & release pipeline.
+As with provisioning, publishing our Function App can be done in different ways. You can do it straight from our IDE if that supports Azure (see [the prerequisites](00_prerequisites.md)), via the Azure Functions CLI, or via a build & release pipeline.
 
 ## Option 1: Publish from Visual Studio
 
 Follow these instructions: [docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#publish-to-azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#publish-to-azure)
 
-Note that you should select to publish to an existing Function App resource if you provisioned one in the prevous lab.
+Note that we should select to publish to an existing Function App resource if we provisioned one in the prevous lab.
 
-Application settings in the `local.settings.json` file are not published. Follow these instructions to manage your app settings from Visual Studio: [docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#function-app-settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#function-app-settings)
+Application settings in the `local.settings.json` file are not published. Follow these instructions to manage our app settings from Visual Studio: [docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#function-app-settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs#function-app-settings)
 
 ## Option 2: Publish from VS Code
 
 Follow these instructions: [docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code#publish-to-azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=nodejs#publish-to-azure)
 
-Application settings in the `local.seetings.json` file are not published. Follow these instructions to manage your app settings from VS Code: [docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code#application-settings-in-azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=nodejs#application-settings-in-azure)
+Application settings in the `local.seetings.json` file are not published. Follow these instructions to manage our app settings from VS Code: [docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code#application-settings-in-azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=nodejs#application-settings-in-azure)
 
 ## Option 3: Publish from Azure Functions CLI
 

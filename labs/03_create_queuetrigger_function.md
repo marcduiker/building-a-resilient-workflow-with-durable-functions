@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of this lab is to extend the Function App with a QueueTrigger function which will take the `NewHire` message from the queue, creates a subscription you'll need in follow up labs and saves the result to blob storage.
+The goal of this lab is to extend the Function App with a QueueTrigger function which will take the `NewHire` message from the queue, creates a subscription we'll need in follow up labs and saves the result to blob storage.
 
 ## Steps
 
@@ -61,7 +61,7 @@ public class RegisterNewHireQueueTrigger
 
 ### 3. Add a Blob Output Binding
 
-The result variable will contain some endpoint and subscription key information you'll need in later Labs. Let's store this result in blob storage so you can retrieve it later.
+The result variable will contain some endpoint and subscription key information we'll need in later Labs. Let's store this result in blob storage so we can retrieve it later.
 
 Because the blob output is optional, only when calling the subscription endpoint resulted in a success, ideally we use an IAsyncCollector<T> as we did for the queue output binding. But unfortunately this does not exist for the blob output binding. Instead we need to use something called an imperative output binding. This is a binding which is configured dynamically at runtime inside the function method.
 
@@ -102,9 +102,9 @@ public class RegisterNewHireQueueTrigger
 
 ### 4. Build and Run the Function
 
-- Ensure that the Azure Storage Emulator is running (or that you're using an Azure storage account).
+- Ensure that the Azure Storage Emulator is running (or that we're using an Azure storage account).
 - Build and start the Function App locally.
-- If you had placed a message on the `xasa-newhire-queue` in the previous lab, you don't need to do a new POST to the HTTP endpoint. The QueueTrigger should detect that a message is in that queue and should be processed.
+- If we had placed a message on the `xasa-newhire-queue` in the previous lab, we don't need to do a new POST to the HTTP endpoint. The QueueTrigger should detect that a message is in that queue and should be processed.
 
 > Is there a blob available in the `xasa-subscriptions` container?
 
@@ -123,4 +123,4 @@ public class RegisterNewHireQueueTrigger
 
 Great work! You've finished the first Azure Function app!
 
-Now, we'll have a brief recap of labs 1-3 and some theory on Durable Functions. After this, you can continue with the [next lab](04_adding_servicebus_trigger.md) to create a new Azure Function app which will listen to the servicebus.
+Now, we'll have a brief recap of labs 1-3 and some theory on Durable Functions. After this, we can continue with the [next lab](04_adding_servicebus_trigger.md) to create a new Azure Function app which will listen to the servicebus.

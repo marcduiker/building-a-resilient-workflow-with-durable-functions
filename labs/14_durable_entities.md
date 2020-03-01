@@ -47,9 +47,9 @@ public class ProcessedNeoEventCounter : IProcessedNeoEventCounter
 }
 ```
 
-Well, this doesn't look anything like a function which you've make before, but you've just wrote your first Durable Entity class!
+Well, this doesn't look anything like a function which we've make before, but we've just wrote our first Durable Entity class!
 
-The state is kept in the `CurrentCount` property and is persisted as JSON by the Durable Functions extension without you having to worry about it. 
+The state is kept in the `CurrentCount` property and is persisted as JSON by the Durable Functions extension without us having to worry about it. 
 
 Entity classes also have some requirements as is described in [the documentation](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-entities#class-requirements).
 
@@ -81,7 +81,7 @@ public static class EntityIdBuilder
 
 ### 4. Updating the Mock for the Unit Tests
 
-If you have created unit tests and are using strict mocks your tests will now fail now because not all methods have a matching setup.
+If we have created unit tests and are using strict mocks our tests will now fail now because not all methods have a matching setup.
 
 The `CreateEntityProxy` method is an extension method and cannot be setup. The result of this method is a proxy, which enables us to use the methods which are known in the interface. Under the hood however, these calls translate to a `SignalEntity()` method on the context which accepts an `EntityId`, an operationName (`string`) and an operationInput (`object`). Therefore the `IDurableOrchestrationContext` mock should be extended with the following setup:
 
