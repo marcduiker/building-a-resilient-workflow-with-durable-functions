@@ -17,7 +17,25 @@ It's your job to ensure the incoming data is analyzed to assess the risk of impa
 
 You are tasked with implementing the solution using Azure Functions. The reason behind this is that the number of detected NEOs changes heavily over time. And when nothing is being detected XASA prefers not paying for any infrastructure.
 
-The NEO data (of type `DetectedNEOEvent`) looks as follows:
+Another team was tasked with the ingestion of the NEO data and this data is already being pushed to an Azure Servicebus topic.
+
+You are tasked with creating two Azure Function apps which are decscribed below.
+
+### XASA Onboarding Function App
+
+You will be responsible for automating a part of the onboarding process for new XASA employees. This Function App will contain two functions:
+
+- An HTTP trigger function which validates the input (username & email) and puts a message on a queue.
+- A Queue trigger function which calls an service to register the user and returns a connectionstring for the Servicebus topic and an API key to call other XASA services. The result is stored in blob storage.
+
+```
+POST --> HTTP trigger --> Queue --> Queue trigger --> Blob
+```
+### NEO Event Processor Function App
+
+You will also be responsible for creating a Function App that is triggered by messages pushed to the Servicebus topic.
+
+The messages are of type `DetectedNEOEvent` and contains the following information:
 
 ```json
 {
@@ -33,34 +51,15 @@ The NEO data (of type `DetectedNEOEvent`) looks as follows:
 - *Velocity is measured in km/s. Usually between 5-30 km/s*
 - *Diameter is measured in km. Usually between 0.0001 and 10 km.*
 
-Another team was tasked with the ingestion of the NEO data and this data is already being pushed to an Azure Servicebus topic.
+The Function App needs to make several calls to other services in order to determine:
 
-You are tasked with creating two Azure Function apps which are decscribed below.
-
-### XASA Onboarding Function App
-
-You will be responsible for automating a part of the onboarding process for new XASA employees. This Function App will contain two functions:
-
-- An HTTP trigger function which validates the input (username & email) and puts a message on a queue.
-- A Queue trigger function which calls an service to register the user and returns connectionstring and api key information. The result is stored in blob storage.
-
-```
-POST --> HTTP trigger --> Queue --> Queue trigger --> Blob
-```
-### NEO Event Processor Function App
-
-You will also be responsible for creating a Function App that is triggered by messages pushed to the Servicebus topic.
-
-The Function App needs to make several calls to other services in order to determine the following:
-
-- The kinetic energy of a potential impact
-- The probability of an impact
-- The [Torino impact](https://cneos.jpl.nasa.gov/sentry/torino_scale.html)
+- the kinetic energy of a potential impact.
+- the probability of an impact.
+- the [Torino impact](https://cneos.jpl.nasa.gov/sentry/torino_scale.html).
 
 ![Torino impact](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Torino_scale.svg/320px-Torino_scale.svg.png)
 
-In addition to these service calls, the processed data needs to be stored to blob storage (for events with a Torino impact >= 1) and a notification needs to be sent out to Bruce Willis (for events with a Torino impact >= 8).
-
+In addition to these API calls, the processed data needs to be stored to blob storage (for events with a Torino impact > 0) and a notification needs to be sent out to Bruce Willis (for events with a Torino impact > 7).
 
 ```
 Topic Message --> Servicebus trigger
@@ -74,12 +73,16 @@ Topic Message --> Servicebus trigger
                           |
                           + --> EstimateTorinoImpactActivity
                           |
-                          + --> StoreProcessedNeoEventActivity
-                          |
-                          + --> SendNotificationActivity
+                          When TorinoImpact > 0
+                             |
+                             + --> StoreProcessedNeoEventActivity
+                             |
+                             When TorinoImpact > 7
+                                |
+                                + --> SendNotificationActivity
 ```
 
-> The final implementation is also in this repo. However, it is lots more fun, and you learn way more, by creating your own solution and following all the labs. Only peek at my solution if you're completely stuck.
+> The final implementation (up to Lab 10) is also in this repo. However, it is lots more fun, and you learn way more, by creating your own solution and following all the labs. Only peek at my solution if you're completely stuck (but I would prefer you asking me, or someone else for help).
 
 >**I strongly suggest you team up with someone to do pair programming and discuss what you're doing.**
 
