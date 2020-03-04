@@ -59,7 +59,17 @@ The `DetectedNeoEvent` type is part of this NuGet package: `Demo.NEO.Models`. Yo
 
 `https://pkgs.dev.azure.com/marcduiker/Building Resilient Workflows With Durable Functions/_packaging/Public/nuget/v3/index.json`
 
-Change the type of the message argument to `DetectedNeoEvent`:
+If you aren't configuring the feed using an IDE you can also add a file named `nuget.config` to the root of your solution with the following content:
+
+```xml
+<configuration>
+  <packageSources>
+    <add key="Xasa" value="https://pkgs.dev.azure.com/marcduiker/Building Resilient Workflows With Durable Functions/_packaging/Public/nuget/v3/index.json" />
+  </packageSources>
+</configuration>
+```
+
+Once you have added the `Demo.NEO.Models` package to the project change the type of the message argument to `DetectedNeoEvent`:
 
 ```csharp
 [ServiceBusTrigger("neo-events", "<YOUR SUBSCRIPTION KEY>", Connection = "NEOEventsTopic")]DetectedNeoEvent detectedNeoEvent,

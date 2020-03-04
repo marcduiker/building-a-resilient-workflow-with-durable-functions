@@ -14,7 +14,16 @@ With your IDE of choice create a new Azure Function project (suggested name: `Xa
 - Storage Account (AzureWebJobsStorage): `Storage Emulator`
 - Authentication level: `Function`
 
-Depending on the IDE, the default Http Trigger function will look something like this:
+#### NuGet Packages
+
+First let's have a look at the NuGet packages in the new project, the following packages should be present:
+
+- `Microsoft.NET.Sdk.Functions` version `3.0.3` (there are some issues with `3.0.4`).
+- `Microsoft.Azure.WebJobs.Extensions.Http` version `3.0.2`(this is required for using the Http Trigger).
+
+#### Function code
+
+Now let's have a look at the boilerplate function code. Depending on the IDE, the default Http Trigger function will look something like this:
 
 ```csharp
 public static class Function1
