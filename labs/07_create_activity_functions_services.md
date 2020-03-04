@@ -29,7 +29,7 @@ public async Task<KineticEnergyResult> Run(
 
 In order to make HTTP calls we require a `HttpClient` object. The 'old way' of doing this was to use a static private `HttpClient` field. However, since Azure Functions now supports dependency injection we can inject an `IHttpClientFactory` into this class and the factory manages the lifetime of the `HttpClient`.
 
-- Install the `Microsoft.Extensions.Http` NuGet package (__v 2.2.0__). This contains the `IHttpClientFactory` interface. Do not use the v3.x version since that won't work with the Azure Fcuntions Runtime which supports .NET Core 2 at the moment (.NET Core v3 is in preview). 
+- Install the `Microsoft.Extensions.Http` NuGet package. This contains the `IHttpClientFactory` interface. 
 - Add a constructor to the `EstimateKineticEnergyActivity` class and inject `IHttpClientFactory`.
 - Add a private readonly field of type `HttpClient` to the class.
 - Set this field in the constructor by using the `CreateClient()` method of the `IHttpClientFactory`.
