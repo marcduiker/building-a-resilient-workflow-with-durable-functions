@@ -42,6 +42,8 @@ public async Task Run(
 
 > Notice that the method accepts an `IBinder` and that the `BlobAttribute` is defined in the function method itself. Take a moment to inspect how the blobPath is configured and feel free to change the path to something you prefer.
 
+> The `ProcessedNeoEventStorage` key can point to the same value as the `AzureWebJobsStorage` key (`"UseDevelopmentStorage=true"`).
+
 ### 2. Calling the activity from the orchestration
 
 Now let's update the `NeoEventProcessingOrchestrator` function to call the activity. Make sure that the activity is only called for `ProcessedNeoEvent` objects with a TorinoImpact of 1 and higher.
