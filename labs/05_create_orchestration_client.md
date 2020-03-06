@@ -48,7 +48,7 @@ By adding this line to the function method the Durable Functions framework will 
 New orchestration function instances are started by passing in the name of the orchestration function to the `StartNewAsync` method like this:
 
 ```csharp
-var instanceId = await orchestratorClient.StartNewAsync(
+var instanceId = await orchestrationClient.StartNewAsync(
                     "NeoEventProcessingOrchestrator",
                     detectedNeoEvent)
 ```
