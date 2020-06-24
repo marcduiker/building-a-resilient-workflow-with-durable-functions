@@ -44,7 +44,7 @@ namespace Demo.NEO.EventProcessing
                 impactProbability.ImpactProbability,
                 kineticEnergy.KineticEnergyInMegatonTnt,
                 torinoImpact.TorinoImpact);
-            
+
             var proxy = context.CreateEntityProxy<IProcessedNeoEventCounter>(
                 EntityIdBuilder.BuildForProcessedNeoEventCounter());
             proxy.Add();
@@ -59,13 +59,28 @@ namespace Demo.NEO.EventProcessing
 
             if (processedNeoEvent.TorinoImpact > 7)
             {
-                await context.CallActivityWithRetryAsync(
-                    nameof(SendNotificationActivity),
-                    GetRetryOptions(),
-                    processedNeoEvent);
+                var approvalResult = await context.WaitForExternalEvent<bool>(
+                    "ApprovalEvent",
+                    TimeSpan.FromHours(1),
+                    false);
+
+                if (approvalResult)
+                {
+                    await context.CallActivityWithRetryAsync(
+                        nameof(RunActivity),
+                        GetRetryOptions(),
+                        processedNeoEvent);
+                }
             }
 
             return processedNeoEvent;
+        }
+
+        [FunctionName(nameof(RunActivity))]
+        public Task<string> RunActivity(
+            [ActivityTrigger]string input)
+        {
+            return Task.FromResult<string>("bla");
         }
 
         private RetryOptions GetRetryOptions()
