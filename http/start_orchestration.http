@@ -29,6 +29,13 @@ GET {{rooturl}}/runtime/webhooks/durableTask/instances/{{instanceId}}
     &showHistoryOutput=true
     &showInput=true
 
+### Raise Approve event
+@isApproved=true
+POST {{rooturl}}/api/event/{{instanceId}}/{{isApproved}}
+Content-Type: application/json
+
+{
+}
 
 ### Retrieve the status of multiple orchestrator instances
 GET {{rooturl}}/runtime/webhooks/durableTask/instances?taskHub={{taskHub}}
