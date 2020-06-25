@@ -64,6 +64,8 @@ var result = await response.Content.ReadAsAsync<KineticEnergyResult>();
 return result;
 ```
 
+Make sure that the `KineticEnergyEndpoint` (`https://demo-neo.azure-api.net/neo/estimate/energy`) and the `ApiManagementKey` (in the json object from Lab 3) values are placed in the local.settings.json file as application settings.
+
 #### 1.3 Calling the activity from the orchestration
 
 Let's return to the `NeoEventProcessingOrchestrator` class and call the `EstimateKineticEnergyActivity` function.
