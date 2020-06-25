@@ -18,7 +18,7 @@ With your IDE of choice create a new Azure Function project (suggested name: `Xa
 
 First let's have a look at the NuGet packages in the new project, the following packages should be present:
 
-- `Microsoft.NET.Sdk.Functions` version `3.0.3` (there are some issues with `3.0.4`).
+- `Microsoft.NET.Sdk.Functions` version `3.0.7`.
 - `Microsoft.Azure.WebJobs.Extensions.Http` version `3.0.2`(this is required for using the Http Trigger).
 
 #### Function code
