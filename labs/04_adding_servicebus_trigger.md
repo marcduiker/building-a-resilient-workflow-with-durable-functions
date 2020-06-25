@@ -47,6 +47,8 @@ Now that your Function App is configured to receive messages let's try and run i
 
 > The Azure Function Runtime should start in a console window and show some diagnostic information. If there are any issues with storage and/or service bus configuration we will see the errors in this console. 
 
+> If you run into service bus connection issues it could be that your local machine has firewall rules in place which prohibit the connection to the service bus endpoint. If this is the case, first follow step 3 in order to use the `Demo.NEO.Models` NuGet package and then continue with Lab 5, step 5, which disables the ServicebusTrigger and continues with an HttpTrigger.
+
 > What is format of the message we're receiving?
 
 > Are there other types which are also acceptable instead of `string`?
