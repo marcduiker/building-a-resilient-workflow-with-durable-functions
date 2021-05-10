@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="29.0.1" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.ServiceBus" Version="4.1.0" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.3" />
+    <PackageReference Include="Bogus" Version="33.0.2"/>
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.ServiceBus" Version="4.3.0"/>
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.11"/>
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
@@ -18,6 +18,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Demo.NEO.Models\Demo.NEO.Models.csproj" />
+    <ProjectReference Include="..\Demo.NEO.Models\Demo.NEO.Models.csproj"/>
   </ItemGroup>
 </Project>
