@@ -7,7 +7,7 @@
             "type": "shell",
             "problemMatcher": "$msCompile",
             "options": {
-                "cwd": "${workspaceFolder}/src/Generator"
+                "cwd": "${workspaceFolder}/src/Demo.NEO.Generator"
             }
         },
         {
@@ -21,7 +21,7 @@
             },
             "problemMatcher": "$msCompile",
             "options": {
-                "cwd": "${workspaceFolder}/src/Generator"
+                "cwd": "${workspaceFolder}/src/Demo.NEO.Generator"
             }
         },
         {
@@ -40,14 +40,14 @@
             "dependsOn": "clean release",
             "problemMatcher": "$msCompile",
             "options": {
-                "cwd": "${workspaceFolder}/src/Generator"
+                "cwd": "${workspaceFolder}/src/Demo.NEO.Generator"
             }
         },
         {
             "type": "func",
             "dependsOn": "build",
             "options": {
-                "cwd": "${workspaceFolder}/src/Generator/bin/Debug/netcoreapp2.1"
+                "cwd": "${workspaceFolder}/src/Generator/bin/Debug/netcoreapp3.1"
             },
             "command": "host start",
             "isBackground": true,
